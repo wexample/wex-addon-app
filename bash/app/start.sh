@@ -5,18 +5,27 @@ appStartArgs() {
     'clear_cache cc "Clear all caches" false'
     'only o "Stop all other running sites before" false'
     'port p "Port for accessing site, only allowed if not already defined" false'
+    'dir d "Application directory" false'
   )
 }
 
 appStart() {
+  wex prompt/progress -p=0 -s="Preparing"
+
   # Stop other sites.
   if [ "${ONLY}" != "" ];then
     wex apps/stop
   fi
-  
+
+  wex prompt/progress -p=5 -s="Check location"
+
+  local LOCATION=$(wex app/locate -d="${DIR}")
   # Create env file.
-  if [ ! -f .env ];then
-    if [ "$(wex prompt/yn -q="Missing .env file, would you like to create it ?")" = true ];then
+  if [ "${LOCATION}" = "" ];then
+    if [ "$(wex prompt/yn -q="No .wex/.env file, would you like to create it ?")" = true ];then
+      LOCATION="$(realpath .)/"
+      FILE_ENV="${LOCATION}${WEX_FILE_APP_FOLDER}/${WEX_FILE_APP_ENV}"
+
       local ALLOWED_ENV="${WEX_APPS_ENVIRONMENTS[*]}";
       ALLOWED_ENV=$(wex array/join -a="${ALLOWED_ENV}" -s=",")
 
@@ -25,7 +34,10 @@ appStart() {
 
       SITE_ENV=$(wex prompt/choiceGetValue)
 
-      echo "SITE_ENV=${SITE_ENV}" > .env
+      # Creates .wex
+      mkdir -p "$(dirname "${FILE_ENV}")"
+
+      echo "SITE_ENV=${SITE_ENV}" > "${FILE_ENV}"
       _wexLog "Created .env file for env ${SITE_ENV}"
     else
       _wexLog "Starting aborted"
@@ -33,5 +45,11 @@ appStart() {
     fi
   fi
 
-  echo "starting..."
+  # Go to proper location
+  cd "${LOCATION}"
+
+  wex prompt/progress -p=10 -s="Converting files"
+  wex config/load
+
+  wex prompt/progress -p=100 -s="Started"
 }

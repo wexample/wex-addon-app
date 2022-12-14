@@ -25,7 +25,7 @@ appLocate() {
     DIR_WEX="${DIR_CURRENT}/${WEX_FILE_APP_FOLDER}/"
 
     # Config found.
-    if [ -f "${DIR_WEX}${WEX_FILE_APP_CONFIG}" ];then
+    if [ -f "${DIR_WEX}${WEX_FILE_APP_ENV}" ];then
       echo "${DIR_CURRENT}/"
       return
     fi
