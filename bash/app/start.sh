@@ -26,10 +26,12 @@ appStart() {
       SITE_ENV=$(wex prompt/choiceGetValue)
 
       echo "SITE_ENV=${SITE_ENV}" > .env
+      _wexLog "Created .env file for env ${SITE_ENV}"
     else
       _wexLog "Starting aborted"
       return
     fi
   fi
+
   echo "starting..."
 }
