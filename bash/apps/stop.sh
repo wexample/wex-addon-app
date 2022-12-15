@@ -19,7 +19,7 @@ appsStop() {
       # Keep wex_server alive.
       if [ "$(basename "${SITE_PATH}")" != 'wex_server' ];then
         cd "${SITE_PATH}"
-        wex app/stop
+        wex app::app/stop
       fi
     fi
   done;

@@ -10,19 +10,19 @@ appStartArgs() {
 }
 
 appStart() {
-  wex prompt/progress -p=0 -s="Preparing"
+  wex prompt::prompt/progress -p=0 -s="Preparing"
 
   # Stop other sites.
   if [ "${ONLY}" != "" ];then
-    wex apps/stop
+    wex app::apps/stop
   fi
 
-  wex prompt/progress -p=5 -s="Check location"
+  wex prompt::prompt/progress -p=5 -s="Check location"
 
-  local LOCATION=$(wex app/locate -d="${DIR}")
+  local LOCATION=$(wex app::app/locate -d="${DIR}")
   # Create env file.
   if [ "${LOCATION}" = "" ];then
-    if [ "$(wex prompt/yn -q="No .wex/.env file, would you like to create it ?")" = true ];then
+    if [ "$(wex prompt::prompt/yn -q="No .wex/.env file, would you like to create it ?")" = true ];then
       LOCATION="$(realpath .)/"
       FILE_ENV="${LOCATION}${WEX_FILE_APP_FOLDER}/${WEX_FILE_APP_ENV}"
 
@@ -30,9 +30,9 @@ appStart() {
       ALLOWED_ENV=$(wex array/join -a="${ALLOWED_ENV}" -s=",")
 
       # Ask user
-      wex prompt/choice -c="${ALLOWED_ENV}" -q="Choose env name"
+      wex prompt::prompt/choice -c="${ALLOWED_ENV}" -q="Choose env name"
 
-      SITE_ENV=$(wex prompt/choiceGetValue)
+      SITE_ENV=$(wex prompt::prompt/choiceGetValue)
 
       # Creates .wex
       mkdir -p "$(dirname "${FILE_ENV}")"
@@ -48,8 +48,17 @@ appStart() {
   # Go to proper location
   cd "${LOCATION}"
 
-  wex prompt/progress -p=10 -s="Converting files"
   wex config/load
 
-  wex prompt/progress -p=100 -s="Started"
+  # Prepare files
+  wex prompt::prompt/progress -p=10 -s="Converting files"
+  wex file/convertLinesToUnix -f=.env &> /dev/null
+  wex file/convertLinesToUnix -f=.wex &> /dev/null
+
+  # Write new config,
+  # it will also export config variables
+  wex prompt::prompt/progress -p=15 -s="Writing configuration"
+  wex config/write -s
+
+  wex prompt::prompt/progress -p=100 -s="Started"
 }

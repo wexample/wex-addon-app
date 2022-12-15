@@ -3,7 +3,7 @@
 serviceList() {
   local SERVICES
   # From config.
-  SERVICES=$(wex app/config -k=services)
+  SERVICES=$(wex app::app/config -k=services)
   # Split
   SERVICES=("$(wex string/split -t="${SERVICES}")")
   # Return

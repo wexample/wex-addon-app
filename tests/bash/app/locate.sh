@@ -2,5 +2,5 @@
 
 appLocateTest() {
   # Try to locate an dir outside a wex app.
-  _wexTestAssertEqual "$(wex app/locate -d="${WEX_DIR_TMP}")" ""
+  _wexTestAssertEqual "$(wex app::app/locate -d="${WEX_DIR_TMP}")" ""
 }

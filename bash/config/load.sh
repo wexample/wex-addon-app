@@ -9,7 +9,7 @@ configLoadArgs() {
 
 configLoad() {
   local LOCATION
-  LOCATION=$(wex app/locate -d="${DIR}")
+  LOCATION=$(wex app::app/locate -d="${DIR}")
 
   if [ "${LOCATION}" != "" ];then
     . "${LOCATION}${WEX_FILE_APP_FOLDER}/${WEX_FILE_APP_ENV}"
