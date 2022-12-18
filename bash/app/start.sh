@@ -19,12 +19,13 @@ appStart() {
 
   wex prompt::prompt/progress -p=5 -s="Check location"
 
-  local LOCATION=$(wex app::app/locate -d="${DIR}")
+  local DIR
+  DIR=$(wex app::app/locate -d="${DIR}")
   # Create env file.
-  if [ "${LOCATION}" = "" ];then
+  if [ "${DIR}" = "" ];then
     if [ "$(wex prompt::prompt/yn -q="No .wex/.env file, would you like to create it ?")" = true ];then
-      LOCATION="$(realpath .)/"
-      FILE_ENV="${LOCATION}${WEX_FILE_APP_FOLDER}/${WEX_FILE_APP_ENV}"
+      DIR="$(realpath .)/"
+      FILE_ENV="${DIR}${WEX_DIR_APP_DATA}${WEX_FILE_APP_ENV}"
 
       local ALLOWED_ENV="${WEX_APPS_ENVIRONMENTS[*]}";
       ALLOWED_ENV=$(wex array/join -a="${ALLOWED_ENV}" -s=",")
@@ -46,9 +47,9 @@ appStart() {
   fi
 
   # Go to proper location
-  cd "${LOCATION}"
+  cd "${DIR}"
 
-  wex config/load
+  _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG}"
 
   # Prepare files
   wex prompt::prompt/progress -p=10 -s="Converting files"
@@ -61,4 +62,14 @@ appStart() {
   wex config/write -s
 
   wex prompt::prompt/progress -p=100 -s="Started"
+
+  if [ "${SITE_ENV}" = "local" ];then
+    echo ""
+    echo "      You are in a local environment, so you might want"
+    echo "      to run now some of this dev methods :"
+    echo "        wex watcher/start"
+    echo "        wex app/serve"
+    echo "        wex app/go"
+    echo ""
+  fi
 }

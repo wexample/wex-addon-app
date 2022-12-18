@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
-configLoadArgs() {
+configPathArgs() {
   _DESCRIPTION="Search into parent tree if current folder is in a wex project. Returns the wex project real path if found"
   _ARGUMENTS=(
     'dir d "Starting directory" false'
   )
 }
 
-configLoad() {
-  local LOCATION
-  LOCATION=$(wex app::app/locate -d="${DIR}")
+configPath() {
+  local CONFIG
+  CONFIG="$(wex app::app/locate -d="${DIR}")${WEX_FILEPATH_REL_CONFIG}"
 
-  if [ "${LOCATION}" != "" ];then
-    . "${LOCATION}${WEX_FILE_APP_FOLDER}/${WEX_FILE_APP_ENV}"
+  if [ -f "${CONFIG}" ];then
+    echo "${DIR}${WEX_FILEPATH_REL_CONFIG}"
   fi
 }
