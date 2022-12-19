@@ -17,5 +17,5 @@ containersStarted() {
   fi
   CONTAINERS=$(wex array/join -a="${CONTAINERS}" -s=",")
   # Expect all containers runs.
-  wex docker/containerStarted -n="${CONTAINERS}" -a="${ALL}"
+  wex docker::container/started -n="${CONTAINERS}" -a="${ALL}"
 }

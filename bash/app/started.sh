@@ -29,7 +29,7 @@ appStarted() {
   fi
 
   # Check if proxy runs at end, for performance.
-  if [ "$(wex proxy/started)" = false ];then
+  if [ "$(wex app::proxy/started)" = false ];then
     echo false
     return
   fi

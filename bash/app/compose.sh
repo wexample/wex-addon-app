@@ -27,16 +27,16 @@ appCompose() {
       SERVICE_DIR=$(wex service/dir -s="${SERVICE}")
 
       VAR_NAME="WEX_COMPOSE_YML_"${SERVICE_UPPERCASE}"_BASE"
-      YML_INHERIT=${SERVICE_DIR}"/docker/docker-compose.yml"
-      wex app::config/setValue -k=${VAR_NAME} -v=${YML_INHERIT}
+      YML_INHERIT="${SERVICE_DIR}docker/docker-compose.yml"
+      wex app::config/setValue -k="${VAR_NAME}" -v="${YML_INHERIT}"
 
       local VAR_NAME="WEX_COMPOSE_YML_"${SERVICE_UPPERCASE}
-      local YML_INHERIT_ENV=${SERVICE_DIR}"/docker/docker-compose."${APP_ENV}".yml"
+      local YML_INHERIT_ENV="${SERVICE_DIR}docker/docker-compose."${APP_ENV}".yml"
 
-      if [ -f ${YML_INHERIT_ENV} ];then
-        wex app::config/setValue -k=${VAR_NAME} -v=${YML_INHERIT_ENV}
+      if [ -f "${YML_INHERIT_ENV}" ];then
+        wex app::config/setValue -k="${VAR_NAME}" -v="${YML_INHERIT_ENV}"
       else
-        wex app::config/setValue -k=${VAR_NAME} -v=${YML_INHERIT}
+        wex app::config/setValue -k="${VAR_NAME}" -v="${YML_INHERIT}"
       fi
   done
 

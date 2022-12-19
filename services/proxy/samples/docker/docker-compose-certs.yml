@@ -1,0 +1,5 @@
+        extends:
+          file: ${WEX_COMPOSE_YML_PROXY}
+          service: certs
+        volumes_from:
+          - ${APP_NAME}_proxy
