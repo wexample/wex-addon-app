@@ -14,6 +14,10 @@ appLocate() {
   local DIR_WEX
 
   if [ "${DIR}" != "" ];then
+    if [ ! -d "${DIR}" ];then
+      return
+    fi
+
     DIR_CURRENT="${DIR}"
   else
     DIR_CURRENT="$(realpath .)"

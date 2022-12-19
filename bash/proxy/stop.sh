@@ -12,5 +12,4 @@ proxyStop() {
 
   # Remove temp files
   echo "" > "${WEX_PROXY_APPS_REGISTRY}"
-  echo "" > "${WEX_PROXY_HOSTS_REGISTRY}"
 }

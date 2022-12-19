@@ -12,9 +12,7 @@ appStop() {
   # Use previously generated yml file.
   docker-compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" down
   # Reload file
-  wex app::apps/update
-  # Rebuild hosts
-  wex app::hosts/update
+  wex app::apps/cleanup
   # Execute services scripts if exists
   wex hook/exec -c=appStopped
 }

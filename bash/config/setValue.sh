@@ -10,5 +10,5 @@ configSetValueArgs() {
 }
 
 configSetValue() {
-  wex config/setValue -f="${WEX_FILEPATH_REL_CONFIG_BUILD}" -s="=" -k="${KEY}" -i="${IGNORE_DUPLICATES}" -v="${VALUE}"
+  wex config/setValue -f="${WEX_FILEPATH_REL_CONFIG_BUILD}" -s="=" -k="${KEY}" -i -v="${VALUE}"
 }

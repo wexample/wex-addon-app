@@ -20,28 +20,28 @@ appsList() {
   local SITES_COUNT=0;
   local SITES=();
 
-  for SITE_PATH in ${REGISTRY[@]}
+  for APP_PATH in ${REGISTRY[@]}
   do
     # Trim
-    SITE_PATH=$(echo -e "${SITE_PATH}" | sed -e 's/^[[:space:]]\{0,\}//' -e 's/[[:space:]]\{0,\}$//')
+    APP_PATH=$(echo -e "${APP_PATH}" | sed -e 's/^[[:space:]]\{0,\}//' -e 's/[[:space:]]\{0,\}$//')
     # Avoid blank lines.
-    if [[ ${SITE_PATH} != "" ]];then
+    if [[ ${APP_PATH} != "" ]];then
       EXISTS=false
 
       if [ "${ALL}" != '' ];then
-        SITES+=($(basename ${SITE_PATH}))
+        SITES+=($(basename ${APP_PATH}))
         ((SITES_COUNT++))
       else
         # Prevent duplicates
         for SITE_SEARCH in ${SITES[@]}
         do
-          if [[ ${SITE_SEARCH} == ${SITE_PATH} ]];then
+          if [[ ${SITE_SEARCH} == ${APP_PATH} ]];then
             EXISTS=true
           fi
         done;
 
-        if [ ${EXISTS} == false ] && [ $(wex app::app/started -d=${SITE_PATH}) == true ];then
-          . "${SITE_PATH}${WEX_APP_CONFIG}"
+        if [ ${EXISTS} == false ] && [ $(wex app::app/started -d=${APP_PATH}) == true ];then
+          . "${APP_PATH}${WEX_FILEPATH_REL_CONFIG}"
           SITES+=(${APP_NAME})
           ((SITES_COUNT++))
         fi

@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
 
-appsUpdateArgs() {
+appsCleanupArgs() {
   _AS_NON_SUDO=false
 }
 
-appsUpdate() {
+appsCleanup() {
   # Load sites list
   local APPS_PATHS=($(cat ${WEX_PROXY_APPS_REGISTRY}))
   local DIR_CURRENT=$(realpath ./)
   # Rebuild sites list.
   local APPS_PATHS_FILTERED=()
-  local SITES_FILE=""
+  local APPS_LIST=""
 
   if [ "$(wex proxy/started)" = true ];then
-    for SITE_PATH in ${APPS_PATHS[@]}
+    for APP_PATH in ${APPS_PATHS[@]}
     do
       local EXISTS=false
-      local CONFIG=${SITE_PATH}${WEX_APP_CONFIG}
+      local CONFIG=${APP_PATH}${WEX_FILEPATH_REL_CONFIG}
 
       # Config must exist.
-      if [ -f ${CONFIG} ];then
+      if [ -f "${CONFIG}" ];then
         # Prevent duplicates
         for SITE_SEARCH in ${APPS_PATHS_FILTERED[@]}
         do
-          if [ "${SITE_SEARCH}" = "${SITE_PATH}" ];then
+          if [ "${SITE_SEARCH}" = "${APP_PATH}" ];then
             EXISTS=true
           fi
         done;
@@ -32,10 +32,10 @@ appsUpdate() {
         . "${CONFIG}"
 
         if [ "${EXISTS}" = false ] && [ "${STARTED}" = true ];then
-          cd "${SITE_PATH}"
+          cd "${APP_PATH}"
           if [ "$(wex app/started)" = true ];then
-            APPS_PATHS_FILTERED+=(${SITE_PATH})
-            SITES_FILE+="\n"${SITE_PATH}
+            APPS_PATHS_FILTERED+=(${APP_PATH})
+            APPS_LIST+="\n"${APP_PATH}
           fi
         fi
       fi
@@ -45,5 +45,5 @@ appsUpdate() {
   cd "${DIR_CURRENT}"
 
   # Store sites list.
-  echo -e "${SITES_FILE}" | tee "${WEX_PROXY_APPS_REGISTRY}" > /dev/null
+  echo -e "${APPS_LIST}" | tee "${WEX_PROXY_APPS_REGISTRY}" > /dev/null
 }

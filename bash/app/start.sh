@@ -84,9 +84,7 @@ appStart() {
   fi
 
   # Go to proper location
-  cd "${DIR}"
-
-  _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG}"
+  _wexAppGoTo ${DIR} && . "${WEX_FILEPATH_REL_CONFIG}"
 
   # Prepare files
   wex prompt::prompt/progress -p=15 -s="Converting files"
@@ -99,7 +97,9 @@ appStart() {
   wex app::config/write -s
 
   # Reload sites will clean up list.
-  wex apps/update
+  wex apps/cleanup
+  # Add new site.
+  echo -e "\n"${DIR} | tee -a ${WEX_PROXY_APPS_REGISTRY} > /dev/null
 
   local OPTIONS=''
   if [ "${CLEAR_CACHE}" = true ];then

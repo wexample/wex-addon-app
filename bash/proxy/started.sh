@@ -11,7 +11,6 @@ proxyStarted() {
   if [ "${CLEAR_CACHE}" = true ] || [ -z "${WEX_CACHE_PROXY_STARTED+x}" ];then
     if [ "$(wex docker::container/runs -c="${WEX_PROXY_CONTAINER}")" = true ] &&
       # Config files exists.
-      [ -f "${WEX_PROXY_HOSTS_REGISTRY}" ] &&
       [ -f "${WEX_PROXY_APPS_REGISTRY}" ];then
 
       WEX_CACHE_PROXY_STARTED=true
