@@ -17,6 +17,15 @@ export WEX_FILEPATH_REL_CONFIG_BUILD=${WEX_DIR_APP_TMP}config.build
 export WEX_FILEPATH_REL_CONFIG=${WEX_DIR_APP_DATA}config
 export WEX_PROXY_APPS_REGISTRY=${WEX_DIR_PROXY_TMP}apps
 
+case "$(wex system/os)" in
+  "linux" | "mac")
+    export WEX_SYSTEM_HOST_FILE=/etc/hosts
+    ;;
+  "windows")
+    export WEX_SYSTEM_HOST_FILE='C:\Windows\System32\drivers\etc\hosts'
+    ;;
+esac
+
 _wexAppGoTo() {
   local LOCATION
 

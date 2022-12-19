@@ -61,7 +61,7 @@ appStart() {
     # The server is running.
     else
       # Load server config.
-      . "${WEX_DIR_PROXY_TMP}${WEX_FILEPATH_REL_CONFIG_BUILD}"
+      . "${WEX_DIR_PROXY}${WEX_FILEPATH_REL_CONFIG_BUILD}"
       # Asked port is not the same as currently used.
       if [ "${PORT}" != "" ] && [ "${PORT}" != "${WEX_SERVER_PORT_PUBLIC}" ];then
         local APPS_COUNT=$(wex apps/list -c);

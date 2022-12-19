@@ -18,7 +18,7 @@ appCompose() {
   local YML_INHERIT
 
   printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
-  wex app::config/addTitle -t="Compose files"
+  wex app::config/addTitle -t="Compose files\n"
 
   # Iterate through array using a counter
   for SERVICE in "${SERVICES[@]}"

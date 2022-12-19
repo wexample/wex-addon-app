@@ -3,7 +3,7 @@
 proxyAppConfig() {
   _wexLog "Proxy : configuration"
   printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
-  wex app::config/addTitle -t="Proxy"
+  wex app::config/addTitle -t="Proxy\n"
 
   local WEX_SERVER_PORT_PUBLIC
 
