@@ -16,6 +16,7 @@ export WEX_FILEPATH_REL_COMPOSE_BUILD_YML=${WEX_DIR_APP_TMP}docker-compose.build
 export WEX_FILEPATH_REL_CONFIG_BUILD=${WEX_DIR_APP_TMP}config.build
 export WEX_FILEPATH_REL_CONFIG=${WEX_DIR_APP_DATA}config
 export WEX_PROXY_APPS_REGISTRY=${WEX_DIR_PROXY_TMP}apps
+export WEX_PROXY_HOSTS_REGISTRY=${WEX_DIR_PROXY_TMP}hosts
 
 case "$(wex system/os)" in
   "linux" | "mac")

@@ -100,6 +100,8 @@ appStart() {
   wex apps/cleanup
   # Add new site.
   echo -e "\n"${DIR} | tee -a ${WEX_PROXY_APPS_REGISTRY} > /dev/null
+  # Rebuild hosts
+  wex hosts/update
 
   local OPTIONS=''
   if [ "${CLEAR_CACHE}" = true ];then
