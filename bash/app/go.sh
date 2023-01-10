@@ -12,7 +12,9 @@ appGo() {
   local CONTAINER
   local COMMAND
 
-  CONTAINER=$(wex app/container -c="${CONTAINER_NAME}")
+  _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+
+  CONTAINER=$(wex app/container -c="${MAIN_CONTAINER_NAME}")
   COMMAND=$(wex hook/exec -c=appGo --quiet)
   
   if [ "${COMMAND}" != '' ];then
@@ -24,5 +26,5 @@ appGo() {
   fi
 
   # docker attach
-  docker exec -it ${ARGS} "${CONTAINER}" /bin/bash -c "${COMMAND}"
+  echo docker exec -it ${ARGS} "${CONTAINER}" /bin/bash -c "${COMMAND}"
 }

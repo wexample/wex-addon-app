@@ -5,6 +5,8 @@ version: '3'
 # and let to pick and control expected container.
 # See app::app/compose to see concatenation method detail.
 
+name: ${APP_NAME_INTERNAL}
+
 networks:
-  tmp_wex_net:
+  wex_net:
     external: true

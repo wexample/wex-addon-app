@@ -9,15 +9,14 @@ configWriteArgs() {
 }
 
 configWrite() {
-#  # No recreate.
-#  if [ "${NO_RECREATE}" = true ] &&
-#    [ -f "${WEX_WEXAMPLE_APP_DIR_TMP}config" ] &&
-#    [ -f "${WEX_WEXAMPLE_APP_COMPOSE_BUILD_YML}" ];then
-#
-#    # TODO fix the config issue in globals.sh before enabling nested logs
-#    #  _wexLog "App config file exists. No recreating."
-#    return
-#  fi
+  # No recreate.
+  if [ "${NO_RECREATE}" = true ] &&
+    [ -f "${WEX_FILEPATH_REL_CONFIG_BUILD}" ] &&
+    [ -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" ];then
+
+      _wexLog "App config file exists. No recreating."
+    return
+  fi
 
   _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG}"
 
@@ -37,9 +36,9 @@ configWrite() {
   local DOMAIN_MAIN=$(eval 'echo ${'"${APP_ENV_UPPER}"'_DOMAIN_MAIN}')
 
   _wexLog "Preparing global site configuration"
-  local APP_CONFIG_FILE_CONTENT=""
+  local APP_CONFIG_FILE_CONTENT=$(cat "${WEX_FILEPATH_REL_CONFIG}")
 
-  APP_CONFIG_FILE_CONTENT+="# Global"
+  APP_CONFIG_FILE_CONTENT+="\n\n# Auto generated"
   APP_CONFIG_FILE_CONTENT+="\nAPP_NAME=${NAME}"
   APP_CONFIG_FILE_CONTENT+="\nAPP_NAME_INTERNAL=${NAME}"_"${APP_ENV}"
   APP_CONFIG_FILE_CONTENT+="\nAPP_ENV=${APP_ENV}"

@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+proxyStopArgs() {
+  _AS_NON_SUDO=false
+}
+
 proxyStop() {
   # Stop all sites
   if [ -f "${WEX_PROXY_APPS_REGISTRY}" ];then

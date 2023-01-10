@@ -19,27 +19,3 @@ services:
     networks:
       - wex_net
 
-  certs:
-    image: nginxproxy/acme-companion:2.2.1
-    container_name: ${APP_NAME_INTERNAL}_certs
-    volumes:
-      - ${APP_PATH_ROOT}proxy/certs:/etc/nginx/certs:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
-# TODO Run it in production only, if expected by at least one app (or move to proper ftp)
-#  ftp:
-#    image: wexample/ftp
-#    container_name: ${APP_NAME_INTERNAL}_ftp
-#    environment:
-#      - PUBLICHOST=${SERVER_IP}
-#      - PORTS_RANGE=30000:30059
-#    volumes:
-#      # Share all sites
-#      - /var/www:/var/www
-#      # Store passwords in the same place
-#      - ${APP_PATH_ROOT}proxy/ftp/passwd:/etc/pure-ftpd/passwd
-#    networks:
-#      - wex_net
-#    ports:
-#      - "21:21"
-#      - "30000-30059:30000-30059"

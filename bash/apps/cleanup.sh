@@ -16,7 +16,7 @@ appsCleanup() {
     for APP_PATH in ${APPS_PATHS[@]}
     do
       local EXISTS=false
-      local CONFIG=${APP_PATH}${WEX_FILEPATH_REL_CONFIG}
+      local CONFIG=${APP_PATH}${WEX_FILEPATH_REL_CONFIG_BUILD}
 
       # Config must exist.
       if [ -f "${CONFIG}" ];then

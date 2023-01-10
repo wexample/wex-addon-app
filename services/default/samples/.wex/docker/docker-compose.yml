@@ -1,0 +1,10 @@
+        extends:
+            file: ${WEX_COMPOSE_YML_DEFAULT}
+            service: default
+# Edit if you want to use a local Dockerfile for your app.
+#        image: wexample/${APP_NAME}:latest
+#        build:
+#          context: ${APP_PATH_ROOT}
+#          dockerfile: ./.wex/docker/Dockerfile.default
+#          args:
+#            DOCKERFILE_BUILD_ARG: ${CONFIG_ARG}

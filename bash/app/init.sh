@@ -125,7 +125,7 @@ appInit() {
   # Status
   wex prompt/progress -p=100 -s="Done !"
 
-  if [ "${NEW_NAME}" != "${WEX_PROXY_CONTAINER}" ];then
+  if [ "${NEW_NAME}" != "${WEX_PROXY_NAME}" ];then
     _wexMessage "Your site is initialized as ${NEW_NAME}" "You may start install process using :" "wex app/install"
   fi
 }

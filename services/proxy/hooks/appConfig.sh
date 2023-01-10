@@ -14,6 +14,20 @@ proxyAppConfig() {
     WEX_SERVER_PORT_PUBLIC=$([[ "$(uname -s)" == Darwin ]] && echo 4242 || echo 80)
   fi
 
+  # Check if a process is using port 80 (or given port)
+  local PROCESSES
+  PROCESSES=$(netstat -tulpn | grep ":${WEX_SERVER_PORT_PUBLIC}")
+
+  if [ "${PROCESSES}" != "" ];then
+    _wexError "A process is already running on port ${WEX_SERVER_PORT_PUBLIC}"
+    echo "${PROCESSES}"
+
+    wex var/set -n=PROXY_ERROR -v=ERR_PORT_NOT_AVAILABLE
+    exit
+  fi
+
+  _wexLog "Proxy : using port ${WEX_SERVER_PORT_PUBLIC}"
+
   local WEX_DOCKER_MACHINE_IP
   local WEX_IMAGES_VERSION
 
