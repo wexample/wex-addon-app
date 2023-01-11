@@ -159,6 +159,8 @@ _appStartSuccess() {
 
   wex prompt::prompt/progress -nl -p=100 -s="Started"
 
+  wex app::hook/exec -c=appStarted
+
   . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # No message for proxy server.
