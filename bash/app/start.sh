@@ -148,6 +148,15 @@ _appStartRetry() {
 }
 
 _appStartSuccess() {
+  wex prompt::prompt/progress -nl -p=90 -s="Check first initialization"
+
+  if [ "$(wex app::config/getValue -b -k=APP_INITIALIZED)" != true ]; then
+    wex prompt::prompt/progress -nl -p=95 -s="Initializing first app launch..."
+    wex app::hook/exec -c=appInit
+
+    wex app::config/setValue -b -k=APP_INITIALIZED -v=true
+  fi
+
   wex prompt::prompt/progress -nl -p=100 -s="Started"
 
   . "${WEX_FILEPATH_REL_CONFIG_BUILD}"

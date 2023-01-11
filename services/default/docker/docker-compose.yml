@@ -6,3 +6,4 @@ services:
     restart: always
     networks:
       - wex_net
+    user: ${USER_UID}

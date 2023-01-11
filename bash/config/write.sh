@@ -34,6 +34,7 @@ configWrite() {
   local APP_ENV_UPPER=${APP_ENV^^}
   local DOMAINS=$(eval 'echo ${'"${APP_ENV_UPPER}"'_DOMAINS}')
   local DOMAIN_MAIN=$(eval 'echo ${'"${APP_ENV_UPPER}"'_DOMAIN_MAIN}')
+  local APP_PATH_ROOT="$(realpath .)/"
 
   _wexLog "Preparing global site configuration"
   local APP_CONFIG_FILE_CONTENT=$(cat "${WEX_FILEPATH_REL_CONFIG}")
@@ -42,7 +43,7 @@ configWrite() {
   APP_CONFIG_FILE_CONTENT+="\nAPP_NAME=${NAME}"
   APP_CONFIG_FILE_CONTENT+="\nAPP_NAME_INTERNAL=${NAME}"_"${APP_ENV}"
   APP_CONFIG_FILE_CONTENT+="\nAPP_ENV=${APP_ENV}"
-  APP_CONFIG_FILE_CONTENT+="\nAPP_PATH_ROOT=$(realpath .)/"
+  APP_CONFIG_FILE_CONTENT+="\nAPP_PATH_ROOT=${APP_PATH_ROOT}"
   APP_CONFIG_FILE_CONTENT+="\nAPP_PATH_WEX=${APP_PATH_ROOT}${WEX_DIR_APP_DATA}"
   APP_CONFIG_FILE_CONTENT+="\nSTARTED=${STARTED}"
   APP_CONFIG_FILE_CONTENT+="\nWEX_DIR_PROXY=${WEX_DIR_PROXY}"
@@ -62,7 +63,7 @@ configWrite() {
   APP_CONFIG_FILE_CONTENT+='\nUSER_UID='${USER_UID}
 
   _wexLog "Writing config file content"
-  printf "${APP_CONFIG_FILE_CONTENT}" | tee "${WEX_FILEPATH_REL_CONFIG_BUILD}" > /dev/null
+  printf "${APP_CONFIG_FILE_CONTENT}\n" | tee "${WEX_FILEPATH_REL_CONFIG_BUILD}" > /dev/null
 
   _wexLog "Calling config hooks"
   wex app::hook/exec -c=appConfig
