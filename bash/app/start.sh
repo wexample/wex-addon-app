@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 appStartArgs() {
-  _AS_NON_SUDO=false
   _ARGUMENTS=(
     'clear_cache cc "Clear all caches" false'
     'only o "Stop all other running sites before" false'
     'port p "Port for accessing site, only allowed if not already defined" false'
     'dir d "Application directory" false'
   )
+  _AS_NON_SUDO=false
 }
 
 appStart() {
@@ -46,7 +46,7 @@ appStart() {
   fi
 
   _wexLog "Checking app is running"
-  if [ "$(wex app::app/started -d="${DIR}")" ];then
+  if [ "$(wex app::app/started -d="${DIR}")" = "true" ];then
     _appStartSuccess
 
     return;
@@ -109,6 +109,9 @@ appStart() {
 
   # Load app env.
   . "${WEX_FILEPATH_REL_APP_ENV}"
+
+  # Rebuild hosts
+  wex app::hosts/update
 
   # Update host file if user has write access.
   if [ "${APP_ENV}" = "local" ] && [ "$(wex file/writable -f=/etc/hosts)" = true ];then

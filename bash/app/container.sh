@@ -11,8 +11,8 @@ appContainer() {
 
   # Default container name.
   if [ "${CONTAINER}" = "" ]; then
-    if [ "${SITE_CONTAINER}" != "" ]; then
-      CONTAINER=${SITE_CONTAINER}
+    if [ "${MAIN_CONTAINER_NAME}" != "" ]; then
+      CONTAINER=${MAIN_CONTAINER_NAME}
     else
       CONTAINER=web
     fi
