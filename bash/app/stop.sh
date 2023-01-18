@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+appStopArgs() {
+  _AS_NON_SUDO=false
+}
+
 appStop() {
   # Already stopped
   if [ "$(wex app::app/started -ic)" = false ];then
