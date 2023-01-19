@@ -26,6 +26,15 @@ proxyStart() {
     PORT=$([[ "$(uname -s)" == Darwin ]] && echo 4242 || echo 80)
   fi
 
+  # Check if a process is using port 80 (or given port)
+  local PROCESSES
+  PROCESSES=$(sudo netstat -tulpn | grep ":${PORT}")
+  if [ "$(wex system::port/used -p="${PORT}")" = "true" ];then
+    _wexError "A process is already running on proxy port ${PORT}"
+    sudo netstat -tunlp | grep ":${PORT} "
+    exit
+  fi
+
   if [ ! -d "${WEX_DIR_PROXY}.wex" ];then
     wex app::prompt/chooseEnv -q="Choose env name for proxy server"
 

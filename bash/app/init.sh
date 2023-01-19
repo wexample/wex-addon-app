@@ -28,7 +28,6 @@ appInit() {
   _wexLog "Using name ${NAME}"
 
   local APP_DIR_DOCKER=${WEX_DIR_APP_DATA}"docker/"
-  local WEX_DIR_DOCKER_SERVICES=${WEX_DIR_ROOT}"services/"
 
   # Split services
   local SERVICES_JOINED=$(wex app::service/tree -s="${SERVICES}")
@@ -69,7 +68,7 @@ appInit() {
 
   {
     echo "# Global"
-    echo "AUTHOR=$(whoami)"
+    echo "AUTHOR=${WEX_RUNNER_USERNAME}"
     echo "CREATED=\"$(date -u)\""
     echo "NAME=${NAME}"
     echo "SERVICES=${SERVICES_JOINED}"
@@ -89,11 +88,7 @@ appInit() {
     echo "PROD_DOMAINS=${DOMAINS}"
     echo "PROD_DOMAIN_MAIN=${DOMAINS_MAIN}"
     echo "PROD_EMAIL=contact@${DOMAINS_MAIN}"
-  } >> .wex/config
-
-  # TODO PMA and other services conf by env
-  # DEV_DOMAIN_PMA=pma.${DOMAINS_MAIN}
-#  local NEW_NAME=${NAME}
+  } >> "${WEX_FILEPATH_REL_CONFIG}"
 
   for SERVICE in ${SERVICES[@]}
   do
@@ -126,6 +121,6 @@ appInit() {
   wex prompt/progress -p=100 -s="Done !"
 
   if [ "${NEW_NAME}" != "${WEX_PROXY_NAME}" ];then
-    _wexMessage "Your site is initialized as ${NEW_NAME}" "You may start install process using :" "wex app/install"
+    _wexMessage "Your app is initialized as ${NEW_NAME}" "You may start install process using :" "wex app/install"
   fi
 }

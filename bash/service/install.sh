@@ -8,19 +8,20 @@ serviceInstallArgs() {
 }
 
 serviceInstall() {
-  local DIR_SITE=./
   local SERVICE_SAMPLE_DIR
+  local SERVICE_SAMPLE_DIR_WEX
   local FILES
 
   SERVICE_SAMPLE_DIR="$(wex service/dir -s="${SERVICE}")samples/"
+  SERVICE_SAMPLE_DIR_WEX="${SERVICE_SAMPLE_DIR}.wex/"
 
   # Copy all files from samples
-  if [ -d "${SERVICE_SAMPLE_DIR}" ];then
-    FILES=$(ls -a "${SERVICE_SAMPLE_DIR}")
+  if [ -d "${SERVICE_SAMPLE_DIR_WEX}" ];then
+    FILES=$(ls -a "${SERVICE_SAMPLE_DIR_WEX}")
     for FILE in ${FILES[@]};do
       if [ "${FILE}" != "." ] && [ "${FILE}" != ".." ];then
         # Docker files
-        if [ "${FILE}" == "docker" ] && [ -d "${SERVICE_SAMPLE_DIR}${FILE}" ];then
+        if [ "${FILE}" == "docker" ] && [ -d "${SERVICE_SAMPLE_DIR_WEX}${FILE}" ];then
           # Merge default yml
           serviceInstallMergeYml "yml"
           # Fore each env type.
@@ -32,27 +33,29 @@ serviceInstall() {
         # Git
         elif [ "${FILE}" = ".gitignore.source" ];then
           if [ "${GIT}" = "true" ];then
-            echo -e "" >> ${DIR_SITE}".gitignore"
-            cat "${SERVICE_SAMPLE_DIR}${FILE}" >> ${DIR_SITE}".gitignore"
+            echo -e "" >> "${WEX_DIR_APP_DATA}.gitignore"
+            cat "${SERVICE_SAMPLE_DIR_WEX}${FILE}" >> "${WEX_DIR_APP_DATA}.gitignore"
           fi
         # .env files (merged files)
         elif [ "${FILE}" = ".env" ];then
-            touch "${DIR_SITE}${FILE}"
-            echo -e "" >> "${DIR_SITE}${FILE}"
-            cat "${SERVICE_SAMPLE_DIR}${FILE}" >> "${DIR_SITE}${FILE}"
+            touch "${WEX_DIR_APP_DATA}${FILE}"
+            echo -e "" >> "${WEX_DIR_APP_DATA}${FILE}"
+            cat "${SERVICE_SAMPLE_DIR_WEX}${FILE}" >> "${WEX_DIR_APP_DATA}${FILE}"
         else
-          cp -n -R "${SERVICE_SAMPLE_DIR}${FILE}" ${DIR_SITE}
+          cp -n -R "${SERVICE_SAMPLE_DIR_WEX}${FILE}" "${WEX_DIR_APP_DATA}"
         fi
       fi
     done
   fi
+
+  wex service/exec -s="${SERVICE}" -c=serviceInstall
 }
 
 serviceInstallMergeYml() {
   local EXT=${1}
-  local YML_SOURCE_BASE="${SERVICE_SAMPLE_DIR}docker/docker-compose"
+  local YML_SOURCE_BASE="${SERVICE_SAMPLE_DIR}.wex/docker/docker-compose"
   local YML_SOURCE_FILE="${YML_SOURCE_BASE}.${EXT}"
-  local YML_DEST_FILE="${DIR_SITE}${WEX_DIR_APP_DATA}docker/docker-compose.${EXT}"
+  local YML_DEST_FILE="${WEX_DIR_APP_DATA}docker/docker-compose.${EXT}"
   local YML_CONTENT=''
 
   _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG}"

@@ -7,7 +7,8 @@ appStartArgs() {
     'port p "Port for accessing site, only allowed if not already defined" false'
     'dir d "Application directory" false'
   )
-  _AS_NON_SUDO=false
+  _AS_SUDO=false
+  _AS_SUDO_RUN=true
 }
 
 appStart() {

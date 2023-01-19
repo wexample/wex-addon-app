@@ -32,12 +32,15 @@ appCompose() {
 
       local VAR_NAME="WEX_COMPOSE_YML_"${SERVICE_UPPERCASE}
       local YML_INHERIT_ENV="${SERVICE_DIR}docker/docker-compose."${APP_ENV}".yml"
+      local VAR_VALUE
 
       if [ -f "${YML_INHERIT_ENV}" ];then
-        wex app::config/setValue -k="${VAR_NAME}" -v="${YML_INHERIT_ENV}"
+        VAR_VALUE="${YML_INHERIT_ENV}"
       else
-        wex app::config/setValue -k="${VAR_NAME}" -v="${YML_INHERIT}"
+        VAR_VALUE="${YML_INHERIT}"
       fi
+
+      wex app::config/setValue -k="${VAR_NAME}" -v="${VAR_VALUE}"
   done
 
   local COMPOSE_FILES
@@ -50,9 +53,13 @@ appCompose() {
   local FILES=(
     # Base docker file / may extend global container.
     "${WEX_DIR_APP_DATA}docker/docker-compose.yml"
-    # Env specific file
-    "${WEX_DIR_APP_DATA}docker/docker-compose."${APP_ENV}".yml"
   );
+
+  # Env specific file
+  local ENV_YML="${WEX_DIR_APP_DATA}docker/docker-compose."${APP_ENV}".yml"
+  if [ -f "${ENV_YML}" ];then
+    FILES+=("${ENV_YML}")
+  fi
 
   for FILE in ${FILES[@]}
   do

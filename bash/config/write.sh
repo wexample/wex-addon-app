@@ -6,6 +6,8 @@ configWriteArgs() {
     'no_recreate nr "No recreate if files exists" false'
     'dir d "Application directory" false'
   )
+  _AS_SUDO=false
+  _AS_SUDO_RUN=true
 }
 
 configWrite() {
@@ -63,11 +65,11 @@ configWrite() {
   APP_CONFIG_FILE_CONTENT+='\nUSER_UID='${USER_UID}
 
   _wexLog "Writing config file content"
-  printf "${APP_CONFIG_FILE_CONTENT}\n" | tee "${WEX_FILEPATH_REL_CONFIG_BUILD}" > /dev/null
+  sudo -u "${WEX_RUNNER_USERNAME}" printf "${APP_CONFIG_FILE_CONTENT}\n" | tee "${WEX_FILEPATH_REL_CONFIG_BUILD}" > /dev/null
 
   _wexLog "Calling config hooks"
   wex app::hook/exec -c=appConfig
-  
+
   # In case we are on non unix system.
   wex file/convertLinesToUnix -f="${WEX_FILEPATH_REL_CONFIG_BUILD}" &> /dev/null
 

@@ -5,7 +5,8 @@ appRestartArgs() {
     'clear_cache cc "Clear all caches" false'
     'if_started is "Restart only if already started" false'
   )
-  _AS_NON_SUDO=false
+  _AS_SUDO=false
+  _AS_SUDO_RUN=true
 }
 
 appRestart() {
