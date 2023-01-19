@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+proxyAppConfigArgs() {
+  _AS_SUDO=true
+}
+
 proxyAppConfig() {
   _wexLog "Proxy : configuration"
   printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
@@ -16,7 +20,7 @@ proxyAppConfig() {
 
   # Check if a process is using port 80 (or given port)
   local PROCESSES
-  PROCESSES=$(netstat -tulpn | grep ":${WEX_SERVER_PORT_PUBLIC}")
+  PROCESSES=$(sudo netstat -tulpn | grep ":${WEX_SERVER_PORT_PUBLIC}")
 
   if [ "${PROCESSES}" != "" ];then
     _wexError "A process is already running on port ${WEX_SERVER_PORT_PUBLIC}"

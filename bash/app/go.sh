@@ -2,7 +2,7 @@
 
 appGoArgs() {
   _ARGUMENTS=(
-    'container_name c "Container name suffix like site_name_suffix. Default is web" false'
+    'container_name c "Container name suffix like site_name_suffix" false'
     'super_user su "Run as sudo inside container" false'
   )
 }
@@ -26,5 +26,5 @@ appGo() {
   fi
 
   # docker attach
-  echo docker exec -it ${ARGS} "${CONTAINER}" /bin/bash -c "${COMMAND}"
+  docker exec -it ${ARGS} "${CONTAINER}" /bin/bash -c "${COMMAND}"
 }

@@ -48,7 +48,7 @@ appInit() {
   # Copy base site files.
   local SAMPLE_APP_DIR=${WEX_DIR_ADDONS}app/samples/app/
   mkdir -p ${DIR_APP}${WEX_DIR_APP_DATA}
-  cp -n -R "${SAMPLE_APP_DIR}." "${DIR_APP}${WEX_DIR_APP_DATA}"
+  cp -n -R "${SAMPLE_APP_DIR}.wex/." "${DIR_APP}${WEX_DIR_APP_DATA}"
 
   # Creating default env file
   if [ ! -f "${WEX_DIR_APP_DATA}.env" ]; then
@@ -98,6 +98,7 @@ appInit() {
   done
 
   # GIT Common settings
+  _wexLog "Initializing Git settings"
   wex prompt/progress -p=30 -s="Init GIT repo"
   if [ -f "${DIR_APP_DATA}.gitignore.source" ];then
     mv "${DIR_APP_DATA}.gitignore.source" "${DIR_APP_DATA}.gitignore"

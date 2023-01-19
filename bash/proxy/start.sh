@@ -4,7 +4,8 @@ proxyStartArgs() {
   _ARGUMENTS=(
     'port p "Port for accessing sites" false'
   )
-  _AS_NON_SUDO=false
+  _AS_SUDO=false
+  _AS_SUDO_RUN=true
 }
 
 proxyStart() {
@@ -26,7 +27,7 @@ proxyStart() {
     PORT=$([[ "$(uname -s)" == Darwin ]] && echo 4242 || echo 80)
   fi
 
-  # Check if a process is using port 80 (or given port)
+  # Check if a process is using port 80 for proxy (or given port)
   local PROCESSES
   PROCESSES=$(sudo netstat -tulpn | grep ":${PORT}")
   if [ "$(wex system::port/used -p="${PORT}")" = "true" ];then
