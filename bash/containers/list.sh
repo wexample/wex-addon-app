@@ -8,7 +8,7 @@ containersListArgs() {
 }
 
 containersList() {
-  local CONFIG_YML=$(wex default::config/yml -f="${FILE_COMPOSE}")
+  local CONFIG_YML=$(wex app::config/yml -f="${FILE_COMPOSE}")
   local SEARCH_VAR="container_name"
   local CONTAINERS=()
 

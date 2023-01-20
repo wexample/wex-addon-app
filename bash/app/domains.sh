@@ -12,7 +12,7 @@ appDomains() {
     DIR_SITE=./
   fi;
 
-  DOCKER_COMPOSE_VARS=($(wex default::config/yml -d=${DIR_SITE}))
+  DOCKER_COMPOSE_VARS=($(wex app::config/yml -d=${DIR_SITE}))
   ALL_DOMAINS=''
 
   if [ -z "${SEPARATOR+x}" ];then
