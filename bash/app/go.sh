@@ -14,7 +14,7 @@ appGo() {
 
   _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
-  CONTAINER=$(wex app/container -c="${MAIN_CONTAINER_NAME}")
+  CONTAINER=$(wex app::app/container -c="${MAIN_CONTAINER_NAME}")
   COMMAND=$(wex hook/exec -c=appGo --quiet)
   
   if [ "${COMMAND}" != '' ];then

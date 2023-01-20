@@ -9,7 +9,7 @@ hostsUpdate() {
 
   for DIR in ${REGISTRY[@]}
   do
-    local DOMAINS=($(wex app/domains -d=${DIR}))
+    local DOMAINS=($(wex app::app/domains -d=${DIR}))
     local DOMAIN=""
 
     for DOMAIN in ${DOMAINS[@]}

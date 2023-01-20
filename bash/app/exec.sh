@@ -12,14 +12,14 @@ appExecArgs() {
 }
 
 appExec() {
-  if [ "$(wex app/started -ic)" = "false" ];then
+  if [ "$(wex app::app/started -ic)" = "false" ];then
     return
   fi
 
   . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # Use default container if missing
-  local CONTAINER=$(wex app/container -c="${CONTAINER_NAME}")
+  local CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME}")
 
   local ARGS=""
   if [ "${NON_INTERACTIVE}" != true ];then

@@ -172,7 +172,7 @@ _appStartSuccess() {
   echo ""
    _wexMessage "Your site \"${NAME}\" is up in \"${APP_ENV}\" environment" "You can access to it on these urls : "
 
-  local DOMAINS=$(wex app/domains)
+  local DOMAINS=$(wex app::app/domains)
   for DOMAIN in ${DOMAINS[@]}
   do
     echo "      > http://${DOMAIN}:${WEX_SERVER_PORT_PUBLIC}"

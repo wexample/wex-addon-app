@@ -10,7 +10,7 @@ appCompose() {
   _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG}"
 
   # Load expected env file.
-  local APP_ENV=$(wex app/env)
+  local APP_ENV=$(wex app::app/env)
   local SERVICES=($(wex app::services/all))
   local SERVICE_DIR
   local SERVICE_UPPERCASE
