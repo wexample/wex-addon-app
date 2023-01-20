@@ -123,7 +123,7 @@ appStart() {
   docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" up -d ${OPTIONS}
 
   # Update host file if user has write access.
-  if [ "${APP_ENV}" = "local" ] && [ "$(wex file/writable -f=/etc/hosts)" = true ];then
+  if [ "${APP_ENV}" = "local" ] && [ "$(sudo wex file/writable -f=/etc/hosts)" = true ];then
     wex app::hosts/updateLocal
   fi
 

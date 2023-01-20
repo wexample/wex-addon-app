@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 hostsUpdate() {
+  _wexLog "Updating wex hosts registry"
+
   # Rebuild hosts file
   local IP=$(wex docker/ip)
   local REGISTRY=$(cat "${WEX_PROXY_APPS_REGISTRY}")

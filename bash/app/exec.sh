@@ -8,6 +8,7 @@ appExecArgs() {
     'starts "Start container verification" false'
     'localized l "Execute script in project location" false true'
     'super_user su "Run as sudo inside container" false'
+    'inform i "Print command in log" false'
   )
 }
 
@@ -28,6 +29,10 @@ appExec() {
 
   if [ "${SUPER_USER}" = "true" ];then
     ARGS+=" -u 0 "
+  fi
+
+  if [ "${INFO}" == "true" ]; then
+    _wexLog "${COMMAND}"
   fi
 
   docker exec ${ARGS} "${CONTAINER}" /bin/bash -c "${COMMAND}"

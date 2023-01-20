@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 hostsUpdateLocal() {
+  _wexLog "Updating local /etc/hosts file"
+
   # Remove old blocks
   sudo sed -i"${WEX_SED_I_ORIG_EXT}" -e '/\#\[ wex \]\#/,/\#\[ endwex \]\#/d' "${WEX_SYSTEM_HOST_FILE}"
   sudo rm "${WEX_SYSTEM_HOST_FILE}${WEX_SED_I_ORIG_EXT}"
