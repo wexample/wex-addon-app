@@ -62,8 +62,8 @@ appInit() {
     local DOMAINS_SPLIT=$(wex string/split -t="${DOMAINS}" -s=",")
     local DOMAINS_MAIN=${DOMAINS_SPLIT[0]}
   else
-    local DOMAINS=domain.com
-    local DOMAINS_MAIN=domain.com
+    local DOMAINS_MAIN=$(wex string/toKebab -t="${NAME}").wex
+    local DOMAINS=${DOMAINS_MAIN}
   fi
 
   {
