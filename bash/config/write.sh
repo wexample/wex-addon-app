@@ -25,6 +25,7 @@ configWrite() {
   _wexLog "Creating temporary folder : ${WEX_DIR_APP_TMP}"
     # Create temp dirs if not exists.
   mkdir -p "${WEX_DIR_APP_TMP}"
+  ${WEX_CHOWN_NON_SUDO_COMMAND} -R "${WEX_DIR_APP_TMP}"
 
   if [ "${STARTED}" != true ];then
     STARTED=false
