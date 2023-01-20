@@ -18,6 +18,10 @@ appStop() {
   docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" down
   # Reload file
   wex app::apps/cleanup
+  # Rebuild hosts in wex registry.
+  wex app::hosts/update
+  # Rebuild hosts global /etc/hosts.
+  wex app::hosts/updateLocal
   # Execute services scripts if exists
   wex hook/exec -c=appStopped
 }

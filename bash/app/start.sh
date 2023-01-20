@@ -111,13 +111,8 @@ appStart() {
   # Load app env.
   . "${WEX_FILEPATH_REL_APP_ENV}"
 
-  # Rebuild hosts
+  # Rebuild hosts in wex registry.
   wex app::hosts/update
-
-  # Update host file if user has write access.
-  if [ "${APP_ENV}" = "local" ] && [ "$(wex file/writable -f=/etc/hosts)" = true ];then
-    wex app::hosts/updateLocal
-  fi
 
   local OPTIONS=''
   if [ "${CLEAR_CACHE}" = true ];then
@@ -126,6 +121,11 @@ appStart() {
   
   # Use previously generated yml file.
   docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" up -d ${OPTIONS}
+
+  # Update host file if user has write access.
+  if [ "${APP_ENV}" = "local" ] && [ "$(wex file/writable -f=/etc/hosts)" = true ];then
+    wex app::hosts/updateLocal
+  fi
 
   _appStartSuccess
 }
