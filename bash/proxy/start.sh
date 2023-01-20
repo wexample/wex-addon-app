@@ -18,7 +18,7 @@ proxyStart() {
     mkdir -p "${WEX_DIR_PROXY}"
   fi
 
-  chmod -R 777 "${WEX_DIR_PROXY}"
+  ${WEX_CHOWN_NON_SUDO_COMMAND} -R "${WEX_DIR_PROXY}"
   cd "${WEX_DIR_PROXY}"
 
   if [ "${PORT}" = "" ];then
