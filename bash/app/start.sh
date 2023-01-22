@@ -153,7 +153,7 @@ _appStartSuccess() {
 
   if [ "$(wex app::config/getValue -b -k=APP_INITIALIZED)" != true ]; then
     wex prompt::prompt/progress -nl -p=95 -s="Initializing first app launch..."
-    wex app::hook/exec -c=appInit
+    wex app::hook/exec -c=appFirstStartInit
 
     wex app::config/setValue -b -k=APP_INITIALIZED -v=true
   fi
