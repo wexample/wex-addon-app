@@ -1,9 +1,15 @@
 version: '3'
 
+# We use intensive files concatenation and service extensions
+# in order to keep as possible a minimum of services definition in websites
+# and let to pick and control expected container.
+# See app::app/compose to see concatenation method detail.
+
 services:
   default:
-    container_name: ${APP_NAME_INTERNAL}
-    restart: always
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
     networks:
       - wex_net
     user: ${USER_UID}

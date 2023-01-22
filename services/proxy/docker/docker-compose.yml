@@ -14,7 +14,7 @@ services:
       - ${APP_PATH_ROOT}proxy/wex.conf:/etc/nginx/conf.d/wex.conf
     labels:
       com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: nginx_proxy
-    restart: always
+    restart: unless-stopped
     privileged: true
     networks:
       - wex_net

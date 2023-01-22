@@ -45,8 +45,10 @@ appCompose() {
 
   local COMPOSE_FILES
   if [ "$(wex service/used -s=proxy)" = false ];then
+    # Contains containers network configuration.
     COMPOSE_FILES="-f ${WEX_DIR_ADDONS}app/containers/default/docker-compose.yml"
   else
+    # Contains proxy network configuration.
     COMPOSE_FILES="-f ${WEX_DIR_ADDONS}app/containers/network/docker-compose.yml"
   fi
 
