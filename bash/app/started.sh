@@ -2,7 +2,7 @@
 
 appStartedArgs() {
   _ARGUMENTS=(
-    'dir d "Root site directory" false .'
+    'dir d "App root directory" false .'
     'ignore_containers ic "Do not check if containers are also started" false'
   )
 }
@@ -12,7 +12,7 @@ appStarted() {
 
   if [ -f "${WEX_FILEPATH_REL_APP_ENV}" ] && [ -f "${WEX_FILEPATH_REL_CONFIG_BUILD}" ];then
     # Load config
-    . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+    _wexAppGoTo "${DIR}" && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
     # Started && into server
     if [ "${STARTED}" = true ] && [ "$(wex file/lineExists -f="${WEX_PROXY_APPS_REGISTRY}" -l="$(realpath "${DIR}")/")" = true ];then

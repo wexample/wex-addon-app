@@ -7,6 +7,7 @@ serviceExecArgs() {
     'service_only_forced sf "Force to use service even not registered into site config" false'
     'data d "Data" false'
     'parse p "Parse output variables" false'
+    'args a "Arguments to pass to script" false'
   )
 }
 
@@ -32,7 +33,7 @@ serviceExec() {
         . "${SERVICE_FILE_SCRIPT}"
         local METHOD=$(wex string/toCamel -t=${SERVICE})${COMMAND_UC}
 
-        ${METHOD} ${DATA}
+        ${METHOD} ${DATA} ${ARGS}
       fi;
     fi
   done

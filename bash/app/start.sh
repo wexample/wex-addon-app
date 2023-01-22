@@ -127,6 +127,8 @@ appStart() {
     wex app::hosts/updateLocal
   fi
 
+  wex app::app/perms
+
   _appStartSuccess
 }
 
