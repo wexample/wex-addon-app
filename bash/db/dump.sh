@@ -22,8 +22,7 @@ dbDump() {
     if [ "${TAG}" != "" ];then
       DUMP_FILE_NAME+="-"${TAG}
     fi
-    DUMP_FILE_NAME+=".sql"
   fi
 
-  echo wex hook/exec -c=dbDump -a="${DUMP_FILE_NAME}"
+  wex hook/exec -c=dbDump -a="${DUMP_FILE_NAME}"
 }
