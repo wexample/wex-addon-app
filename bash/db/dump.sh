@@ -8,6 +8,10 @@ dbDumpArgs() {
 }
 
 dbDump() {
+  if [ "$(wex app::app/started -ic)" = "false" ];then
+    return
+  fi
+
   local DUMP_FILE_NAME
 
   _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
