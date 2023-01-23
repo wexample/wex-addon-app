@@ -53,6 +53,7 @@ configWrite() {
   APP_CONFIG_FILE_CONTENT+="\n\n# Environment related"
   APP_CONFIG_FILE_CONTENT+="\nDOMAIN_MAIN=${DOMAIN_MAIN}"
   APP_CONFIG_FILE_CONTENT+="\nDOMAINS=${DOMAINS}"
+  APP_CONFIG_FILE_CONTENT+="\nHOST_IP=$(wex system/ip)"
   APP_CONFIG_FILE_CONTENT+="\nEMAIL=$(eval 'echo ${'"${APP_ENV_UPPER}"'_EMAIL}')"
 
   APP_CONFIG_FILE_CONTENT+="\n\n# User"
