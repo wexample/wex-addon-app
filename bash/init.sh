@@ -5,7 +5,6 @@ export WEX_PROXY_NAME=wex_server
 WEX_DIR_PROXY=$([[ "$(uname -s)" == Darwin ]] && echo /Users/.wex/server/ || echo "/opt/${WEX_PROXY_NAME}/") # /opt can't be mounted on macos, using Users instead.
 
 export WEX_APPS_ENVIRONMENTS=(local dev prod)
-export WEX_DIR_APP_DATA=.wex/
 export WEX_DIR_APP_TMP=${WEX_DIR_APP_DATA}tmp/
 export WEX_DIR_PROXY
 export WEX_DIR_PROXY_TMP=${WEX_DIR_PROXY}tmp/
