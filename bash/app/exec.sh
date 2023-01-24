@@ -21,14 +21,13 @@ appExec() {
 
   # Use default container if missing
   local CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME}")
-  local COMMAND_GO=$(wex service/exec -c=appGo)
-
-  if [ "${COMMAND_GO}" != "" ];then
-    COMMAND="${COMMAND_GO} && "
-  fi;
 
   if [ "${LOCALIZED}" == true ];then
-    COMMAND="${COMMAND}"
+    local COMMAND_GO=$(wex service/exec -c=appGo)
+
+    if [ "${COMMAND_GO}" != "" ];then
+      COMMAND="${COMMAND_GO} && ${COMMAND}"
+    fi;
   fi;
 
   local ARGS=""
