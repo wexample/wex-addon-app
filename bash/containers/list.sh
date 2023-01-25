@@ -2,8 +2,8 @@
 
 containersListArgs() {
   _ARGUMENTS=(
-    'remove_prefix rm "Remove the name of the site from container name" false',
-    'file_compose f "Docker compose file" false',
+    'remove_prefix rm "Remove the name of the site from container name" false'
+    'file_compose f "Docker compose file" false'
   )
 }
 

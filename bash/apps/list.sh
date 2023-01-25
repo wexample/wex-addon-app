@@ -2,8 +2,8 @@
 
 appsListArgs() {
   _ARGUMENTS=(
-    'all a "Return raw list without testing activity" false',
-    'count c "Return only number of sites found" false',
+    'all a "Return raw list without testing activity" false'
+    'count c "Return only number of sites found" false'
   )
 }
 

@@ -67,10 +67,8 @@ appStart() {
       return
     # The server is running.
     else
-      # Load server config.
-      . "${WEX_DIR_PROXY}${WEX_FILEPATH_REL_CONFIG_BUILD}"
       # Asked port is not the same as currently used.
-      if [ "${PORT}" != "" ] && [ "${PORT}" != "${WEX_SERVER_PORT_PUBLIC}" ];then
+      if [[ $(_appProxyNeedsRestart) == true ]];then
         local APPS_COUNT=$(wex apps/list -c);
         # Ignore server itself.
         ((APPS_COUNT--))
@@ -118,7 +116,13 @@ appStart() {
   if [ "${CLEAR_CACHE}" = true ];then
     OPTIONS=' --build'
   fi
-  
+
+  local OPTIONS_SERVICES
+  OPTIONS_SERVICES=$(wex app::service/exec -c=appStartOptions)
+  if [ "${OPTIONS_SERVICES}" != "" ];then
+    OPTIONS+="${OPTIONS_SERVICES}"
+  fi
+
   # Use previously generated yml file.
   docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" up -d ${OPTIONS}
 
@@ -130,6 +134,18 @@ appStart() {
   wex app::app/perms
 
   _appStartSuccess
+}
+
+_appProxyNeedsRestart() {
+    # Load server config.
+    . "${WEX_DIR_PROXY}${WEX_FILEPATH_REL_CONFIG_BUILD}"
+
+    # Asked port is not the same as currently used.
+    if [ "${PORT}" != "" ] && [ "${PORT}" != "${WEX_SERVER_PORT_PUBLIC}" ];then
+      echo true
+    else
+      echo false
+    fi
 }
 
 # Start server on the given port number.
@@ -153,7 +169,9 @@ _appStartRetry() {
 _appStartSuccess() {
   wex prompt::prompt/progress -nl -p=90 -s="Check first initialization"
 
-  if [ "$(wex app::config/getValue -b -k=APP_INITIALIZED)" != true ]; then
+  . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+
+  if [ "${APP_INITIALIZED}" != true ]; then
     wex prompt::prompt/progress -nl -p=95 -s="Initializing first app launch..."
     wex app::hook/exec -c=appFirstStartInit
 
@@ -164,15 +182,13 @@ _appStartSuccess() {
 
   wex app::hook/exec -c=appStarted
 
-  . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
-
   # No message for proxy server.
   if [ "${NAME}" = "${WEX_PROXY_NAME}" ];then
     return
   fi
 
   echo ""
-   _wexMessage "Your site \"${NAME}\" is up in \"${APP_ENV}\" environment" "You can access to it on these urls : "
+  _wexMessage "Your site \"${NAME}\" is up in \"${APP_ENV}\" environment" "You can access to it on these urls : "
 
   local DOMAINS=$(wex app::app/domains)
   for DOMAIN in ${DOMAINS[@]}

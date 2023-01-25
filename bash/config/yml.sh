@@ -2,8 +2,8 @@
 
 configYmlArgs() {
   _ARGUMENTS=(
-    'file_compose_yml f "Docker compose file" false',
-    'dir d "Site directory" false',
+    'file_compose_yml f "Docker compose file" false'
+    'dir d "Site directory" false'
   )
 }
 

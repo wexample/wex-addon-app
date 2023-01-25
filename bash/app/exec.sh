@@ -9,6 +9,7 @@ appExecArgs() {
     'localized l "Execute script in project location" false true'
     'super_user su "Run as sudo inside container" false'
     'inform i "Print command in log" false'
+    'user_uid u "Run as given user (overridden by super_user argument)" false'
   )
 }
 
@@ -35,8 +36,12 @@ appExec() {
     ARGS+="-ti"
   fi;
 
-  if [ "${SUPER_USER}" = "true" ];then
-    ARGS+=" -u 0 "
+  if [[ ${SUPER_USER} == true ]];then
+    USER_UID=0
+  fi
+
+  if [[ "${USER_UID}" != "" ]];then
+    ARGS+=" -u ${USER_UID} "
   fi
 
   if [ "${INFO}" == "true" ]; then

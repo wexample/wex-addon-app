@@ -2,9 +2,9 @@
 
 appInitArgs() {
   _ARGUMENTS=(
-     'services s "Services to install" true',
-     'name n "Site name" false',
-     'git g "Init git repository" false true',
+     'services s "Services to install" true'
+     'name n "Site name" false'
+     'git g "Init git repository" false true'
      'environment e "Environment (local default)" false local'
      'domains d "Domains names separated by a comma" false'
   )

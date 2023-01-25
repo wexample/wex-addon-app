@@ -64,7 +64,7 @@ configWrite() {
     USER_UID=${SUDO_UID}
   fi
 
-  APP_CONFIG_FILE_CONTENT+='\nUSER_UID='${USER_UID}
+  APP_CONFIG_FILE_CONTENT+='\nAPP_USER_UID='${USER_UID}
 
   _wexLog "Writing config file content"
   sudo -u "${WEX_RUNNER_USERNAME}" printf "${APP_CONFIG_FILE_CONTENT}\n" | tee "${WEX_FILEPATH_REL_CONFIG_BUILD}" > /dev/null
