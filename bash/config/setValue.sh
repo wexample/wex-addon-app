@@ -19,5 +19,5 @@ configSetValue() {
     FILE=${WEX_FILEPATH_REL_CONFIG_BUILD}
   fi
 
-  wex default::config/setValue -f="${FILE}" -s="=" -k="${KEY}" -i -v="${VALUE}"
+  wex default::config/setValue -f="${FILE}" -s="=" -k="${KEY}" -i="${IGNORE_DUPLICATES}" -v="${VALUE}"
 }
