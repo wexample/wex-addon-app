@@ -101,6 +101,11 @@ appStart() {
   wex prompt::prompt/progress -nl -p=20 -s="Writing configuration"
   wex app::config/write -s
 
+  if [ ! -s "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" ]; then
+     _wexError "Unable to write ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" "Try to execute wex config/write to check any write error."
+     exit
+  fi
+
   # Reload sites will clean up list.
   wex apps/cleanup
   # Add new site.
