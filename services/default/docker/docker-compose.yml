@@ -12,4 +12,3 @@ services:
     restart: unless-stopped
     networks:
       - wex_net
-    user: ${APP_USER_UID}
