@@ -8,7 +8,7 @@ configBindFilesArgs() {
 }
 
 configBindFiles() {
-  _wexAppGoTo
+  _wexAppGoTo .
 
   local FOLDER="./${WEX_DIR_APP_DATA}/${SECTION}"
   local SECTION_FILES=$(ls "${FOLDER}")

@@ -7,7 +7,7 @@ appComposeArgs() {
 }
 
 appCompose() {
-  _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG}"
+  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
 
   # Load expected env file.
   local APP_ENV=$(wex app::app/env)

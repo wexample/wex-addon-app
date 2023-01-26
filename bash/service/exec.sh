@@ -12,7 +12,7 @@ serviceExecArgs() {
 }
 
 serviceExec() {
-  _wexAppGoTo
+  _wexAppGoTo .
 
   # Service name specified.
   if [ "${SERVICE_ONLY}" != "" ] && [ "${SERVICE_ONLY_FORCED}" = "true" ];then

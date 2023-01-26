@@ -31,7 +31,7 @@ _wexAppGoTo() {
 
   LOCATION=$(wex app::app/locate -d="${1}")
   if [ "${LOCATION}" = "" ]; then
-    _wexError "No app found ${1}"
+    _wexError "No app found ${1}, did you create a .wex/.env file ?"
     exit 0
   fi
 

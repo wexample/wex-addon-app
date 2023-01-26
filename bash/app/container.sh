@@ -7,7 +7,7 @@ appContainerArgs() {
 }
 
 appContainer() {
-  _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # Default container name.
   if [ "${CONTAINER}" = "" ]; then

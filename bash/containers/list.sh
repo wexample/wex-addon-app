@@ -14,7 +14,7 @@ containersList() {
 
   # Remove prefix
   if [ "${REMOVE_PREFIX}" = true ];then
-    _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG}"
+    _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
 
     REGEX="s/^services_\(.*\)_\?${SEARCH_VAR}\=\"${APP_NAME}_\(.*\)\"\$/\2/p"
   else

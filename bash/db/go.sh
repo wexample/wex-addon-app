@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 dbGo() {
-  _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   local DB_GO_COMMAND=$(wex service/exec -c=dbGo)
 

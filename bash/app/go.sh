@@ -13,7 +13,7 @@ appGo() {
   local CONTAINER
   local COMMAND
 
-  _wexAppGoTo
+  _wexAppGoTo .
   . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME:-${MAIN_CONTAINER_NAME}}")

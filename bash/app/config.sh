@@ -12,7 +12,7 @@ appConfig() {
     DIR_SITE=./
   fi;
 
-  _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG}"
+  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
 
   # Uppercase key.
   eval 'echo ${'"${KEY^^}"'}'

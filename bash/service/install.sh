@@ -58,7 +58,7 @@ serviceInstallMergeYml() {
   local YML_DEST_FILE="${WEX_DIR_APP_DATA}docker/docker-compose.${EXT}"
   local YML_CONTENT=''
 
-  _wexAppGoTo && . "${WEX_FILEPATH_REL_CONFIG}"
+  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
 
   if [ -f "${YML_SOURCE_FILE}" ];then
     local YML_FILES_TO_MERGE=(${YML_SOURCE_FILE})
