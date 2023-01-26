@@ -8,8 +8,8 @@ appExecArgs() {
     'starts "Start container verification" false'
     'localized l "Execute script in project location" false true'
     'super_user su "Run as sudo inside container" false'
-    'inform i "Print command in log" false'
     'user_uid u "Run as given user (overridden by super_user argument)" false'
+    'verbose v "Print command in log" false'
   )
 }
 

@@ -33,7 +33,7 @@ serviceExec() {
         . "${SERVICE_FILE_SCRIPT}"
         local METHOD=$(wex string/toCamel -t=${SERVICE})${COMMAND_UC}
 
-        ${METHOD} ${DATA} ${ARGS}
+        ${METHOD} ${DATA} "${ARGS}"
       fi;
     fi
   done

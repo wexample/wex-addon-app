@@ -22,11 +22,24 @@ dbDump() {
   else
     # Build dump name.
     local DUMP_FILE_NAME
-    DUMP_FILE_NAME=${APP_ENV}'-'${DB_NAME_MAIN}"-"$(wex date/timeFileName)
+    DUMP_FILE_NAME=${APP_ENV}'-'${APP_NAME}"-"$(wex date/timeFileName)
     if [ "${TAG}" != "" ];then
       DUMP_FILE_NAME+="-"${TAG}
     fi
   fi
 
-  wex hook/exec -c=dbDump -a="${DUMP_FILE_NAME}"
+  # Create dump file.
+  local DUMP_PATH=$(wex hook/exec -c=dbDump -a="${DUMP_FILE_NAME}")
+
+  # Zip dump file.
+  local DIR_CURRENT
+  DIR_CURRENT="$(realpath .)"
+
+  cd "$(dirname "${DUMP_PATH}")"
+  zip -r "${DUMP_FILE_NAME}.zip" "${DUMP_FILE_NAME}"
+
+  cd "${DIR_CURRENT}"
+
+  # Cleaning up
+  wex file/remove -f="${DUMP_PATH}"
 }
