@@ -16,6 +16,11 @@ dbUnpack() {
 
     # Not already extracted.
     if [ ! -d "${DUMP_FILE_NAME}" ] && [ ! -f "${DUMP_FILE_NAME}" ];then
+      if [[ "${DUMP}" != *.zip ]]; then
+        _wexLog "The dump ${DUMP} is not a zip file"
+        return
+      fi
+
       _wexLog "Database : Unpacking dump ${DUMP}"
       unzip "${DUMP_FILE_NAME}"
     fi

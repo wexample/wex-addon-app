@@ -35,6 +35,10 @@ appStart() {
 
       APP_ENV=$(wex prompt::prompt/choiceGetValue)
 
+      if [ -z "$APP_ENV" ]; then
+        exit
+      fi
+
       # Creates .wex
       mkdir -p "$(dirname "${FILE_ENV}")"
 

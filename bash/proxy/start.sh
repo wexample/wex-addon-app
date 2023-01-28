@@ -42,6 +42,10 @@ proxyStart() {
     local NEW_ENV
     NEW_ENV=$(wex prompt::prompt/choiceGetValue)
 
+    if [ -z "${NEW_ENV}" ]; then
+      exit
+    fi
+
     wex app::app/init -s=proxy -e="${NEW_ENV}" -n="${WEX_PROXY_NAME}" --git=false
   fi
 

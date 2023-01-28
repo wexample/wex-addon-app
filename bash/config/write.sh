@@ -76,5 +76,6 @@ configWrite() {
   wex file/convertLinesToUnix -f="${WEX_FILEPATH_REL_CONFIG_BUILD}" &> /dev/null
 
   # Create docker-compose.build.yml
+  _wexLog "Building ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}"
   wex app::app/compose -c=config | tee "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" > /dev/null
 }
