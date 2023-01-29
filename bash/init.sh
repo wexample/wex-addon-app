@@ -17,7 +17,7 @@ export WEX_FILEPATH_REL_CONFIG=${WEX_DIR_APP_DATA}config
 export WEX_PROXY_APPS_REGISTRY=${WEX_DIR_PROXY_TMP}apps
 export WEX_PROXY_HOSTS_REGISTRY=${WEX_DIR_PROXY_TMP}hosts
 
-case "$(wex system/os)" in
+case "${WEX_OS}" in
   "linux" | "mac")
     export WEX_SYSTEM_HOST_FILE=/etc/hosts
     ;;
