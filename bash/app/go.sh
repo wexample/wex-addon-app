@@ -28,9 +28,13 @@ appGo() {
     ARGS+=" -u ${USER_UID} "
   fi
 
+  SHELL_COMMAND=${SHELL_COMMAND:-/bin/bash}
+
   if [ "${COMMAND_GO}" != "" ];then
     COMMAND="${COMMAND_GO} && ${SHELL_COMMAND}"
+  else
+    COMMAND="${SHELL_COMMAND}"
   fi;
 
-  docker exec -it ${ARGS} "${CONTAINER}" "${SHELL_COMMAND:-/bin/bash}" -c "${COMMAND}"
+  docker exec -it ${ARGS} "${CONTAINER}" "${SHELL_COMMAND}" -c "${COMMAND}"
 }

@@ -12,7 +12,7 @@ dbRestore() {
   DUMP=$(wex prompt::prompt/choiceGetValue)
 
   if [ -z "${DUMP}" ]; then
-    exit
+    return
   fi
 
   . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
