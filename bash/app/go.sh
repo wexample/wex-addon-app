@@ -18,7 +18,7 @@ appGo() {
 
   CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME:-${MAIN_CONTAINER_NAME}}")
 
-  COMMAND=$(wex hook/exec -c=appGo --quiet)
+  COMMAND_GO=$(wex hook/exec -c=appGo --quiet)
 
   if [[ ${SUPER_USER} == true ]];then
     USER_UID=0
@@ -28,9 +28,9 @@ appGo() {
     ARGS+=" -u ${USER_UID} "
   fi
 
-  if [ "${COMMAND}" != '' ];then
-    docker exec -it ${ARGS} "${CONTAINER}" /bin/bash -c "${COMMAND} && /bin/bash"
-  else
-    docker exec -it ${ARGS} "${CONTAINER}" /bin/bash
-  fi
+  if [ "${COMMAND_GO}" != "" ];then
+    COMMAND="${COMMAND_GO} && ${SHELL_COMMAND}"
+  fi;
+
+  docker exec -it ${ARGS} "${CONTAINER}" "${SHELL_COMMAND:-/bin/bash}" -c "${COMMAND}"
 }

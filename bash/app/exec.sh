@@ -48,5 +48,5 @@ appExec() {
     _wexLog "${COMMAND}"
   fi
 
-  docker exec ${ARGS} "${CONTAINER}" /bin/bash -c "${COMMAND}"
+  docker exec ${ARGS} "${CONTAINER}" "${SHELL_COMMAND:-/bin/bash}" -c "${COMMAND}"
 }
