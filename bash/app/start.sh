@@ -98,7 +98,7 @@ appStart() {
   # Prepare files
   wex prompt::prompt/progress -nl -p=15 -s="Converting files"
   wex file/convertLinesToUnix -f=.env &> /dev/null
-  wex file/convertLinesToUnix -f=.wex &> /dev/null
+  wex file/convertLinesToUnix -f="${WEX_DIR_APP_DATA}" &> /dev/null
 
   # Write new config,
   # it will also export config variables
