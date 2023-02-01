@@ -19,7 +19,7 @@ appStart() {
     wex app::apps/stop
   fi
 
-  wex prompt::prompt/progress -nl -p=5 -s="Check location"
+  wex prompt::prompt/progress -nl -p=10 -s="Check location"
 
   local DIR
   DIR=$(wex app::app/locate -d="${DIR}")
@@ -62,7 +62,7 @@ appStart() {
 
   # Current site is not the server itself.
   if [ "${IS_PROXY_SERVER}" = false ];then
-    wex prompt::prompt/progress -nl -p=10 -s="Check proxy"
+    wex prompt::prompt/progress -nl -p=30 -s="Check proxy"
 
     # The server is not running.
     if [ "$(wex app::proxy/started)" = false ];then
@@ -96,13 +96,13 @@ appStart() {
   _wexAppGoTo ${DIR} && . "${WEX_FILEPATH_REL_CONFIG}"
 
   # Prepare files
-  wex prompt::prompt/progress -nl -p=15 -s="Converting files"
-  wex file/convertLinesToUnix -f=.env &> /dev/null
+  wex prompt::prompt/progress -nl -p=40 -s="Converting files"
+  wex file/convertLinesToUnix -f="${WEX_FILE_APP_ENV}" &> /dev/null
   wex file/convertLinesToUnix -f="${WEX_DIR_APP_DATA}" &> /dev/null
 
   # Write new config,
   # it will also export config variables
-  wex prompt::prompt/progress -nl -p=20 -s="Writing configuration"
+  wex prompt::prompt/progress -nl -p=50 -s="Writing configuration"
   wex app::config/write -s
 
   if [ ! -s "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" ]; then
@@ -110,6 +110,7 @@ appStart() {
      exit
   fi
 
+  wex prompt::prompt/progress -nl -p=60 -s="Registering app"
   # Reload sites will clean up list.
   wex apps/cleanup
   # Add new site.
@@ -132,9 +133,11 @@ appStart() {
     OPTIONS+="${OPTIONS_SERVICES}"
   fi
 
+  wex prompt::prompt/progress -nl -p=70 -s="Starting container"
   # Use previously generated yml file.
   docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" up -d ${OPTIONS}
 
+  wex prompt::prompt/progress -nl -p=80 -s="Updating registry"
   # Update host file if user has write access.
   if [ "${APP_ENV}" = "local" ] && [ "$(sudo wex file/writable -f=/etc/hosts)" = true ];then
     wex app::hosts/updateLocal
@@ -197,13 +200,18 @@ _appStartSuccess() {
   fi
 
   echo ""
-  _wexMessage "Your site \"${NAME}\" is up in \"${APP_ENV}\" environment" "You can access to it on these urls : "
 
   local DOMAINS=$(wex app::app/domains)
-  for DOMAIN in ${DOMAINS[@]}
-  do
-    echo "      > http://${DOMAIN}:${WEX_SERVER_PORT_PUBLIC}"
-  done;
+  if [ "${DOMAINS}" != "" ];then
+    _wexMessage "Your site \"${NAME}\" is up in \"${APP_ENV}\" environment" "You can access to it on these urls : "
+
+    for DOMAIN in ${DOMAINS[@]}
+    do
+      echo "      > http://${DOMAIN}:${WEX_SERVER_PORT_PUBLIC}"
+    done;
+  else
+    _wexMessage "No domain associated with \"${APP_ENV}\" environment"
+  fi
 
   if [ "${APP_ENV}" = "local" ];then
     echo ""
