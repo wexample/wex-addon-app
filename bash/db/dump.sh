@@ -29,9 +29,11 @@ dbDump() {
   fi
 
   # Create dump file.
+  _wexLog "Exporting dump"
   local DUMP_PATH=$(wex hook/exec -c=dbDump -a="${DUMP_FILE_NAME}")
 
   # Zip dump file.
+  _wexLog "Creating zip file"
   local DIR_CURRENT
   DIR_CURRENT="$(realpath .)"
 
@@ -42,4 +44,6 @@ dbDump() {
 
   # Cleaning up
   wex file/remove -f="${DUMP_PATH}"
+
+  _wexLog "Output dump : ${DUMP_FILE_NAME}.zip"
 }

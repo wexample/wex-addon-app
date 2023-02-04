@@ -9,7 +9,7 @@ appExecArgs() {
     'localized l "Execute script in project location" false true'
     'super_user su "Run as sudo inside container" false'
     'user_uid u "Run as given user (overridden by super_user argument)" false'
-    'verbose v "Print command in log" false'
+    'verbose vv "Print command in log" false'
   )
 }
 

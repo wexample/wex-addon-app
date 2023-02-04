@@ -2,6 +2,7 @@
 
 dbRestore() {
   if [ "$(wex app::app/started -ic)" = "false" ]; then
+    _wexLog "App not started"
     return
   fi
 
