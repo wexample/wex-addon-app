@@ -38,7 +38,7 @@ dbDump() {
   DIR_CURRENT="$(realpath .)"
 
   cd "$(dirname "${DUMP_PATH}")"
-  zip -r "${DUMP_FILE_NAME}.zip" "${DUMP_FILE_NAME}"
+  zip -r "${DUMP_FILE_NAME}.zip" "$(basename ${DUMP_PATH})"
 
   cd "${DIR_CURRENT}"
 
