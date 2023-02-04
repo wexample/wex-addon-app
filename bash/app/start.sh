@@ -137,13 +137,11 @@ appStart() {
   # Use previously generated yml file.
   docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" up -d ${OPTIONS}
 
-  wex prompt::prompt/progress -nl -p=80 -s="Updating registry"
-  # Update host file if user has write access.
-  if [ "${APP_ENV}" = "local" ] && [ "$(sudo wex file/writable -f=/etc/hosts)" = true ];then
-    wex app::hosts/updateLocal
-  fi
-
+  wex prompt::prompt/progress -nl -p=80 -s="Updating permission"
   wex app::app/perms
+
+  wex prompt::prompt/progress -nl -p=85 -s="Serving app"
+  wex app::app/serve
 
   _appStartSuccess
 }
