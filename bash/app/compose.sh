@@ -40,7 +40,7 @@ appCompose() {
         VAR_VALUE="${YML_INHERIT}"
       fi
 
-      wex app::config/ls  -k="${VAR_NAME}" -v="${VAR_VALUE}"
+      wex app::config/setValue -k="${VAR_NAME}" -v="${VAR_VALUE}"
   done
 
   local COMPOSE_FILES
