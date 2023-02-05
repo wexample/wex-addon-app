@@ -18,4 +18,11 @@ services:
     privileged: true
     networks:
       - wex_net
-
+  certs:
+    image: nginxproxy/acme-companion:2.2.1
+    container_name: ${APP_NAME_INTERNAL}_certs
+    volumes:
+      - ${APP_PATH_ROOT}proxy/certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_from:
+      - ${APP_NAME}_proxy
