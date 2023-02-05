@@ -70,7 +70,7 @@ serviceInstallMergeYml() {
     for FILE_TO_MERGE in ${YML_FILES_TO_MERGE[@]};do
       # Report suffixes to service name.
       SUFFIX=''
-      FILENAME=$(basename "${FILE_TO_MERGE}")
+      FILENAME=$(basename "${FILE_TO_MERGE}" | cut -f1 -d'.')
       # Match with files to merge as services.
       if [ "${FILENAME:0:15}" == 'docker-compose-' ];then
         SUFFIX="_"${FILENAME:15:-4}
