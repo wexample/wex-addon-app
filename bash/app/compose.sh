@@ -71,5 +71,5 @@ appCompose() {
     fi;
   done;
 
-  echo docker compose ${COMPOSE_FILES} --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" "${COMMAND}"
+  docker compose ${COMPOSE_FILES} --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" "${COMMAND}"
 }
