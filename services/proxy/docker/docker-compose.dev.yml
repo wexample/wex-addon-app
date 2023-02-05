@@ -1,6 +1,10 @@
 version: '3'
 
 services:
+  proxy:
+    extends:
+      file: ${WEX_COMPOSE_YML_PROXY_BASE}
+      service: phpmyadmin
   certs:
     image: nginxproxy/acme-companion:2.2.1
     container_name: ${APP_NAME_INTERNAL}_certs

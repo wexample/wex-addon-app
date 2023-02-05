@@ -40,7 +40,7 @@ appCompose() {
         VAR_VALUE="${YML_INHERIT}"
       fi
 
-      wex app::config/setValue -k="${VAR_NAME}" -v="${VAR_VALUE}"
+      wex app::config/ls  -k="${VAR_NAME}" -v="${VAR_VALUE}"
   done
 
   local COMPOSE_FILES
@@ -71,5 +71,5 @@ appCompose() {
     fi;
   done;
 
-  docker compose ${COMPOSE_FILES} --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" "${COMMAND}"
+  echo docker compose ${COMPOSE_FILES} --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" "${COMMAND}"
 }
