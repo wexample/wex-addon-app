@@ -3,9 +3,9 @@
 proxyStartArgs() {
   _ARGUMENTS=(
     'port p "Port for accessing sites" false'
+    'user u "Owner of application files" false www-data'
   )
-  _AS_SUDO=false
-  _AS_SUDO_RUN=true
+  _AS_NON_SUDO=false
 }
 
 proxyStart() {
@@ -52,7 +52,7 @@ proxyStart() {
   export WEX_SERVER_PORT_PUBLIC=${PORT}
 
   _wexLog "Starting proxy app"
-  wex app::app/start
+  wex app::app/start -u="${USER}"
 
   # Wait starting.
   _wexLog "Waiting for proxy start..."

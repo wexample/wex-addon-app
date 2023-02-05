@@ -6,12 +6,14 @@ appStartArgs() {
     'only o "Stop all other running sites before" false'
     'port p "Port for accessing site, only allowed if not already defined" false'
     'dir d "Application directory" false'
+    'user u "Owner of application files" false www-data'
   )
-  _AS_SUDO=false
-  _AS_SUDO_RUN=true
+  _AS_NON_SUDO=false
 }
 
 appStart() {
+  _wexLog "Using user ${USER}"
+
   wex prompt::prompt/progress -nl -p=0 -s="Preparing"
 
   # Stop other sites.
@@ -67,7 +69,7 @@ appStart() {
     # The server is not running.
     if [ "$(wex app::proxy/started)" = false ];then
       _wexLog "Starting wex server"
-      _appStartRetry ${PORT}
+      _appStartProxyAndRetry "${PORT}" "${USER}"
       return
     # The server is running.
     else
@@ -85,7 +87,7 @@ appStart() {
         else
           _wexMessage "Restarting wex server on port ${PORT}"
           wex app::proxy/stop
-          _appStartRetry ${PORT}
+          _appStartProxyAndRetry "${PORT}" "${USER}"
           return
         fi
       fi
@@ -103,7 +105,7 @@ appStart() {
   # Write new config,
   # it will also export config variables
   wex prompt::prompt/progress -nl -p=50 -s="Writing configuration"
-  wex app::config/write -s
+  wex app::config/write -s -u="${USER}"
 
   if [ ! -s "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" ]; then
      _wexError "Unable to write ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" "Try to execute wex config/write to check any write error."
@@ -114,7 +116,7 @@ appStart() {
   # Reload sites will clean up list.
   wex apps/cleanup
   # Add new site.
-  echo -e "\n"${DIR} | tee -a ${WEX_PROXY_APPS_REGISTRY} > /dev/null
+  echo -e "\n${DIR}" | tee -a "${WEX_PROXY_APPS_REGISTRY}" > /dev/null
 
   # Load app env.
   . "${WEX_FILEPATH_REL_APP_ENV}"
@@ -159,17 +161,18 @@ _appProxyNeedsRestart() {
 }
 
 # Start server on the given port number.
-_appStartRetry() {
+_appStartProxyAndRetry() {
   local ARGS
   local CURRENT_DIR
   local PORT=${1}
+  local USER=${2}
 
   # Cache overridden vars.
   ARGS=${WEX_ARGUMENTS}
   CURRENT_DIR=$(realpath ./)
 
   # Server must be started.
-  wex app::proxy/start -n -p="${PORT}"
+  wex app::proxy/start -n -p="${PORT}" -u="${USER}"
 
   # Relaunch manually to be sure to keep given arguments
   cd "${CURRENT_DIR}" || return

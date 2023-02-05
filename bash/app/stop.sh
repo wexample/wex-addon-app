@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 appStopArgs() {
-  _AS_SUDO=false
-  _AS_SUDO_RUN=true
+  _AS_NON_SUDO=false
 }
 
 appStop() {

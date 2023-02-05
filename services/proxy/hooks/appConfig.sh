@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 proxyAppConfigArgs() {
-  _AS_SUDO=true
+  _AS_NON_SUDO=false
 }
 
 proxyAppConfig() {

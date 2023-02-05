@@ -5,9 +5,9 @@ configWriteArgs() {
     'started s "Set the site is started or not" false'
     'no_recreate nr "No recreate if files exists" false'
     'dir d "Application directory" false'
+    'user u "Owner of application files" false www-data'
   )
-  _AS_SUDO=false
-  _AS_SUDO_RUN=true
+  _AS_NON_SUDO=false
 }
 
 configWrite() {
@@ -58,7 +58,7 @@ configWrite() {
 
   APP_CONFIG_FILE_CONTENT+="\n\n# User"
 
-  local USER_UID=${UID}
+  local USER_UID=$(id -u "${USER}")
   # Current user is root, so uid is 0.
   if [ "${USER_UID}" = "0" ];then
     USER_UID=${SUDO_UID}
