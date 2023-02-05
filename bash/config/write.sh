@@ -67,7 +67,7 @@ configWrite() {
   APP_CONFIG_FILE_CONTENT+='\nAPP_USER_UID='${USER_UID}
 
   _wexLog "Writing config file content"
-  sudo -u "${WEX_RUNNER_USERNAME}" printf "${APP_CONFIG_FILE_CONTENT}\n" | tee "${WEX_FILEPATH_REL_CONFIG_BUILD}" > /dev/null
+  sudo -u "${USER}" printf "${APP_CONFIG_FILE_CONTENT}\n" | tee "${WEX_FILEPATH_REL_CONFIG_BUILD}" > /dev/null
 
   _wexLog "Calling config hooks"
   wex app::hook/exec -c=appConfig
