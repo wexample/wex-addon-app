@@ -9,15 +9,23 @@ dbRestore() {
   local DUMPS=($(wex hook/exec -c=dbDumpsList))
   DUMPS=$(wex array/join -a="${DUMPS[*]}" -s=",")
 
+  if [ -z "${DUMPS}" ]; then
+    _wexLog "No dump found."
+    return
+  fi
+
   wex prompt::prompt/choice -c="${DUMPS}" -q="Please select a dump to restore" -d="${#DUMPS[*]}"
   DUMP=$(wex prompt::prompt/choiceGetValue)
 
-  if [ -z "${DUMP}" ]; then
+  local DUMP_PATH=${WEX_DIR_APP_DATA}${DB_CONTAINER}/dumps/${DUMP}
+
+  if [ ! -f "${DUMP_PATH}" ]; then
+    _wexLog "File not found : ${DUMP_PATH}"
     return
   fi
 
   . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
-  wex db/unpack -d="${WEX_DIR_APP_DATA}${DB_CONTAINER}/dumps/${DUMP}"
+  wex db/unpack -d="${DUMP_PATH}"
 
   local DUMP_FILE_NAME=${DUMP}
   if [[ "${DUMP}" == *.zip ]]; then
