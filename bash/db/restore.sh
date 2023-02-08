@@ -14,6 +14,8 @@ dbRestore() {
     return
   fi
 
+  . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+
   wex prompt::prompt/choice -c="${DUMPS}" -q="Please select a dump to restore" -d="${#DUMPS[*]}"
   DUMP=$(wex prompt::prompt/choiceGetValue)
 
@@ -24,7 +26,6 @@ dbRestore() {
     return
   fi
 
-  . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
   wex db/unpack -d="${DUMP_PATH}"
 
   local DUMP_FILE_NAME=${DUMP}
