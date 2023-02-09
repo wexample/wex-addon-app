@@ -22,13 +22,10 @@ appExec() {
 
   # Use default container if missing
   local CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME}")
+  local COMMAND_GO=";"
 
   if [ "${LOCALIZED}" == true ];then
-    local COMMAND_GO=$(wex service/exec -c=appGo)
-
-    if [ "${COMMAND_GO}" != "" ];then
-      COMMAND="${COMMAND_GO} && ${COMMAND}"
-    fi;
+    COMMAND_GO=$(wex service/exec -c=appGo)
   fi;
 
   local ARGS=""
@@ -48,5 +45,5 @@ appExec() {
     _wexLog "${COMMAND}"
   fi
 
-  docker exec ${ARGS} "${CONTAINER}" "${SHELL_COMMAND:-/bin/bash}" -c "${COMMAND}"
+  docker exec ${ARGS} "${CONTAINER}" "${SHELL_COMMAND:-/bin/bash}" -c "${COMMAND_GO} && ${COMMAND}"
 }
