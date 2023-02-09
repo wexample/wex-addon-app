@@ -75,6 +75,13 @@ configWrite() {
   # In case we are on non unix system.
   wex file/convertLinesToUnix -f="${WEX_FILEPATH_REL_CONFIG_BUILD}" &> /dev/null
 
+  printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  wex app::config/addTitle -t="Compose files\n"
+
+  _wexLog "Importing global app config variables"
+  printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  cat "${WEX_DIR_TMP}app-config" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+
   # Create docker-compose.build.yml
   _wexLog "Building ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}"
   wex app::app/compose -c=config | tee "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" > /dev/null

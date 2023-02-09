@@ -9,40 +9,6 @@ appComposeArgs() {
 appCompose() {
   _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
 
-  # Load expected env file.
-  local APP_ENV=$(wex app::app/env)
-  local SERVICES=($(wex app::services/all))
-  local SERVICE_DIR
-  local SERVICE_UPPERCASE
-  local VAR_NAME
-  local YML_INHERIT
-
-  printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
-  wex app::config/addTitle -t="Compose files\n"
-
-  # Iterate through array using a counter
-  for SERVICE in "${SERVICES[@]}"
-  do
-      SERVICE_UPPERCASE=$(wex string/toScreamingSnake -t="${SERVICE}")
-      SERVICE_DIR=$(wex service/dir -s="${SERVICE}")
-
-      VAR_NAME="WEX_COMPOSE_YML_"${SERVICE_UPPERCASE}"_BASE"
-      YML_INHERIT="${SERVICE_DIR}docker/docker-compose.yml"
-      wex app::config/setValue -k="${VAR_NAME}" -v="${YML_INHERIT}"
-
-      local VAR_NAME="WEX_COMPOSE_YML_"${SERVICE_UPPERCASE}
-      local YML_INHERIT_ENV="${SERVICE_DIR}docker/docker-compose."${APP_ENV}".yml"
-      local VAR_VALUE
-
-      if [ -f "${YML_INHERIT_ENV}" ];then
-        VAR_VALUE="${YML_INHERIT_ENV}"
-      else
-        VAR_VALUE="${YML_INHERIT}"
-      fi
-
-      wex app::config/setValue -k="${VAR_NAME}" -v="${VAR_VALUE}"
-  done
-
   local COMPOSE_FILES
   if [ "$(wex service/used -s=proxy)" = false ];then
     # Contains containers network configuration.
