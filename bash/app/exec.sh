@@ -6,7 +6,7 @@ appExecArgs() {
     'container_name n "Container name suffix like site_name_suffix. Default is web" false'
     'command c "Bash command to execute" true'
     'starts "Start container verification" false'
-    'localized l "Execute script in project location" false true'
+    'localized l "Execute script in project location" false false'
     'super_user su "Run as sudo inside container" false'
     'user_uid u "Run as given user (overridden by super_user argument)" false'
     'verbose vv "Print command in log" false'
@@ -22,7 +22,7 @@ appExec() {
 
   # Use default container if missing
   local CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME}")
-  local COMMAND_GO=";"
+  local COMMAND_GO=":"
 
   if [ "${LOCALIZED}" == true ];then
     COMMAND_GO=$(wex service/exec -c=appGo)
