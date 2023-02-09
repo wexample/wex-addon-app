@@ -12,8 +12,6 @@ appStartArgs() {
 }
 
 appStart() {
-  _wexLog "Using user ${USER}"
-
   wex prompt::prompt/progress -nl -p=0 -s="Preparing"
 
   # Stop other sites.
@@ -95,7 +93,10 @@ appStart() {
   fi
 
   # Go to proper location
-  _wexAppGoTo ${DIR} && . "${WEX_FILEPATH_REL_CONFIG}"
+  _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG}"
+
+  _wexLog "Using user ${USER}"
+  chown -R "${USER}:${USER}" .
 
   # Prepare files
   wex prompt::prompt/progress -nl -p=40 -s="Converting files"
