@@ -96,7 +96,8 @@ appStart() {
   _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG}"
 
   _wexLog "Using user ${USER}"
-  chown -R "${USER}:${USER}" .
+  sudo chown -R "${USER}:${USER}" .
+  sudo chmod -R g+w .
 
   # Prepare files
   wex prompt::prompt/progress -nl -p=40 -s="Converting files"
