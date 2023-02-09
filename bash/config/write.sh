@@ -69,6 +69,8 @@ configWrite() {
   _wexLog "Writing config file content"
   sudo -u "${USER}" printf "${APP_CONFIG_FILE_CONTENT}\n" | tee "${WEX_FILEPATH_REL_CONFIG_BUILD}" > /dev/null
 
+  _configWritePorts
+
   _wexLog "Calling config hooks"
   wex app::hook/exec -c=appConfig
 
@@ -85,4 +87,31 @@ configWrite() {
   # Create docker-compose.build.yml
   _wexLog "Building ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}"
   wex app::app/compose -c=config | tee "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" > /dev/null
+}
+
+_configWritePorts() {
+  local SERVICES=($(wex app::service/list))
+  local PORT_CURRENT=1001
+
+  # Assign free ports.
+  for SERVICE in ${SERVICES[@]}
+  do
+    local VAR_NAME=SERVICE_PORT_$(wex string/toScreamingSnake -t="${SERVICE}")
+
+    # Avoid used ports.
+    while [[ " ${PORTS_USED_ARRAY[@]} " =~ " ${PORT_CURRENT} " ]];do
+      ((PORT_CURRENT++))
+    done
+
+    # Assign port to variable
+    wex app::config/setValue -k="${VAR_NAME}" -v="${PORT_CURRENT}" -vv
+
+    if [ "${PORTS_USED_CURRENT}" != '' ];then
+      PORTS_USED_CURRENT+=${SEPARATOR}
+    fi
+
+    PORTS_USED_CURRENT+=${PORT_CURRENT}
+
+    ((PORT_CURRENT++))
+  done
 }
