@@ -4,6 +4,7 @@ appRestartArgs() {
   _ARGUMENTS=(
     'clear_cache cc "Clear all caches" false'
     'if_started is "Restart only if already started" false'
+    'user u "Owner of application files" false www-data'
   )
   _AS_NON_SUDO=false
 }
@@ -23,5 +24,5 @@ appRestart() {
       rm "${WEX_FILEPATH_REL_CONFIG_BUILD}"
   fi
 
-  wex app::app/start "${WEX_ARGUMENTS_BKP}"
+  wex app::app/start "${WEX_ARGUMENTS_BKP}" -u="${USER}"
 }
