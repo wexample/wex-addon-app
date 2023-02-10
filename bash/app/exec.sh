@@ -24,9 +24,9 @@ appExec() {
   local CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME}")
   local COMMAND_GO=":"
 
-  if [ "${LOCALIZED}" == true ];then
-    COMMAND_GO=$(wex service/exec -c=appGo)
-  fi;
+  CONTAINER_NAME=${CONTAINER_NAME:-${MAIN_CONTAINER_NAME}}
+
+  CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME}")
 
   local ARGS=""
   if [ "${NON_INTERACTIVE}" != true ];then
@@ -45,5 +45,15 @@ appExec() {
     _wexLog "${COMMAND}"
   fi
 
-  docker exec ${ARGS} "${CONTAINER}" "${SHELL_COMMAND:-/bin/bash}" -c "${COMMAND_GO} && ${COMMAND}"
+  EXEC_COMMAND=${COMMAND}
+  SHELL_COMMAND=${SHELL_COMMAND:-/bin/bash}
+
+  if [ "${LOCALIZED}" == true ];then
+    local COMMAND_GO=$(wex hook/exec -c=appGo -a="${CONTAINER_NAME}" --quiet)
+    COMMAND="${COMMAND_GO} && ${EXEC_COMMAND}"
+  else
+    COMMAND="${EXEC_COMMAND}"
+  fi;
+
+  docker exec ${ARGS} "${CONTAINER}" "${SHELL_COMMAND}" -c "${COMMAND}"
 }
