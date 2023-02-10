@@ -28,10 +28,8 @@ dbRestore() {
 
   wex db/unpack -d="${DUMP_PATH}"
 
-  local DUMP_FILE_NAME=${DUMP}
-  if [[ "${DUMP}" == *.zip ]]; then
-    DUMP_FILE_NAME=$(basename "${DUMP%.*}")
-  fi
+  # Remove file extension in any case.
+  local DUMP_FILE_NAME=$(basename "${DUMP%.*}")
 
   _wexLog "Restoring..."
   wex hook/exec -c=dbRestore -a="${DUMP_FILE_NAME}"

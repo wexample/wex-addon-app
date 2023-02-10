@@ -22,7 +22,7 @@ dbUnpack() {
       fi
 
       _wexLog "Database : Unpacking dump ${DUMP}"
-      unzip "${DUMP_FILE_NAME}"
+      unzip -o "${DUMP_FILE_NAME}"
     fi
 
     cd "${DIR_CURRENT}"
