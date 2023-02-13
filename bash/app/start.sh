@@ -99,6 +99,8 @@ appStart() {
 
   if [[ "${USER}" == false ]];then
     USER="${WEX_RUNNER_USERNAME}"
+  else
+    USER="nobody"
   fi
 
   _wexLog "Using user ${USER}"
