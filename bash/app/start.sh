@@ -6,7 +6,7 @@ appStartArgs() {
     'only o "Stop all other running sites before" false'
     'port p "Port for accessing site, only allowed if not already defined" false'
     'dir d "Application directory" false'
-    'user u "Owner of application files" false www-data'
+    'user u "Owner of application files" false false'
   )
   _AS_NON_SUDO=false
 }
@@ -94,6 +94,12 @@ appStart() {
 
   # Go to proper location
   _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG}"
+
+  . "${WEX_FILEPATH_REL_APP_ENV}"
+
+  if [[ "${USER}" == false ]];then
+    USER="${WEX_RUNNER_USERNAME}"
+  fi
 
   _wexLog "Using user ${USER}"
   sudo chown -R "${USER}:${USER}" .
