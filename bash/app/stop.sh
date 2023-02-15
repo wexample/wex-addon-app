@@ -16,7 +16,7 @@ appStop() {
   # Use previously generated yml file.
   docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" down
   # Reload file
-  wex app::apps/cleanup
+  wex app::apps/reload
   # Rebuild hosts in wex registry.
   wex app::hosts/update
   # Rebuild hosts global /etc/hosts.

@@ -124,7 +124,7 @@ appStart() {
 
   wex prompt::prompt/progress -nl -p=60 -s="Registering app"
   # Reload sites will clean up list.
-  wex apps/cleanup
+  wex apps/reload
   # Add new site.
   echo -e "\n${DIR}" | tee -a "${WEX_PROXY_APPS_REGISTRY}" > /dev/null
 

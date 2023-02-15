@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-appsCleanupArgs() {
+appsReloadArgs() {
   _AS_NON_SUDO=false
 }
 
-appsCleanup() {
+appsReload() {
+  touch "${WEX_PROXY_APPS_REGISTRY}"
+
   # Load sites list
   local APPS_PATHS=($(cat ${WEX_PROXY_APPS_REGISTRY}))
   local DIR_CURRENT=$(realpath ./)
