@@ -59,7 +59,7 @@ appInit() {
   WEX_VERSION=$(wex core/version)
 
   if [ "${DOMAINS}" != "" ];then
-    local DOMAINS_SPLIT=$(wex string/split -t="${DOMAINS}" -s=",")
+    local DOMAINS_SPLIT=$(wex default::string/split -t="${DOMAINS}" -s=",")
     local DOMAINS_MAIN=${DOMAINS_SPLIT[0]}
   else
     local DOMAINS_MAIN=$(wex string/toKebab -t="${NAME}").wex
