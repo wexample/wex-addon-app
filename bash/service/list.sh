@@ -5,7 +5,7 @@ serviceList() {
   # From config.
   SERVICES=$(wex app::app/config -k=services)
   # Split
-  SERVICES=("$(wex string/split -t="${SERVICES}")")
+  SERVICES=("$(wex default::string/split -t="${SERVICES}")")
   # Return
   echo "${SERVICES[*]}"
 }

@@ -7,7 +7,7 @@ serviceUsedArgs() {
 }
 
 serviceUsed() {
-  local SERVICES=("$(wex service/list)")
+  local SERVICES=("$(wex app::service/list)")
 
   # Array contains
   if [[ " ${SERVICES[*]} " =~ ${SERVICE} ]]; then

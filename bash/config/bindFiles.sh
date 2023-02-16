@@ -18,7 +18,7 @@ configBindFiles() {
   local APP_ENV=$(wex app::app/env)
 
   for FILE in ${SECTION_FILES[@]};do
-    SPLIT=($(wex string/split -s="." -t="${FILE}"))
+    SPLIT=($(wex default::string/split -s="." -t="${FILE}"))
     BASE_NAME=${SPLIT[0]}
 
     # Base file ex container.ext

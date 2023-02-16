@@ -18,10 +18,10 @@ serviceExec() {
   if [ "${SERVICE_ONLY}" != "" ] && [ "${SERVICE_ONLY_FORCED}" = "true" ];then
     local SERVICES=("${SERVICE_ONLY}")
   else
-    local SERVICES=($(wex service/list))
+    local SERVICES=($(wex app::service/list))
   fi
 
-  COMMAND_UC=$(wex string/toPascal -t="${COMMAND}")
+  COMMAND_UC=$(wex default::string/toPascal -t="${COMMAND}")
 
   for SERVICE in ${SERVICES[@]}
   do
