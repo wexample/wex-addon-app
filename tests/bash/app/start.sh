@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-siteStartTest() {
+appStartTest() {
   # Stop sites if exists
   wex apps/stop
 
