@@ -14,22 +14,22 @@ configWrite() {
   # No recreate.
   if [ "${NO_RECREATE}" = true ] &&
     [ -f "${WEX_FILEPATH_REL_CONFIG_BUILD}" ] &&
-    [ -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" ];then
+    [ -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" ]; then
 
-      _wexLog "App config file exists. No recreating."
+    _wexLog "App config file exists. No recreating."
     return
   fi
 
   _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
 
   _wexLog "Creating temporary folder : ${WEX_DIR_APP_TMP}"
-    # Create temp dirs if not exists.
+  # Create temp dirs if not exists.
   mkdir -p "${WEX_DIR_APP_TMP}"
   ${WEX_CHOWN_NON_SUDO_COMMAND} -R "${WEX_DIR_APP_TMP}"
 
-  if [ "${STARTED}" != true ];then
+  if [ "${STARTED}" != true ]; then
     STARTED=false
-  fi;
+  fi
 
   local APP_ENV
   APP_ENV=$(wex app::app/env)
@@ -60,14 +60,14 @@ configWrite() {
 
   local USER_UID=$(id -u "${USER}")
   # Current user is root, so uid is 0.
-  if [ "${USER_UID}" = "0" ];then
+  if [ "${USER_UID}" = "0" ]; then
     USER_UID=${SUDO_UID}
   fi
 
   APP_CONFIG_FILE_CONTENT+='\nAPP_USER_UID='${USER_UID}
 
   _wexLog "Writing config file content"
-  sudo -u "${USER}" printf "${APP_CONFIG_FILE_CONTENT}\n" | tee "${WEX_FILEPATH_REL_CONFIG_BUILD}" > /dev/null
+  sudo -u "${USER}" printf "${APP_CONFIG_FILE_CONTENT}\n" | tee "${WEX_FILEPATH_REL_CONFIG_BUILD}" >/dev/null
 
   _configWritePorts
 
@@ -75,18 +75,18 @@ configWrite() {
   wex app::hook/exec -c=appConfig
 
   # In case we are on non unix system.
-  wex file/convertLinesToUnix -f="${WEX_FILEPATH_REL_CONFIG_BUILD}" &> /dev/null
+  wex file/convertLinesToUnix -f="${WEX_FILEPATH_REL_CONFIG_BUILD}" &>/dev/null
 
-  printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  printf "\n" >>"${WEX_FILEPATH_REL_CONFIG_BUILD}"
   wex app::config/addTitle -t="Compose files\n"
 
   _wexLog "Importing global app config variables"
-  printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
-  cat "${WEX_DIR_TMP}app-config" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  printf "\n" >>"${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  cat "${WEX_DIR_TMP}app-config" >>"${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # Create docker-compose.build.yml
   _wexLog "Building ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}"
-  wex app::app/compose -c=config | tee "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" > /dev/null
+  wex app::app/compose -c=config | tee "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" >/dev/null
 }
 
 _configWritePorts() {
@@ -94,19 +94,18 @@ _configWritePorts() {
   local PORT_CURRENT=1001
 
   # Assign free ports.
-  for SERVICE in ${SERVICES[@]}
-  do
+  for SERVICE in ${SERVICES[@]}; do
     local VAR_NAME=SERVICE_PORT_$(wex string/toScreamingSnake -t="${SERVICE}")
 
     # Avoid used ports.
-    while [[ " ${PORTS_USED_ARRAY[@]} " =~ " ${PORT_CURRENT} " ]];do
+    while [[ " ${PORTS_USED_ARRAY[@]} " =~ " ${PORT_CURRENT} " ]]; do
       ((PORT_CURRENT++))
     done
 
     # Assign port to variable
     wex app::config/setValue -k="${VAR_NAME}" -v="${PORT_CURRENT}" -vv
 
-    if [ "${PORTS_USED_CURRENT}" != '' ];then
+    if [ "${PORTS_USED_CURRENT}" != '' ]; then
       PORTS_USED_CURRENT+=${SEPARATOR}
     fi
 
