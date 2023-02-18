@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-_appInitTest_createSite() {
+_appTest_createApp() {
   local APP_TEST_FOLDER=${1}
   local SERVICES=${2}
 
