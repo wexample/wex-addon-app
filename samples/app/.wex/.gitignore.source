@@ -2,7 +2,7 @@
 # Keep all .gitkeep
 !/**/.gitkeep
 
-# Wexample tmp
+# Wex tmp
 /tmp/*
 
 # Not versioned files, dead code, sources...
