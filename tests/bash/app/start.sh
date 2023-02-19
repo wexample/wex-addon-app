@@ -2,7 +2,9 @@
 
 appStartTest() {
   # Stop sites if exists
-  wex apps/stop
+  wex app::apps/stop
+
+  _appTest_checkAppsCount 0
 
   # Clear dir.
   _wexTestClearTempDir
@@ -17,6 +19,46 @@ appStartTest() {
   # Go to fist site
   cd "${WEX_TEST_DIR_TMP}test-app"
 
+  _wexLog "Start test app"
   # Start website
-  wex app/start
+  wex app::app/start
+
+  # Proxy server started.
+  _wexTestAssertEqual "$([[ $(docker ps -a | grep wex_server) != "" ]] && echo true || echo false)" "true"
+
+  # One line
+  _appTest_checkAppsCount 1
+
+  # Start website again
+  _wexLog "Start test app again"
+  wex app::app/start
+
+  # One line
+  _appTest_checkAppsCount 1
+
+  # Create a new test site if not exists.
+  _appTest_createApp "test-app-2"
+  # Go to second site
+  cd "${WEX_TEST_DIR_TMP}test-app-2"
+  # Start second site
+
+  _wexLog "Start second app"
+  wex app::app/start
+  _appTest_checkAppsCount 2
+
+  wex app::app/restart
+  _appTest_checkAppsCount 2
+
+  # Return to fist site
+  cd "${WEX_TEST_DIR_TMP}test-app"
+  _wexLog "Stop first site"
+
+  wex app::app/stop
+  _appTest_checkAppsCount 1
+
+  # Stop all sites
+  _wexLog "Stop all site (second site should remain)"
+
+  wex app::apps/stop
+  _appTest_checkAppsCount 0
 }

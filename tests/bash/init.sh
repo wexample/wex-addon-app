@@ -26,3 +26,24 @@ _appTest_createApp() {
 
   _wexTestAssertEqual "$([[ -d .wex ]] && echo true || echo false)" true
 }
+
+_appTest_checkAppsCount() {
+  _appTest_checkConfLines ${1} "apps"
+}
+
+_appTest_checkConfLines() {
+  local FILE_NAME=${2}
+  local COUNT=0
+
+  _wexLog "Check running in ${WEX_DIR_PROXY_TMP}${FILE_NAME}"
+  local EXPECTED=${1}
+
+  if [ -f ${WEX_PROXY_APPS_REGISTRY} ];then
+    COUNT=$(wex file/linesCount -i -f="${WEX_DIR_PROXY_TMP}${FILE_NAME}")
+  else
+    _wexLog "Server is stopped (no ${FILE_NAME} file)"
+  fi
+
+  _wexLog "Running ${FILE_NAME} count : ${COUNT}, expected ${EXPECTED}"
+  _wexTestAssertEqual "$([[ "${COUNT}" == "${EXPECTED}" ]] && echo true || echo false)" "true"
+}
