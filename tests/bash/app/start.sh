@@ -2,7 +2,7 @@
 
 appStartTest() {
   # Stop sites if exists
-  wex app::apps/stop
+  wex docker/stopAll
 
   _appTest_checkAppsCount 0
 
