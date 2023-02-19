@@ -8,7 +8,7 @@ _appTest_createApp() {
   cd "${WEX_TEST_DIR_TMP}"
 
   # Folder exists.
-  if [[ -d ${APP_TEST_FOLDER} ]];then
+  if [ -d "${APP_TEST_FOLDER}" ];then
     # Do not create.
     return
   fi
@@ -24,7 +24,7 @@ _appTest_createApp() {
 
   _wexLog "Test site created in "${APP_TEST_FOLDER}
 
-  _wexTestAssertEqual "$([[ -d .wex ]] && echo true || echo false)" true
+  _wexTestAssertEqual "$([ -d .wex ] && echo true || echo false)" true
 }
 
 _appTest_checkAppsCount() {

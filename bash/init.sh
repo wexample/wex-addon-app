@@ -37,3 +37,5 @@ _wexAppGoTo() {
 
   cd "${LOCATION}"
 }
+
+export -f _wexAppGoTo
