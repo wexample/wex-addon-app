@@ -11,8 +11,8 @@ appStop() {
   fi
   # Execute services scripts if exists
   wex app::hook/exec -c=appStop
-  # Write config file, indicates started=stop
-  wex app::config/write -s=false -nr
+  # Write config.
+  wex app::config/setValue -k=STARTED -v=false -vv
   # Use previously generated yml file.
   docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" down
   # Reload file

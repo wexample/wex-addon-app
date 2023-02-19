@@ -12,6 +12,15 @@ appStartArgs() {
 }
 
 appStart() {
+  if [ -f "${WEX_FILEPATH_REL_CONFIG_BUILD}" ];then
+    . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+
+    if [ "${STARTED}" = "true" ] && [[ $(wex app/started) == true ]];then
+      _wexLog "App already running"
+      return
+    fi
+  fi
+
   wex prompt::prompt/progress -nl -p=0 -s="Preparing"
 
   # Stop other sites.

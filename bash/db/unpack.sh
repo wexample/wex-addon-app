@@ -7,7 +7,7 @@ dbUnpackArgs() {
 }
 
 dbUnpack() {
-  if [[ -f ${DUMP} ]]; then
+  if [ -f "${DUMP}" ]; then
     DIR_CURRENT="$(realpath .)"
     cd $(dirname "${DUMP}")
 

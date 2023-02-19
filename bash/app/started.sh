@@ -3,7 +3,7 @@
 appStartedArgs() {
   _ARGUMENTS=(
     'dir d "App root directory" false .'
-    'ignore_containers ic "Do not check if containers are also started" false'
+    'ignore_containers ic "Do not check if containers are also started" false false'
   )
 }
 
@@ -20,8 +20,12 @@ appStarted() {
       if [ "${IGNORE_CONTAINERS}" != true ];then
         # At least one container should run.
         # Return true or false.
-        wex containers/started
-        return
+        STARTED=$(wex containers/started)
+
+        if [ "${STARTED}" = "false" ];then
+          echo false
+          return
+        fi
       fi
 
       # If proxy dont run, no app runs.
