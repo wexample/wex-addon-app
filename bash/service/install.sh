@@ -8,6 +8,14 @@ serviceInstallArgs() {
 }
 
 serviceInstall() {
+  local SERVICES
+  SERVICES=($(wex services/list))
+  SERVICES+=("${SERVICE}")
+  SERVICES=($(echo "${SERVICES[*]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
+  SERVICES=$(wex array/join -a="${SERVICES[*]}" -s=",")
+
+  wex app::config/setValue -b -k=SERVICES -v="$(wex array/join -a="${SERVICES}" -s=",")"
+
   local SERVICE_SAMPLE_DIR
   local SERVICE_SAMPLE_DIR_WEX
   local FILES

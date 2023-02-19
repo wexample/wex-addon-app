@@ -4,8 +4,6 @@ serviceInstallTest() {
   # Stop sites if exists
   wex docker/stopAll
 
-  _appTest_checkAppsCount 0
-
   # Clear dir.
   _wexTestClearTempDir
 
@@ -22,10 +20,22 @@ serviceInstallTest() {
   local SERVICES
   SERVICES=$(wex app::services/all)
 
-  for SERVICE in ${SERVICES[@]}
-  do
-    _wexLog "Installing service... ${SERVICE}"
-    wex app::service/install -s="${SERVICE}"
+  for SERVICE in ${SERVICES[@]}; do
+    if [[ "${SERVICE}" != "default" && "${SERVICE}" != "proxy" ]]; then
+      _wexLog "Installing service... ${SERVICE}"
+
+      wex app::service/install -s="${SERVICE}"
+
+      _wexLog "Starting app with new service"
+      wex app/start
+
+      _wex "Test service started : ${SERVICE}"
+      _wexTestAssertEqual "$(wex app/started)" true
+
+      wex app/stop
+
+      _wexLog "Remove service... ${SERVICE}"
+      wex app::service/remove
+    fi
   done
 }
-

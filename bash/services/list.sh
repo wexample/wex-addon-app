@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-serviceList() {
+servicesList() {
   local SERVICES
   # From config.
-  SERVICES=$(wex app::app/config -k=services)
+  SERVICES=$(wex app::app/config -k=SERVICES)
   # Split
   SERVICES=("$(wex default::string/split -t="${SERVICES}")")
   # Return

@@ -91,7 +91,7 @@ configWrite() {
 }
 
 _configWritePorts() {
-  local SERVICES=($(wex app::service/list))
+  local SERVICES=($(wex app::services/list))
   local PORT_CURRENT=1001
 
   # Assign free ports.
