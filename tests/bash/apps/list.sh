@@ -7,6 +7,6 @@ appsListTest() {
     sudo rm "${WEX_PROXY_APPS_REGISTRY}"
   fi
 
-  _wexTestAssertEqual "$(wex apps/list)" ""
+  _wexTestAssertEqual "$(wex-exec apps/list)" ""
 }
 

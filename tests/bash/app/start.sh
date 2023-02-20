@@ -2,7 +2,8 @@
 
 appStartTest() {
   # Stop sites if exists
-  wex docker/stopAll
+  wex-exec docker/stopAll
+  echo "" > "${WEX_PROXY_APPS_REGISTRY}"
 
   _appTest_checkAppsCount 0
 
@@ -21,7 +22,7 @@ appStartTest() {
 
   _wexLog "Start test app"
   # Start website
-  wex app::app/start
+  wex-exec app::app/start
 
   # Proxy server started.
   _wexTestAssertEqual "$([[ $(docker ps -a | grep wex_server) != "" ]] && echo true || echo false)" "true"
@@ -31,7 +32,7 @@ appStartTest() {
 
   # Start website again
   _wexLog "Start test app again"
-  wex app::app/start
+  wex-exec app::app/start
 
   # One line
   _appTest_checkAppsCount 1
@@ -43,22 +44,22 @@ appStartTest() {
   # Start second site
 
   _wexLog "Start second app"
-  wex app::app/start
+  wex-exec app::app/start
   _appTest_checkAppsCount 2
 
-  wex app::app/restart
+  wex-exec app::app/restart
   _appTest_checkAppsCount 2
 
   # Return to fist site
   cd "${WEX_TEST_DIR_TMP}test-app"
   _wexLog "Stop first site"
 
-  wex app::app/stop
+  wex-exec app::app/stop
   _appTest_checkAppsCount 1
 
   # Stop all sites
   _wexLog "Stop all site (second site should remain)"
 
-  wex app::apps/stop
+  wex-exec app::apps/stop
   _appTest_checkAppsCount 0
 }

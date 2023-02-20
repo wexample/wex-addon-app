@@ -3,9 +3,9 @@
 servicesList() {
   local SERVICES
   # From config.
-  SERVICES=$(wex app::app/config -k=SERVICES)
+  SERVICES=$(wex-exec app::app/config -k=SERVICES)
   # Split
-  SERVICES=("$(wex default::string/split -t="${SERVICES}")")
+  SERVICES=("$(wex-exec default::string/split -t="${SERVICES}")")
   # Return
   echo "${SERVICES[*]}"
 }

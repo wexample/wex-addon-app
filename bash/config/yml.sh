@@ -10,7 +10,7 @@ configYmlArgs() {
 configYml() {
   # Allow specified file
   if [ "${FILE_COMPOSE_YML}" = "" ]; then
-    FILE_COMPOSE_YML=$(wex app::app/locate -d="${DIR}")${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}
+    FILE_COMPOSE_YML=$(wex-exec app::app/locate -d="${DIR}")${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}
   fi;
 
   if [ ! -f "${FILE_COMPOSE_YML}" ];then
@@ -18,5 +18,5 @@ configYml() {
   fi
 
   # Parse yml file built by docker compose.
-  wex language::yml/parseFile -f="${FILE_COMPOSE_YML}"
+  wex-exec language::yml/parseFile -f="${FILE_COMPOSE_YML}"
 }

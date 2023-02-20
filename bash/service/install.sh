@@ -9,18 +9,18 @@ serviceInstallArgs() {
 
 serviceInstall() {
   local SERVICES
-  SERVICES=($(wex services/list))
+  SERVICES=($(wex-exec services/list))
   SERVICES+=("${SERVICE}")
   SERVICES=($(echo "${SERVICES[*]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
-  SERVICES=$(wex array/join -a="${SERVICES[*]}" -s=",")
+  SERVICES=$(wex-exec array/join -a="${SERVICES[*]}" -s=",")
 
-  wex app::config/setValue -b -k=SERVICES -v="$(wex array/join -a="${SERVICES}" -s=",")"
+  wex-exec app::config/setValue -b -k=SERVICES -v="$(wex-exec array/join -a="${SERVICES}" -s=",")"
 
   local SERVICE_SAMPLE_DIR
   local SERVICE_SAMPLE_DIR_WEX
   local FILES
 
-  SERVICE_SAMPLE_DIR="$(wex service/dir -s="${SERVICE}")samples/"
+  SERVICE_SAMPLE_DIR="$(wex-exec service/dir -s="${SERVICE}")samples/"
   SERVICE_SAMPLE_DIR_WEX="${SERVICE_SAMPLE_DIR}.wex/"
 
   # Copy all files from samples
@@ -56,7 +56,7 @@ serviceInstall() {
     done
   fi
 
-  wex service/exec -s="${SERVICE}" -c=serviceInstall
+  wex-exec service/exec -s="${SERVICE}" -c=serviceInstall
 }
 
 serviceInstallMergeYml() {

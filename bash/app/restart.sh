@@ -11,18 +11,18 @@ appRestartArgs() {
 
 appRestart() {
   # Prevent unwanted restart.
-  if [ "${IF_STARTED}" = "true" ] && [ "$(wex app::app/started -ic)" != true ];then
+  if [ "${IF_STARTED}" = "true" ] && [ "$(wex-exec app::app/started -ic)" != true ];then
     return
   fi
 
   local WEX_ARGUMENTS_BKP=${WEX_ARGUMENTS}
 
-  wex app::app/stop
+  wex-exec app::app/stop
 
   # Remove local config file
   if [ -f "${WEX_FILEPATH_REL_CONFIG_BUILD}" ]; then
       rm "${WEX_FILEPATH_REL_CONFIG_BUILD}"
   fi
 
-  wex app::app/start "${WEX_ARGUMENTS_BKP}" -u="${USER}"
+  wex-exec app::app/start "${WEX_ARGUMENTS_BKP}" -u="${USER}"
 }

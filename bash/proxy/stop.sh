@@ -7,12 +7,12 @@ proxyStopArgs() {
 proxyStop() {
   # Stop all sites
   if [ -f "${WEX_PROXY_APPS_REGISTRY}" ];then
-    wex app::apps/stop
+    wex-exec app::apps/stop
   fi
 
   cd "${WEX_DIR_PROXY}"
 
-  wex app::app/stop
+  wex-exec app::app/stop
 
   # Remove temp files
   echo "" > "${WEX_PROXY_APPS_REGISTRY}"

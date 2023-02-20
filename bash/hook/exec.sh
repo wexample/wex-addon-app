@@ -8,6 +8,6 @@ hookExecArgs() {
 }
 
 hookExec() {
-  wex app::service/exec -c="${COMMAND}" -a="${ARGS}"
-  wex app::script/exec -c="${COMMAND}" -a="${ARGS}"
+  wex-exec app::service/exec -c="${COMMAND}" -a="${ARGS}"
+  wex-exec app::script/exec -c="${COMMAND}" -a="${ARGS}"
 }

@@ -15,11 +15,11 @@ appsStop() {
   for SITE_PATH in ${REGISTRY[@]}
   do
     # Avoid blank lines."
-    if [ "$(wex string/trim -s="${SITE_PATH}")" != "" ];then
+    if [ "$(wex-exec string/trim -s="${SITE_PATH}")" != "" ];then
       # Keep wex_server alive.
       if [ "$(basename "${SITE_PATH}")" != "${WEX_PROXY_NAME}" ];then
         cd "${SITE_PATH}"
-        wex app::app/stop
+        wex-exec app::app/stop
       fi
     fi
   done;

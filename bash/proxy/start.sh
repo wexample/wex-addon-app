@@ -10,7 +10,7 @@ proxyStartArgs() {
 
 proxyStart() {
   # Check if running.
-  if [ "$(wex app::proxy/started -ic)" = true ]; then
+  if [ "$(wex-exec app::proxy/started -ic)" = true ]; then
     return;
   fi
 
@@ -30,29 +30,29 @@ proxyStart() {
   # Check if a process is using port 80 for proxy (or given port)
   local PROCESSES
   PROCESSES=$(sudo netstat -tulpn | grep ":${PORT}")
-  if [ "$(wex system::port/used -p="${PORT}")" = "true" ];then
+  if [ "$(wex-exec system::port/used -p="${PORT}")" = "true" ];then
     _wexError "A process is already running on proxy port ${PORT}"
     sudo netstat -tunlp | grep ":${PORT} "
     exit
   fi
 
   if [ ! -d "${WEX_DIR_PROXY}.wex" ];then
-    wex app::prompt/chooseEnv -q="Choose env name for proxy server"
+    wex-exec app::prompt/chooseEnv -q="Choose env name for proxy server"
 
     local NEW_ENV
-    NEW_ENV=$(wex prompt::prompt/choiceGetValue)
+    NEW_ENV=$(wex-exec prompt::prompt/choiceGetValue)
 
     if [ -z "${NEW_ENV}" ]; then
       exit
     fi
 
-    wex app::app/init -s=proxy -e="${NEW_ENV}" -n="${WEX_PROXY_NAME}" --git=false
+    wex-exec app::app/init -s=proxy -e="${NEW_ENV}" -n="${WEX_PROXY_NAME}" --git=false
   fi
 
   export WEX_SERVER_PORT_PUBLIC=${PORT}
 
   _wexLog "Starting proxy app"
-  wex app::app/start -u="${USER}"
+  wex-exec app::app/start -u="${USER}"
 
   # Wait starting.
   _wexLog "Waiting for proxy start..."

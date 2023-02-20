@@ -11,9 +11,9 @@ appInitArgs() {
 }
 
 appInit() {
-  local RENDER_BAR='wex prompt/progress '
+  local RENDER_BAR='wex-exec prompt/progress '
   # Status
-  wex prompt/progress -p=0 -s="Init variables"
+  wex-exec prompt/progress -p=0 -s="Init variables"
 
   local DIR_APP=./
 
@@ -23,27 +23,27 @@ appInit() {
     NAME="$(basename "$(realpath "${DIR_APP}")")"
   fi;
 
-  NAME=$(wex string/toSnake -t="${NAME}")
+  NAME=$(wex-exec string/toSnake -t="${NAME}")
 
   _wexLog "Using name ${NAME}"
 
   local APP_DIR_DOCKER=${WEX_DIR_APP_DATA}"docker/"
 
   # Split services
-  local SERVICES_JOINED=$(wex app::service/tree -s="${SERVICES}")
+  local SERVICES_JOINED=$(wex-exec app::service/tree -s="${SERVICES}")
   local SERVICES=$(echo "${SERVICES_JOINED}" | tr "," "\n")
 
   # Check services exists
   for SERVICE in ${SERVICES[@]}
   do
-    if [ ! -d "$(wex app::service/dir -s="${SERVICE}")" ];then
+    if [ ! -d "$(wex-exec app::service/dir -s="${SERVICE}")" ];then
       _wexError "Service missing ${SERVICE}"
       exit
     fi
   done
 
   # Status
-  wex prompt/progress -p=10 -s="Copying base samples files"
+  wex-exec prompt/progress -p=10 -s="Copying base samples files"
 
   # Copy base site files.
   local SAMPLE_APP_DIR=${WEX_DIR_ADDONS}app/samples/app/
@@ -56,13 +56,13 @@ appInit() {
   fi
 
   local WEX_VERSION
-  WEX_VERSION=$(wex core/version)
+  WEX_VERSION=$(wex-exec core/version)
 
   if [ "${DOMAINS}" != "" ];then
-    local DOMAINS_SPLIT=$(wex default::string/split -t="${DOMAINS}" -s=",")
+    local DOMAINS_SPLIT=$(wex-exec default::string/split -t="${DOMAINS}" -s=",")
     local DOMAINS_MAIN=${DOMAINS_SPLIT[0]}
   else
-    local DOMAINS_MAIN=$(wex string/toKebab -t="${NAME}").wex
+    local DOMAINS_MAIN=$(wex-exec string/toKebab -t="${NAME}").wex
     local DOMAINS=${DOMAINS_MAIN}
   fi
 
@@ -94,12 +94,12 @@ appInit() {
   do
      # Status
     _wexLog "Installing service : ${SERVICE}"
-    wex service/install -s="${SERVICE}" -g="${GIT}"
+    wex-exec service/install -s="${SERVICE}" -g="${GIT}"
   done
 
   # GIT Common settings
   _wexLog "Initializing Git settings"
-  wex prompt/progress -p=30 -s="Init GIT repo"
+  wex-exec prompt/progress -p=30 -s="Init GIT repo"
   if [ -f "${DIR_APP_DATA}.gitignore.source" ];then
     mv "${DIR_APP_DATA}.gitignore.source" "${DIR_APP_DATA}.gitignore"
   fi
@@ -107,21 +107,21 @@ appInit() {
   # Init GIT repo
   if [ "${GIT}" = true ];then
     # Status
-    wex prompt/progress -p=50 -s="Install GIT"
+    wex-exec prompt/progress -p=50 -s="Install GIT"
     # Create a GIT repo if not exists.
     git init
   fi
 
   # Status
-  wex prompt/progress -p=80 -s="Init services"
+  wex-exec prompt/progress -p=80 -s="Init services"
 
   # Init
-  wex hook/exec -c=appInit
+  wex-exec hook/exec -c=appInit
 
   # Status
-  wex prompt/progress -p=100 -s="Done !"
+  wex-exec prompt/progress -p=100 -s="Done !"
 
   if [ "${NEW_NAME}" != "${WEX_PROXY_NAME}" ];then
-    _wexMessage "Your app is initialized as ${NEW_NAME}" "You may start install process using :" "wex app/start"
+    _wexMessage "Your app is initialized as ${NEW_NAME}" "You may start install process using :" "wex-exec app/start"
   fi
 }

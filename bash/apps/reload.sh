@@ -14,7 +14,7 @@ appsReload() {
   local APPS_PATHS_FILTERED=()
   local APPS_LIST=""
 
-  if [ "$(wex proxy/started)" = true ];then
+  if [ "$(wex-exec proxy/started)" = true ];then
     for APP_PATH in ${APPS_PATHS[@]}
     do
       local EXISTS=false
@@ -34,7 +34,7 @@ appsReload() {
         . "${CONFIG}"
 
         if [ "${EXISTS}" = false ] && [ "${STARTED}" = true ];then
-          if [ "$(wex app::app/started -d="${APP_PATH}")" = true ];then
+          if [ "$(wex-exec app::app/started -d="${APP_PATH}")" = true ];then
             APPS_PATHS_FILTERED+=(${APP_PATH})
             APPS_LIST+="\n"${APP_PATH}
           fi

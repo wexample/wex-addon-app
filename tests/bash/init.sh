@@ -18,9 +18,9 @@ _appTest_createApp() {
 
   _wexLog "Create test site in ${APP_TEST_FOLDER} with services : ${SERVICES[@]}"
 
-  wex app::app/init -s="${SERVICES}"
+  wex-exec app::app/init -s="${SERVICES}"
 
-  wex app::service/exec -c="test"
+  wex-exec app::service/exec -c="test"
 
   _wexLog "Test site created in "${APP_TEST_FOLDER}
 
@@ -39,7 +39,7 @@ _appTest_checkConfLines() {
   local EXPECTED=${1}
 
   if [ -f ${WEX_PROXY_APPS_REGISTRY} ];then
-    COUNT=$(wex file/linesCount -i -f="${WEX_DIR_PROXY_TMP}${FILE_NAME}")
+    COUNT=$(wex-exec file/linesCount -i -f="${WEX_DIR_PROXY_TMP}${FILE_NAME}")
   else
     _wexLog "Server is stopped (no ${FILE_NAME} file)"
   fi

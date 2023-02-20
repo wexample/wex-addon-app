@@ -15,10 +15,10 @@ configBindFiles() {
   local NAMES_PROCESSED=()
 
   # Get site env name.
-  local APP_ENV=$(wex app::app/env)
+  local APP_ENV=$(wex-exec app::app/env)
 
   for FILE in ${SECTION_FILES[@]};do
-    SPLIT=($(wex default::string/split -s="." -t="${FILE}"))
+    SPLIT=($(wex-exec default::string/split -s="." -t="${FILE}"))
     BASE_NAME=${SPLIT[0]}
 
     # Base file ex container.ext
@@ -49,12 +49,12 @@ configBindFiles() {
       CONF_VAR_NAME=(${CONF_VAR_NAME})
       # Append folder name in second position
       CONF_VAR_NAME="${SPLIT[0]} ${SECTION} ${CONF_VAR_NAME[@]:1}"
-      CONF_VAR_NAME=$(wex array/join -a="${CONF_VAR_NAME}" -s="_")
+      CONF_VAR_NAME=$(wex-exec array/join -a="${CONF_VAR_NAME}" -s="_")
       CONF_VAR_NAME="CONF_"${CONF_VAR_NAME^^}
       local FILE=$(realpath ${FOLDER}'/'${FILE})
 
       # Not already found.
-      wex app::config/setValue -k="${CONF_VAR_NAME}" -v="${FILE}"
+      wex-exec app::config/setValue -k="${CONF_VAR_NAME}" -v="${FILE}"
     fi
   done
 }

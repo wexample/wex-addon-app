@@ -8,7 +8,7 @@ dbDumpArgs() {
 }
 
 dbDump() {
-  if [ "$(wex app::app/started -ic)" = "false" ];then
+  if [ "$(wex-exec app::app/started -ic)" = "false" ];then
     return
   fi
 
@@ -22,7 +22,7 @@ dbDump() {
   else
     # Build dump name.
     local DUMP_FILE_NAME
-    DUMP_FILE_NAME=${APP_ENV}'-'${APP_NAME}"-"$(wex date/timeFileName)
+    DUMP_FILE_NAME=${APP_ENV}'-'${APP_NAME}"-"$(wex-exec date/timeFileName)
     if [ "${TAG}" != "" ];then
       DUMP_FILE_NAME+="-"${TAG}
     fi
@@ -30,7 +30,7 @@ dbDump() {
 
   # Create dump file.
   _wexLog "Exporting dump"
-  local DUMP_PATH=$(wex hook/exec -c=dbDump -a="${DUMP_FILE_NAME}")
+  local DUMP_PATH=$(wex-exec hook/exec -c=dbDump -a="${DUMP_FILE_NAME}")
 
   # Zip dump file.
   _wexLog "Creating zip file"
@@ -43,7 +43,7 @@ dbDump() {
   cd "${DIR_CURRENT}"
 
   # Cleaning up
-  wex file/remove -f="${DUMP_PATH}"
+  wex-exec file/remove -f="${DUMP_PATH}"
 
   _wexLog "Output dump : ${DUMP_FILE_NAME}.zip"
 }

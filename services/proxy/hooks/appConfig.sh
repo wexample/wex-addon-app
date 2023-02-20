@@ -7,7 +7,7 @@ proxyAppConfigArgs() {
 proxyAppConfig() {
   _wexLog "Proxy : configuration"
   printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
-  wex app::config/addTitle -t="Proxy\n"
+  wex-exec app::config/addTitle -t="Proxy\n"
 
   local WEX_SERVER_PORT_PUBLIC
 
@@ -26,7 +26,7 @@ proxyAppConfig() {
     _wexError "A process is already running on port ${WEX_SERVER_PORT_PUBLIC}"
     echo "${PROCESSES}"
 
-    wex var/set -n=PROXY_ERROR -v=ERR_PORT_NOT_AVAILABLE
+    wex-exec var/set -n=PROXY_ERROR -v=ERR_PORT_NOT_AVAILABLE
     exit
   fi
 
@@ -35,11 +35,11 @@ proxyAppConfig() {
   local WEX_DOCKER_MACHINE_IP
   local WEX_IMAGES_VERSION
 
-  WEX_DOCKER_MACHINE_IP=$(wex docker::docker/ip)
-  WEX_IMAGES_VERSION=$(wex core/version)
+  WEX_DOCKER_MACHINE_IP=$(wex-exec docker::docker/ip)
+  WEX_IMAGES_VERSION=$(wex-exec core/version)
 
-  wex app::config/setValue -k=WEX_DOCKER_MACHINE_IP -v="${WEX_DOCKER_MACHINE_IP}"
-  wex app::config/setValue -k=WEX_DIR_TMP -v="${WEX_DIR_TMP}"
-  wex app::config/setValue -k=WEX_IMAGES_VERSION -v="${WEX_IMAGES_VERSION}"
-  wex app::config/setValue -k=WEX_SERVER_PORT_PUBLIC -v="${WEX_SERVER_PORT_PUBLIC}"
+  wex-exec app::config/setValue -k=WEX_DOCKER_MACHINE_IP -v="${WEX_DOCKER_MACHINE_IP}"
+  wex-exec app::config/setValue -k=WEX_DIR_TMP -v="${WEX_DIR_TMP}"
+  wex-exec app::config/setValue -k=WEX_IMAGES_VERSION -v="${WEX_IMAGES_VERSION}"
+  wex-exec app::config/setValue -k=WEX_SERVER_PORT_PUBLIC -v="${WEX_SERVER_PORT_PUBLIC}"
 }

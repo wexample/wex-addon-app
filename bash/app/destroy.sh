@@ -4,11 +4,11 @@ appDestroy() {
   _wexAppGoTo
 
   # Ensure app is stopped
-  wex app/stop
+  wex-exec app/stop
 
   # Execute hooks.
-  wex app::hook/exec -c=appDestroy
+  wex-exec app::hook/exec -c=appDestroy
 
   # Removing key method does not support custom separator for now.
-  wex app::config/setValue -b -k=APP_INITIALIZED -v=false
+  wex-exec app::config/setValue -b -k=APP_INITIALIZED -v=false
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 appImport() {
-  wex hook/exec -c=appImport
+  wex-exec hook/exec -c=appImport
 }

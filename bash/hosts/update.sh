@@ -4,14 +4,14 @@ hostsUpdate() {
   _wexLog "Updating wex hosts registry"
 
   # Rebuild hosts file
-  local IP=$(wex docker/ip)
+  local IP=$(wex-exec docker/ip)
   local REGISTRY=$(cat "${WEX_PROXY_APPS_REGISTRY}")
   local HOSTS_FILE=""
   local DIR=""
 
   for DIR in ${REGISTRY[@]}
   do
-    local DOMAINS=($(wex app::app/domains -d=${DIR}))
+    local DOMAINS=($(wex-exec app::app/domains -d=${DIR}))
     local DOMAIN=""
 
     for DOMAIN in ${DOMAINS[@]}

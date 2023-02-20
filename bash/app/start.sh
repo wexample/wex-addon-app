@@ -15,7 +15,7 @@ appStart() {
   if [ -f "${WEX_FILEPATH_REL_CONFIG_BUILD}" ];then
     . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
-    if [ "${STARTED}" = "true" ] && [[ $(wex app/started) == true ]];then
+    if [ "${STARTED}" = "true" ] && [[ $(wex-exec app/started) == true ]];then
       _wexLog "App already running"
       return
     fi
@@ -162,8 +162,9 @@ appStart() {
   wex-exec app::app/perms
 
   wex-exec prompt::prompt/progress -nl -p=85 -s="Serving app"
-  wex-exec app::app/serve
 
+  wex-exec app::app/serve
+  exit
   _appStartSuccess
 }
 
@@ -237,9 +238,9 @@ _appStartSuccess() {
     echo ""
     echo "      You are in a local environment, so you might want"
     echo "      to run now some of this dev methods :"
-    echo "        wex watcher/start"
-    echo "        wex app/serve"
-    echo "        wex app/go"
+    echo "        wex-exec watcher/start"
+    echo "        wex-exec app/serve"
+    echo "        wex-exec app/go"
     echo ""
   fi
 }

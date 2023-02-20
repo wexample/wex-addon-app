@@ -15,12 +15,12 @@ appStarted() {
     _wexAppGoTo "${DIR}" && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
     # Started && into server
-    if [ "${STARTED}" = true ] && [ "$(wex file/lineExists -f="${WEX_PROXY_APPS_REGISTRY}" -l="$(realpath "${DIR}")/")" = true ];then
+    if [ "${STARTED}" = true ] && [ "$(wex-exec file/lineExists -f="${WEX_PROXY_APPS_REGISTRY}" -l="$(realpath "${DIR}")/")" = true ];then
       # Check if containers are started if expected.
       if [ "${IGNORE_CONTAINERS}" != true ];then
         # At least one container should run.
         # Return true or false.
-        STARTED=$(wex containers/started)
+        STARTED=$(wex-exec containers/started)
 
         if [ "${STARTED}" = "false" ];then
           echo false
@@ -29,7 +29,7 @@ appStarted() {
       fi
 
       # If proxy dont run, no app runs.
-      if [ "$(wex app::proxy/started)" = false ];then
+      if [ "$(wex-exec app::proxy/started)" = false ];then
         echo false
         return
       fi

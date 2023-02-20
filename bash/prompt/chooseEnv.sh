@@ -9,8 +9,8 @@ promptChooseEnvArgs() {
 promptChooseEnv() {
   # Build envs list.
   local ALLOWED_ENV="${WEX_APPS_ENVIRONMENTS[*]}";
-  ALLOWED_ENV=$(wex array/join -a="${ALLOWED_ENV}" -s=",")
+  ALLOWED_ENV=$(wex-exec array/join -a="${ALLOWED_ENV}" -s=",")
 
   # Ask user.
-  wex prompt::prompt/choice -c="${ALLOWED_ENV}" -q="${QUESTION}"
+  wex-exec prompt::prompt/choice -c="${ALLOWED_ENV}" -q="${QUESTION}"
 }

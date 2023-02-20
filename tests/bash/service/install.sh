@@ -24,13 +24,13 @@ serviceInstallTest() {
     if [[ "${SERVICE}" != "default" && "${SERVICE}" != "proxy" ]]; then
       _wexLog "Installing service... ${SERVICE}"
 
-      wex app::service/install -s="${SERVICE}"
+      wex-exec app::service/install -s="${SERVICE}"
 
       _wexLog "Starting app with new service"
-      wex app/start
+      wex-exec app/start
 
       _wexLog "Test service started : ${SERVICE}"
-      _wexTestAssertEqual "$(wex app/started)" true
+      _wexTestAssertEqual "$(wex-exec app/started)" true
 
       local TAGS=""
       local SERVICE_CONFIG="$(wex-exec app::service/dir -s="${SERVICE}")${WEX_FILE_SERVICE_CONFIG}"

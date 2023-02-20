@@ -18,7 +18,7 @@ serviceTree() {
 
     SERVICES_JOINED+=${SERVICE}
 
-    local SERVICE_CONFIG="$(wex app::service/dir -s="${SERVICE}")${WEX_FILE_SERVICE_CONFIG}"
+    local SERVICE_CONFIG="$(wex-exec app::service/dir -s="${SERVICE}")${WEX_FILE_SERVICE_CONFIG}"
 
     if [ -f "${SERVICE_CONFIG}" ];then
       local DEPENDENCIES=false
@@ -27,7 +27,7 @@ serviceTree() {
       . "${SERVICE_CONFIG}"
       if [ "${DEPENDENCIES}" != "false" ];then
 
-        SERVICES_JOINED+=','$(wex service/tree -s=${DEPENDENCIES})
+        SERVICES_JOINED+=','$(wex-exec service/tree -s=${DEPENDENCIES})
       fi
     fi
   done

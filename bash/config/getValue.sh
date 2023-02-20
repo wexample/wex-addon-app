@@ -17,5 +17,5 @@ configGetValue() {
     FILE=${WEX_FILEPATH_REL_CONFIG_BUILD}
   fi
 
-  wex default::config/getValue -f="${FILE}" -s="=" -k="${KEY}"
+  wex-exec default::config/getValue -f="${FILE}" -s="=" -k="${KEY}"
 }

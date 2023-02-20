@@ -9,7 +9,7 @@ appIssetArgs() {
 }
 
 appIsset() {
-  if [ "$(wex app::app/locate -d="${DIR}")" != "" ]; then
+  if [ "$(wex-exec app::app/locate -d="${DIR}")" != "" ]; then
     echo "true"
   else
     if [ "${ERROR}" = "true" ]; then

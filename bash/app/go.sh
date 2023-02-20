@@ -18,9 +18,9 @@ appGo() {
 
   CONTAINER_NAME=${CONTAINER_NAME:-${MAIN_CONTAINER_NAME}}
 
-  CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME}")
+  CONTAINER=$(wex-exec app::app/container -c="${CONTAINER_NAME}")
 
-  COMMAND_GO=$(wex hook/exec -c=appGo -a="${CONTAINER_NAME}" --quiet)
+  COMMAND_GO=$(wex-exec hook/exec -c=appGo -a="${CONTAINER_NAME}" --quiet)
 
   if [[ ${SUPER_USER} == true ]];then
     USER_UID=0

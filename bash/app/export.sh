@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 appExport() {
-  wex hook/exec -c=appExport
+  wex-exec hook/exec -c=appExport
 }

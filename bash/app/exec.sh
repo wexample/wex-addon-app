@@ -14,19 +14,19 @@ appExecArgs() {
 }
 
 appExec() {
-  if [ "$(wex app::app/started -ic)" = "false" ];then
+  if [ "$(wex-exec app::app/started -ic)" = "false" ];then
     return
   fi
 
   _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # Use default container if missing
-  local CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME}")
+  local CONTAINER=$(wex-exec app::app/container -c="${CONTAINER_NAME}")
   local COMMAND_GO=":"
 
   CONTAINER_NAME=${CONTAINER_NAME:-${MAIN_CONTAINER_NAME}}
 
-  CONTAINER=$(wex app::app/container -c="${CONTAINER_NAME}")
+  CONTAINER=$(wex-exec app::app/container -c="${CONTAINER_NAME}")
 
   local ARGS=""
   if [ "${NON_INTERACTIVE}" != true ];then
@@ -49,7 +49,7 @@ appExec() {
   SHELL_COMMAND=${SHELL_COMMAND:-/bin/bash}
 
   if [ "${LOCALIZED}" == true ];then
-    local COMMAND_GO=$(wex hook/exec -c=appGo -a="${CONTAINER_NAME}" --quiet)
+    local COMMAND_GO=$(wex-exec hook/exec -c=appGo -a="${CONTAINER_NAME}" --quiet)
     COMMAND="${COMMAND_GO} && ${EXEC_COMMAND}"
   else
     COMMAND="${EXEC_COMMAND}"

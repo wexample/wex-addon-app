@@ -11,14 +11,14 @@ serviceRemove() {
 
   if [ "${SERVICES}" != "" ];then
     # Split to array
-    SERVICES=$(wex string/split -t=${SERVICES} -s=",")
+    SERVICES=$(wex-exec string/split -t=${SERVICES} -s=",")
     # One line
     SERVICES=$(echo ${SERVICES[@]})
     # Remove service
-    SERVICES=$(wex array/remove -a="${SERVICES[*]}" -i="${SERVICE}")
+    SERVICES=$(wex-exec array/remove -a="${SERVICES[*]}" -i="${SERVICE}")
     # Save joined.
-    wex app::config/setValue -b -k=SERVICES -v="$(wex array/join -a="${SERVICES}" -s=",")"
+    wex-exec app::config/setValue -b -k=SERVICES -v="$(wex-exec array/join -a="${SERVICES}" -s=",")"
   fi
 
-  wex service/exec -s="${SERVICE}" -c=serviceRemove
+  wex-exec service/exec -s="${SERVICE}" -c=serviceRemove
 }

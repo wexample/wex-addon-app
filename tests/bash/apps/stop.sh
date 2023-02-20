@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 appsStopTest() {
-  _wexTestAssertEqual "$(wex apps/list)" ""
+  _wexTestAssertEqual "$(wex-exec apps/list)" ""
 }
 
