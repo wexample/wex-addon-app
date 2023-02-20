@@ -164,7 +164,7 @@ appStart() {
   wex-exec prompt::prompt/progress -nl -p=85 -s="Serving app"
 
   wex-exec app::app/serve
-  exit
+
   _appStartSuccess
 }
 
