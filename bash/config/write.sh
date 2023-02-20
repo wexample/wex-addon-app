@@ -32,7 +32,7 @@ configWrite() {
   fi
 
   local APP_ENV
-  APP_ENV=$(wex app::app/env)
+  APP_ENV=$(wex-exec app::app/env)
 
   local APP_ENV_UPPER=${APP_ENV^^}
   local DOMAINS=$(eval 'echo ${'"${APP_ENV_UPPER}"'_DOMAINS}')
@@ -54,7 +54,7 @@ configWrite() {
   APP_CONFIG_FILE_CONTENT+="\n\n# Environment related"
   APP_CONFIG_FILE_CONTENT+="\nDOMAIN_MAIN=${DOMAIN_MAIN}"
   APP_CONFIG_FILE_CONTENT+="\nDOMAINS=${DOMAINS}"
-  APP_CONFIG_FILE_CONTENT+="\nHOST_IP=$(wex system/ip)"
+  APP_CONFIG_FILE_CONTENT+="\nHOST_IP=$(wex-exec system/ip)"
   APP_CONFIG_FILE_CONTENT+="\nEMAIL=$(eval 'echo ${'"${APP_ENV_UPPER}"'_EMAIL}')"
 
   APP_CONFIG_FILE_CONTENT+="\n\n# User"
@@ -73,13 +73,13 @@ configWrite() {
   _configWritePorts
 
   _wexLog "Calling config hooks"
-  wex app::hook/exec -c=appConfig
+  wex-exec app::hook/exec -c=appConfig
 
   # In case we are on non unix system.
-  wex file/convertLinesToUnix -f="${WEX_FILEPATH_REL_CONFIG_BUILD}" &>/dev/null
+  wex-exec file/convertLinesToUnix -f="${WEX_FILEPATH_REL_CONFIG_BUILD}" &>/dev/null
 
   printf "\n" >>"${WEX_FILEPATH_REL_CONFIG_BUILD}"
-  wex app::config/addTitle -t="Compose files\n"
+  wex-exec app::config/addTitle -t="Compose files\n"
 
   _wexLog "Importing global app config variables"
   printf "\n" >>"${WEX_FILEPATH_REL_CONFIG_BUILD}"
@@ -87,16 +87,16 @@ configWrite() {
 
   # Create docker-compose.build.yml
   _wexLog "Building ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}"
-  wex app::app/compose -c=config | tee "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" >/dev/null
+  wex-exec app::app/compose -c=config | tee "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" >/dev/null
 }
 
 _configWritePorts() {
-  local SERVICES=($(wex app::services/list))
+  local SERVICES=($(wex-exec app::services/list))
   local PORT_CURRENT=1001
 
   # Assign free ports.
   for SERVICE in ${SERVICES[@]}; do
-    local VAR_NAME=SERVICE_PORT_$(wex string/toScreamingSnake -t="${SERVICE}")
+    local VAR_NAME=SERVICE_PORT_$(wex-exec string/toScreamingSnake -t="${SERVICE}")
 
     # Avoid used ports.
     while [[ " ${PORTS_USED_ARRAY[@]} " =~ " ${PORT_CURRENT} " ]]; do
@@ -104,7 +104,7 @@ _configWritePorts() {
     done
 
     # Assign port to variable
-    wex app::config/setValue -k="${VAR_NAME}" -v="${PORT_CURRENT}" -vv
+    wex-exec app::config/setValue -k="${VAR_NAME}" -v="${PORT_CURRENT}" -vv
 
     if [ "${PORTS_USED_CURRENT}" != '' ]; then
       PORTS_USED_CURRENT+=${SEPARATOR}

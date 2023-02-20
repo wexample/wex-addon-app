@@ -6,21 +6,21 @@ appStopArgs() {
 
 appStop() {
   # Already stopped
-  if [ "$(wex app::app/started -ic)" = false ];then
+  if [ "$(wex-exec app::app/started -ic)" = false ];then
     return
   fi
   # Execute services scripts if exists
-  wex app::hook/exec -c=appStop
+  wex-exec app::hook/exec -c=appStop
   # Write config.
-  wex app::config/setValue -k=STARTED -v=false -vv
+  wex-exec app::config/setValue -k=STARTED -v=false -vv
   # Use previously generated yml file.
   docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" down
   # Reload file
-  wex app::apps/reload
+  wex-exec app::apps/reload
   # Rebuild hosts in wex registry.
-  wex app::hosts/update
+  wex-exec app::hosts/update
   # Rebuild hosts global /etc/hosts.
-  wex app::hosts/updateLocal
+  wex-exec app::hosts/updateLocal
   # Execute services scripts if exists
-  wex hook/exec -c=appStopped
+  wex-exec hook/exec -c=appStopped
 }
