@@ -8,6 +8,7 @@ serviceExecArgs() {
     'data d "Data" false'
     'parse p "Parse output variables" false'
     'args a "Arguments to pass to script" false'
+    'test t "Execute test instead hook" false false'
   )
 }
 
@@ -18,20 +19,35 @@ serviceExec() {
   if [ "${SERVICE_ONLY}" != "" ] && [ "${SERVICE_ONLY_FORCED}" = "true" ];then
     local SERVICES=("${SERVICE_ONLY}")
   else
-    local SERVICES=($(wex app::services/list))
+    local SERVICES=($(wex-exec app::services/list))
   fi
 
-  COMMAND_UC=$(wex default::string/toPascal -t="${COMMAND}")
+  local COMMAND_UC
+  COMMAND_UC=$(wex-exec default::string/toPascal -t="${COMMAND}")
 
   for SERVICE in ${SERVICES[@]}
   do
-    if [ "${SERVICE_ONLY}" == "" ] || [ "${SERVICE_ONLY}" == "${SERVICE}" ];then
-      local SERVICE_DIR=$(wex service/dir -s="${SERVICE}")
-      local SERVICE_FILE_SCRIPT="${SERVICE_DIR}hooks/${COMMAND}.sh"
+    if [ "${SERVICE_ONLY}" = "" ] || [ "${SERVICE_ONLY}" = "${SERVICE}" ];then
+      local SERVICE_DIR=$(wex-exec service/dir -s="${SERVICE}")
+      local SERVICE_FILE_SCRIPT
+      local METHOD
+      METHOD=$(wex-exec string/toCamel -t="${SERVICE}")${COMMAND_UC}
+
+      if [ "${TEST}" = "true" ];then
+        SERVICE_FILE_SCRIPT="${SERVICE_DIR}tests/${COMMAND}.sh"
+        METHOD+=Test
+
+        # Tests does not support missing files.
+        if [ ! -f "${SERVICE_FILE_SCRIPT}" ];then
+          _wexTestResultError "Missing test file : ${SERVICE_FILE_SCRIPT}"
+          exit
+        fi;
+      else
+        SERVICE_FILE_SCRIPT="${SERVICE_DIR}hooks/${COMMAND}.sh"
+      fi
 
       if [ -f "${SERVICE_FILE_SCRIPT}" ];then
         . "${SERVICE_FILE_SCRIPT}"
-        local METHOD=$(wex string/toCamel -t=${SERVICE})${COMMAND_UC}
 
         ${METHOD} ${DATA} "${ARGS}"
       fi;

@@ -2,7 +2,7 @@
 
 serviceInstallTest() {
   # Stop sites if exists
-  wex docker/stopAll
+  wex-exec docker/stopAll
 
   # Clear dir.
   _wexTestClearTempDir
@@ -18,7 +18,7 @@ serviceInstallTest() {
   cd "${WEX_TEST_DIR_TMP}test-app"
 
   local SERVICES
-  SERVICES=$(wex app::services/all)
+  SERVICES=$(wex-exec app::services/all)
 
   for SERVICE in ${SERVICES[@]}; do
     if [[ "${SERVICE}" != "default" && "${SERVICE}" != "proxy" ]]; then
@@ -29,13 +29,39 @@ serviceInstallTest() {
       _wexLog "Starting app with new service"
       wex app/start
 
-      _wex "Test service started : ${SERVICE}"
+      _wexLog "Test service started : ${SERVICE}"
       _wexTestAssertEqual "$(wex app/started)" true
 
-      wex app/stop
+      local TAGS=""
+      local SERVICE_CONFIG="$(wex-exec app::service/dir -s="${SERVICE}")${WEX_FILE_SERVICE_CONFIG}"
+
+      if [ -f "${SERVICE_CONFIG}" ];then
+        . "${SERVICE_CONFIG}"
+
+        TAGS=$(wex-exec default::string/split -t="${TAGS}" -s=",")
+
+        for TAG in ${TAGS[@]}; do
+          _wexLog "Test service tag : ${TAG}"
+
+          local SERVICE_HOOK_TESTS=()
+
+          if [ "${TAG}" = "db" ];then
+            SERVICE_HOOK_TESTS+=(
+              dbConnect
+            )
+          fi
+
+          for SERVICE_HOOK_TEST in ${SERVICE_HOOK_TESTS[@]}; do
+            _wexLog "Test service hook : ${SERVICE_HOOK_TEST}"
+            wex-exec app::service/exec -s="${SERVICE}" -sf -c="${SERVICE_HOOK_TEST}" --test
+          done
+        done
+      fi
+
+      wex-exec app/stop
 
       _wexLog "Remove service... ${SERVICE}"
-      wex app::service/remove
+      wex-exec app::service/remove -s=${SERVICE}
     fi
   done
 }
