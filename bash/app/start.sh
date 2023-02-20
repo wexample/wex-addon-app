@@ -238,9 +238,9 @@ _appStartSuccess() {
     echo ""
     echo "      You are in a local environment, so you might want"
     echo "      to run now some of this dev methods :"
-    echo "        wex-exec watcher/start"
-    echo "        wex-exec app/serve"
-    echo "        wex-exec app/go"
+    echo "        wex watcher/start"
+    echo "        wex app/serve"
+    echo "        wex app/go"
     echo ""
   fi
 }
