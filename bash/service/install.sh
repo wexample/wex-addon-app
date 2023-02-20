@@ -3,7 +3,7 @@
 serviceInstallArgs() {
   _ARGUMENTS=(
     'service s "Service to install" true'
-    'git g "Init git repository" false'
+    'git g "Merge git sources" false'
   )
 }
 
