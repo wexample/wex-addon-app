@@ -22,7 +22,6 @@ serviceInstallTest() {
       # Go to fist site
       cd "${WEX_TEST_DIR_TMP}test-app"
 
-      _wexLog "Installing service... ${SERVICE}"
       wex-exec app::service/install -s="${SERVICE}"
 
       _wexLog "Starting app with new service"
