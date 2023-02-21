@@ -15,12 +15,18 @@ serviceInstallArgs() {
 serviceInstall() {
   _wexAppGoTo .
 
+  local SERVICES
+  SERVICES=($(wex-exec services/list))
+
   _wexLog "Installing service : ${SERVICE}"
+
+  if [[ " ${SERVICES[@]} " =~ " ${SERVICE} " ]]; then
+    _wexLog "Service already installed : ${SERVICE}"
+    return
+  fi
 
   # Update config.
   if [ "${INSTALL_CONFIG}" = "true" ];then
-    local SERVICES
-    SERVICES=($(wex-exec services/list))
     SERVICES+=("${SERVICE}")
     SERVICES=($(echo "${SERVICES[*]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
     SERVICES=$(wex-exec array/join -a="${SERVICES[*]}" -s=",")
