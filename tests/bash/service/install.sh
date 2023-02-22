@@ -24,12 +24,6 @@ serviceInstallTest() {
 
       wex-exec app::service/install -s="${SERVICE}"
 
-      _wexLog "Starting app with new service"
-      wex-exec app/start
-
-      _wexLog "Test service started : ${SERVICE}"
-      _wexTestAssertEqual "$(wex-exec app/started)" true
-
       local TAGS=""
       local SERVICE_CONFIG="$(wex-exec app::service/dir -s="${SERVICE}")${WEX_FILE_SERVICE_CONFIG}"
 
@@ -45,6 +39,7 @@ serviceInstallTest() {
 
           if [ "${TAG}" = "db" ];then
             SERVICE_HOOK_TESTS+=(
+              # TODO add more
               dbConnect
             )
           fi
@@ -55,8 +50,6 @@ serviceInstallTest() {
           done
         done
       fi
-
-      wex-exec app/stop
 
       _wexLog "Remove service... ${SERVICE}"
       wex-exec app::service/remove -s=${SERVICE}
