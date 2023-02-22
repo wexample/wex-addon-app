@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-proxyAppConfigArgs() {
-  _AS_NON_SUDO=false
-}
-
 proxyAppConfig() {
   _wexLog "Proxy : configuration"
   printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
