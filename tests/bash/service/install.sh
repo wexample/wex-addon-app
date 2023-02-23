@@ -24,6 +24,8 @@ serviceInstallTest() {
 
       wex-exec app::service/install -s="${SERVICE}"
 
+      wex-exec app::app/start
+
       local TAGS=""
       local SERVICE_CONFIG="$(wex-exec app::service/dir -s="${SERVICE}")${WEX_FILE_SERVICE_CONFIG}"
 
@@ -40,6 +42,8 @@ serviceInstallTest() {
           if [ "${TAG}" = "db" ];then
             SERVICE_HOOK_TESTS+=(
               dbExec
+#              dbDump
+#              dbRestore
             )
           fi
 
@@ -49,6 +53,8 @@ serviceInstallTest() {
           done
         done
       fi
+
+      wex-exec app::app/stop
 
       _wexLog "Remove service... ${SERVICE}"
       wex-exec app::service/remove -s=${SERVICE}
