@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 remoteGoArgs() {
+  # shellcheck disable=SC2034
   _DESCRIPTION="SSH connect to remote environment"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

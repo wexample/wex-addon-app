@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appIssetArgs() {
+  # shellcheck disable=SC2034
   _DESCRIPTION="Return true if we are in an app directory"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
