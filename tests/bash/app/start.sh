@@ -28,14 +28,14 @@ appStartTest() {
   _wexTestAssertEqual "$([[ $(docker ps -a | grep wex_server) != "" ]] && echo true || echo false)" "true"
 
   # One line
-  _appTest_checkAppsCount 1
+  _appTest_checkAppsCount 2
 
   # Start website again
   _wexLog "Start test app again"
   wex-exec app::app/start
 
   # One line
-  _appTest_checkAppsCount 1
+  _appTest_checkAppsCount 2
 
   # Create a new test site if not exists.
   _appTest_createApp "test-app-2"
@@ -45,21 +45,24 @@ appStartTest() {
 
   _wexLog "Start second app"
   wex-exec app::app/start
-  _appTest_checkAppsCount 2
+  _appTest_checkAppsCount 3
 
   wex-exec app::app/restart
-  _appTest_checkAppsCount 2
+  _appTest_checkAppsCount 3
 
   # Return to fist site
   cd "${WEX_TEST_DIR_TMP}test-app"
   _wexLog "Stop first site"
 
   wex-exec app::app/stop
-  _appTest_checkAppsCount 1
+  _appTest_checkAppsCount 2
 
   # Stop all sites
   _wexLog "Stop all site (second site should remain)"
 
   wex-exec app::apps/stop
+  _appTest_checkAppsCount 1
+
+  wex-exec app::proxy/stop
   _appTest_checkAppsCount 0
 }
