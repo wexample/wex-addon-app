@@ -16,6 +16,5 @@ dbExec() {
     _wexLog "Database exec : ${COMMAND}"
   fi
 
-  # Change the end of line to avoid array splitting issues.
-  wex-exec app/exec -n="${DB_CONTAINER}" -c="${DB_EXEC_COMMAND}" | tr -d '\r'
+  wex-exec app/exec -n="${DB_CONTAINER}" -c="${DB_EXEC_COMMAND}"
 }
