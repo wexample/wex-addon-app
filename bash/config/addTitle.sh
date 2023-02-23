@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 configAddTitleArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'title t "Title text" true'
   )

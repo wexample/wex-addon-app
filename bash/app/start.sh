@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appStartArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'clear_cache cc "Clear all caches" false'
     'only o "Stop all other running sites before" false'

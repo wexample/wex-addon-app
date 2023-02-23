@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 configBindFilesArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'section s "Section name, cat be a folder name" true'
     'extension e "Extension for file" false'

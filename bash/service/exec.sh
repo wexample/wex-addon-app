@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceExecArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'command c "Command name" true'
     'service_only s "Service only" false'

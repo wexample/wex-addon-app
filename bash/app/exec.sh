@@ -2,6 +2,7 @@
 
 appExecArgs() {
   _DESCRIPTION="Execute a script from inside the container, at project root"
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'container_name n "Container name suffix like site_name_suffix. Default is web" false'
     'command c "Bash command to execute" true'

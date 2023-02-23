@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceRemoveArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'service s "Service to remove" true'
   )

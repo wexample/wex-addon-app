@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appStartedArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'dir d "App root directory" false .'
     'ignore_containers ic "Do not check if containers are also started" false false'

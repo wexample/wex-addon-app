@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceInstallArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'git g "Merge git sources" false true'
     'install_config ic "Add to config" true true'

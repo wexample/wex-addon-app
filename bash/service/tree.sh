@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceTreeArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'services s "Services list, comma separated" true'
   )

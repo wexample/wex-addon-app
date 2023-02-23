@@ -2,6 +2,7 @@
 
 remoteGoArgs() {
   _DESCRIPTION="SSH connect to remote environment"
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'env e "Remote environment name" false'
   )

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 promptChooseEnvArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'question q "Question to ask to user" true "Choose env name"'
   )

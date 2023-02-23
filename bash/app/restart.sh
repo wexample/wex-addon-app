@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appRestartArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'clear_cache cc "Clear all caches" false'
     'if_started is "Restart only if already started" false'

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 dbExecArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'command c "Database request or command" true'
     'verbose v "Print command in log" false'

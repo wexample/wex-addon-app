@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 dbDumpArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'filename f "Dump file name" false'
     'tag t "Tag name append as a suffix" false'

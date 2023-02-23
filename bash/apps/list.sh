@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appsListArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'all a "Return raw list without testing activity" false'
     'count c "Return only number of sites found" false'

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appInitArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
      'services s "Services to install" true'
      'name n "Site name" false'

@@ -2,6 +2,7 @@
 
 appIssetArgs() {
   _DESCRIPTION="Return true if we are in an app directory"
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'dir d "Starting directory" false'
     'error e "Display error message if false" false'

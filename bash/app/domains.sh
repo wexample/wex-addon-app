@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appDomainsArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'dir_site d "Root site directory" false'
     'separator s "Separator" false'

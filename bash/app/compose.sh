@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appComposeArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'command c "Command to execute" true'
   )

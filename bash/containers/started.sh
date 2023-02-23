@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 containersStartedArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'all a "All containers runs" false'
   )

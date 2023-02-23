@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 configWriteArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'started s "Set the site is started or not" false'
     'no_recreate nr "No recreate if files exists" false'

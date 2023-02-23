@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appContainerArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'container c "User container" true'
   )

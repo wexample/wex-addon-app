@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 proxyStartArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'port p "Port for accessing sites" false'
     'user u "Owner of application files" false www-data'

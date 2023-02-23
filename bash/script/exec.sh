@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 scriptExecArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'command c "Command name, ex : "command" to execute ci/command.sh" true'
     'args a "Arguments to pass to script, ex "foo=bar"" false'
