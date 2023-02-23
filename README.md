@@ -4,11 +4,11 @@ This is the most common commands used to manage your apps.
 
 ```bash
 # Give all useful permissions.
-wex-exec app/perms
+wex app/perms
 # Restart current app
-wex-exec app/restart
+wex app/restart
 # Start current app
-wex-exec app/start
+wex app/start
 # Stop current app
-wex-exec app/stop
+wex app/stop
 ```
