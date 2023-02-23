@@ -201,6 +201,7 @@ _appStartProxyAndRetry() {
 
 _appStartSuccess() {
   wex-exec prompt::prompt/progress -nl -p=90 -s="Check first initialization"
+  local APP_INITIALIZED=false
 
   . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 

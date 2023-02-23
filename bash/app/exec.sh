@@ -55,6 +55,5 @@ appExec() {
     COMMAND="${EXEC_COMMAND}"
   fi;
 
-  # Change the end of line to avoid array splitting issues.
-  docker exec ${ARGS} "${CONTAINER}" "${SHELL_COMMAND}" -c "${COMMAND}" | tr -d '\r'
+  docker exec ${ARGS} "${CONTAINER}" "${SHELL_COMMAND}" -c "${COMMAND}"
 }
