@@ -8,6 +8,8 @@ scriptExecArgs() {
 }
 
 scriptExec() {
+  _wexAppGoTo .
+
   local FILE_PATH="${WEX_DIR_APP_DATA}script/${COMMAND}.sh"
 
   # Execute custom script for site.
