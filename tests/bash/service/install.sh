@@ -39,8 +39,7 @@ serviceInstallTest() {
 
           if [ "${TAG}" = "db" ];then
             SERVICE_HOOK_TESTS+=(
-              # TODO add more
-              dbConnect
+              dbExec
             )
           fi
 
