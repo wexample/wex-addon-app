@@ -3,7 +3,7 @@ version: '3'
 services:
   proxy:
     image: nginxproxy/nginx-proxy:1.0.0
-    container_name: ${APP_NAME_INTERNAL}
+    container_name: ${APP_NAME_INTERNAL}_proxy
     volumes:
       # Nginx configuration
       - /var/run/docker.sock:/tmp/docker.sock:ro
