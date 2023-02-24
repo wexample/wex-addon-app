@@ -24,5 +24,5 @@ hostsUpdate() {
   done;
 
   # Store hosts list.
-  echo -e ${HOSTS_FILE} | sudo tee "${WEX_DIR_PROXY_TMP}hosts" > /dev/null
+  echo -e ${HOSTS_FILE} | sudo tee "${WEX_PROXY_HOSTS_REGISTRY}" > /dev/null
 }
