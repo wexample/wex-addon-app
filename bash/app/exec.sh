@@ -57,5 +57,9 @@ appExec() {
     COMMAND="${EXEC_COMMAND}"
   fi;
 
+  if [ "${VERBOSE}" = "true" ];then
+    _wexLog "Running command in container ${CONTAINER} : ${COMMAND}"
+  fi
+
   docker exec ${ARGS} "${CONTAINER}" "${SHELL_COMMAND}" -c "${COMMAND}"
 }
