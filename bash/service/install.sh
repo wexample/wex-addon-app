@@ -8,7 +8,8 @@ serviceInstallArgs() {
     'install_docker id "Merge docker files" true true'
     'install_git ig "Merge git files" true true'
     'install_env ie "Merge env files" true true'
-    'install_remaining ir "Copy files wich is not in the other files" true true'
+    'install_wex iw "Copy files wich is not in the other files" true true'
+    'install_root ir "Copy files wich is not in the other files" true true'
     'service s "Service to install" true'
   )
 }
@@ -38,7 +39,7 @@ serviceInstall() {
   local SERVICE_DIR
   local SERVICE_SAMPLE_DIR
   local SERVICE_SAMPLE_DIR_WEX
-  local FILES
+  local ITEMS
 
   SERVICE_DIR="$(wex-exec service/dir -s="${SERVICE}")"
   SERVICE_SAMPLE_DIR="${SERVICE_DIR}samples/"
@@ -46,12 +47,12 @@ serviceInstall() {
 
   # Copy all files from samples
   if [ -d "${SERVICE_SAMPLE_DIR_WEX}" ];then
-    FILES=$(ls -a "${SERVICE_SAMPLE_DIR_WEX}")
+    ITEMS=$(ls -a "${SERVICE_SAMPLE_DIR_WEX}")
 
     # Merge docker files.
-    for FILE in ${FILES[@]}; do
-      if [ "${FILE}" != "." ] && [ "${FILE}" != ".." ]; then
-        if [ "${FILE}" == "docker" ] && [ -d "${SERVICE_SAMPLE_DIR_WEX}${FILE}" ]; then
+    for ITEM in ${ITEMS[@]}; do
+      if [ "${ITEM}" != "." ] && [ "${ITEM}" != ".." ]; then
+        if [ "${ITEM}" == "docker" ] && [ -d "${SERVICE_SAMPLE_DIR_WEX}${ITEM}" ]; then
           if [ "${INSTALL_DOCKER}" = "true" ];then
             serviceInstallMergeYml "yml"
             local ENV
@@ -60,51 +61,60 @@ serviceInstall() {
             done
           fi
           # Remove from queued files
-          FILES=("${FILES[@]/$FILE}")
+          ITEMS=("${ITEMS[@]/$ITEM}")
         fi
       fi
     done
 
     # Merge git files.
-    for FILE in ${FILES[@]}; do
-      if [ "${FILE}" = ".gitignore.source" ];then
+    for ITEM in ${ITEMS[@]}; do
+      if [ "${ITEM}" = ".gitignore.source" ];then
         if [ "${GIT}" = "true" ];then
           if [ "${INSTALL_GIT}" = "true" ];then
-            _wexLog "Merging gitignore : ${FILE}"
+            _wexLog "Merging gitignore from .wex : ${ITEM}"
 
             echo -e "" >> "${WEX_DIR_APP_DATA}.gitignore"
-            cat "${SERVICE_SAMPLE_DIR_WEX}${FILE}" >> "${WEX_DIR_APP_DATA}.gitignore"
+            cat "${SERVICE_SAMPLE_DIR_WEX}${ITEM}" >> "${WEX_DIR_APP_DATA}.gitignore"
           fi
 
           # Remove from queued files
-          FILES=("${FILES[@]/$FILE}")
+          ITEMS=("${ITEMS[@]/$ITEM}")
         fi
       fi
     done
 
     # Merge env files.
-    for FILE in ${FILES[@]}; do
-      if [ "${FILE}" = ".env" ];then
+    for ITEM in ${ITEMS[@]}; do
+      if [ "${ITEM}" = ".env" ];then
         if [ "${INSTALL_ENV}" = "true" ];then
-          _wexLog "Merging env : ${FILE}"
+          _wexLog "Merging env from .wex : ${ITEM}"
 
-          touch "${WEX_DIR_APP_DATA}${FILE}"
-          echo -e "" >> "${WEX_DIR_APP_DATA}${FILE}"
-          cat "${SERVICE_SAMPLE_DIR_WEX}${FILE}" >> "${WEX_DIR_APP_DATA}${FILE}"
+          touch "${WEX_DIR_APP_DATA}${ITEM}"
+          echo -e "" >> "${WEX_DIR_APP_DATA}${ITEM}"
+          cat "${SERVICE_SAMPLE_DIR_WEX}${ITEM}" >> "${WEX_DIR_APP_DATA}${ITEM}"
         fi
         # Remove from queued files
-        FILES=("${FILES[@]/$FILE}")
+        ITEMS=("${ITEMS[@]/$ITEM}")
       fi
     done
 
     # Copy remaining files.
-    for FILE in ${FILES[@]}; do
-      if [ "${INSTALL_REMAINING}" = "true" ];then
-        _wexLog "Copying : ${FILE}"
-        cp -n -R "${SERVICE_SAMPLE_DIR_WEX}${FILE}" "${WEX_DIR_APP_DATA}"
+    for ITEM in ${ITEMS[@]}; do
+      if [ "${INSTALL_WEX}" = "true" ];then
+        _wexLog "Copying from .wex : ${ITEM}"
+        cp -n -R "${SERVICE_SAMPLE_DIR_WEX}${ITEM}" "${WEX_DIR_APP_DATA}"
       fi
     done
   fi
+
+  ITEMS=$(ls -a "${SERVICE_SAMPLE_DIR}")
+  # Copy remaining files.
+  for ITEM in ${ITEMS[@]}; do
+    if [ "${INSTALL_ROOT}" = "true" ] && [ "${ITEM}" != "root" ] && [ "${ITEM}" != "." ] && [ "${ITEM}" != ".." ];then
+      _wexLog "Copying root file : ${ITEM}"
+      cp -n -R "${SERVICE_SAMPLE_DIR}${ITEM}" .
+    fi
+  done
 
   wex-exec app::service/exec -s="${SERVICE}" -c=serviceInstall -a="${GIT}"
 
