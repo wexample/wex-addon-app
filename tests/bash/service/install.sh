@@ -9,6 +9,8 @@ serviceInstallTest() {
 
   for SERVICE in ${SERVICES[@]}; do
     if [[ "${SERVICE}" != "default" && "${SERVICE}" != "proxy" ]]; then
+      _wexLog "_____ Testing service : ${SERVICE}"
+
       # Clear dir.
       _wexTestClearTempDir
 
