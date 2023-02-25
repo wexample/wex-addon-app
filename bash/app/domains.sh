@@ -11,32 +11,30 @@ appDomainsArgs() {
 appDomains() {
   if [ -z "${DIR_SITE+x}" ]; then
     DIR_SITE=./
-  fi;
+  fi
 
   DOCKER_COMPOSE_VARS=($(wex-exec app::config/yml -d=${DIR_SITE}))
   ALL_DOMAINS=''
 
-  if [ -z "${SEPARATOR+x}" ];then
+  if [ -z "${SEPARATOR+x}" ]; then
     SEPARATOR=" "
-  fi;
+  fi
 
-  for DOCKER_COMPOSE_VAR in ${DOCKER_COMPOSE_VARS[@]}
-  do
-    DOMAINS=$(sed -n "s/^services_\(.\{0,\}\)_environment_VIRTUAL_HOST\=\"\{0,\}\([^\"]\{0,\}\)\"\{0,\}\$/\2/p" <<< ${DOCKER_COMPOSE_VAR})
+  for DOCKER_COMPOSE_VAR in ${DOCKER_COMPOSE_VARS[@]}; do
+    DOMAINS=$(sed -n "s/^services_\(.\{0,\}\)_environment_VIRTUAL_HOST\=\"\{0,\}\([^\"]\{0,\}\)\"\{0,\}\$/\2/p" <<<${DOCKER_COMPOSE_VAR})
 
     if [ ! -z "${DOMAINS+x}" ]; then
       # Split multiple domains.
       DOMAINS=($(echo "${DOMAINS}" | tr "," "\n"))
-      for DOMAIN in ${DOMAINS[@]}
-      do
+      for DOMAIN in ${DOMAINS[@]}; do
         # Add separator.
-        if [ "${ALL_DOMAINS}" != "" ];then
+        if [ "${ALL_DOMAINS}" != "" ]; then
           ALL_DOMAINS+=${SEPARATOR}
-        fi;
+        fi
         ALL_DOMAINS+=${DOMAIN}
-      done;
+      done
     fi
-  done;
+  done
 
   echo "${ALL_DOMAINS}"
 }

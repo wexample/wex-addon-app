@@ -18,12 +18,12 @@ export WEX_PROXY_APPS_REGISTRY=${WEX_DIR_PROXY_TMP}apps
 export WEX_PROXY_HOSTS_REGISTRY=${WEX_DIR_PROXY_TMP}hosts
 
 case "${WEX_OS}" in
-  "linux" | "mac")
-    export WEX_SYSTEM_HOST_FILE=/etc/hosts
-    ;;
-  "windows")
-    export WEX_SYSTEM_HOST_FILE='C:\Windows\System32\drivers\etc\hosts'
-    ;;
+"linux" | "mac")
+  export WEX_SYSTEM_HOST_FILE=/etc/hosts
+  ;;
+"windows")
+  export WEX_SYSTEM_HOST_FILE='C:\Windows\System32\drivers\etc\hosts'
+  ;;
 esac
 
 _wexAppGoTo() {

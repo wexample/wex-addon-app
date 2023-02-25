@@ -11,9 +11,8 @@ serviceTree() {
   local SERVICES_LIST=($(echo ${SERVICES} | tr "," "\n"))
   local SERVICES_JOINED=''
 
-  for SERVICE in "${SERVICES_LIST[@]}"
-  do
-    if [ "${SERVICES_JOINED}" != "" ];then
+  for SERVICE in "${SERVICES_LIST[@]}"; do
+    if [ "${SERVICES_JOINED}" != "" ]; then
       SERVICES_JOINED+=','
     fi
 
@@ -21,12 +20,12 @@ serviceTree() {
 
     local SERVICE_CONFIG="$(wex-exec app::service/dir -s="${SERVICE}")${WEX_FILE_SERVICE_CONFIG}"
 
-    if [ -f "${SERVICE_CONFIG}" ];then
+    if [ -f "${SERVICE_CONFIG}" ]; then
       local DEPENDENCIES=false
 
       # Load conf file.
       . "${SERVICE_CONFIG}"
-      if [ "${DEPENDENCIES}" != "false" ];then
+      if [ "${DEPENDENCIES}" != "false" ]; then
 
         SERVICES_JOINED+=','$(wex-exec service/tree -s=${DEPENDENCIES})
       fi

@@ -9,20 +9,18 @@ hostsUpdate() {
   local HOSTS_FILE=""
   local DIR=""
 
-  for DIR in ${REGISTRY[@]}
-  do
+  for DIR in ${REGISTRY[@]}; do
     local DOMAINS=($(wex-exec app::app/domains -d=${DIR}))
     local DOMAIN=""
 
-    for DOMAIN in ${DOMAINS[@]}
-    do
+    for DOMAIN in ${DOMAINS[@]}; do
       # Prevent IP address to be sent as domain link in reverse proxy.
-      if [ "${DOMAIN}" != "${IP}" ];then
+      if [ "${DOMAIN}" != "${IP}" ]; then
         HOSTS_FILE+="\n"${IP}"\t"${DOMAIN}
       fi
-    done;
-  done;
+    done
+  done
 
   # Store hosts list.
-  echo -e ${HOSTS_FILE} | sudo tee "${WEX_PROXY_HOSTS_REGISTRY}" > /dev/null
+  echo -e ${HOSTS_FILE} | sudo tee "${WEX_PROXY_HOSTS_REGISTRY}" >/dev/null
 }

@@ -23,21 +23,21 @@ appGo() {
 
   COMMAND_GO=$(wex-exec hook/exec -c=appGo -a="${CONTAINER_NAME}" --quiet)
 
-  if [[ ${SUPER_USER} == true ]];then
+  if [[ ${SUPER_USER} == true ]]; then
     USER_UID=0
   fi
 
-  if [[ "${USER_UID}" != "" ]];then
+  if [[ "${USER_UID}" != "" ]]; then
     ARGS+=" -u ${USER_UID} "
   fi
 
   SHELL_COMMAND=${SHELL_COMMAND:-/bin/bash}
 
-  if [ "${COMMAND_GO}" != "" ];then
+  if [ "${COMMAND_GO}" != "" ]; then
     COMMAND="${COMMAND_GO} && ${SHELL_COMMAND}"
   else
     COMMAND="${SHELL_COMMAND}"
-  fi;
+  fi
 
   docker exec -it ${ARGS} "${CONTAINER}" "${SHELL_COMMAND}" -c "${COMMAND}"
 }

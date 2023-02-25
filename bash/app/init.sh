@@ -3,11 +3,11 @@
 appInitArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
-     'services s "Services to install" true'
-     'name n "Site name" false'
-     'git g "Init git repository" false true'
-     'environment e "Environment (local default)" false local'
-     'domains d "Domains names separated by a comma" false'
+    'services s "Services to install" true'
+    'name n "Site name" false'
+    'git g "Init git repository" false true'
+    'environment e "Environment (local default)" false local'
+    'domains d "Domains names separated by a comma" false'
   )
 }
 
@@ -22,7 +22,7 @@ appInit() {
   if [ "${NAME}" = "" ]; then
     # Name is current dir name.
     NAME="$(basename "$(realpath "${DIR_APP}")")"
-  fi;
+  fi
 
   NAME=$(wex-exec string/toSnake -t="${NAME}")
 
@@ -35,9 +35,8 @@ appInit() {
   local SERVICES=$(echo "${SERVICES_JOINED}" | tr "," "\n")
 
   # Check services exists
-  for SERVICE in ${SERVICES[@]}
-  do
-    if [ ! -d "$(wex-exec app::service/dir -s="${SERVICE}")" ];then
+  for SERVICE in ${SERVICES[@]}; do
+    if [ ! -d "$(wex-exec app::service/dir -s="${SERVICE}")" ]; then
       _wexError "Service missing ${SERVICE}"
       exit
     fi
@@ -53,13 +52,13 @@ appInit() {
 
   # Creating default env file
   if [ ! -f "${WEX_DIR_APP_DATA}.env" ]; then
-    echo -e "APP_ENV=${ENVIRONMENT}" > "${WEX_DIR_APP_DATA}.env"
+    echo -e "APP_ENV=${ENVIRONMENT}" >"${WEX_DIR_APP_DATA}.env"
   fi
 
   local WEX_VERSION
   WEX_VERSION=$(wex-exec core/version)
 
-  if [ "${DOMAINS}" != "" ];then
+  if [ "${DOMAINS}" != "" ]; then
     local DOMAINS_SPLIT=$(wex-exec default::string/split -t="${DOMAINS}" -s=",")
     local DOMAINS_MAIN=${DOMAINS_SPLIT[0]}
   else
@@ -89,11 +88,10 @@ appInit() {
     echo "PROD_DOMAINS=${DOMAINS}"
     echo "PROD_DOMAIN_MAIN=${DOMAINS_MAIN}"
     echo "PROD_EMAIL=contact@${DOMAINS_MAIN}"
-  } >> "${WEX_FILEPATH_REL_CONFIG}"
+  } >>"${WEX_FILEPATH_REL_CONFIG}"
 
-  for SERVICE in ${SERVICES[@]}
-  do
-     # Status
+  for SERVICE in ${SERVICES[@]}; do
+    # Status
     _wexLog "Installing service : ${SERVICE}"
     wex-exec service/install -s="${SERVICE}" -g="${GIT}"
   done
@@ -101,12 +99,12 @@ appInit() {
   # GIT Common settings
   _wexLog "Initializing Git settings"
   wex-exec prompt/progress -p=30 -s="Init GIT repo"
-  if [ -f "${DIR_APP_DATA}.gitignore.source" ];then
+  if [ -f "${DIR_APP_DATA}.gitignore.source" ]; then
     mv "${DIR_APP_DATA}.gitignore.source" "${DIR_APP_DATA}.gitignore"
   fi
 
   # Init GIT repo
-  if [ "${GIT}" = true ];then
+  if [ "${GIT}" = true ]; then
     # Status
     wex-exec prompt/progress -p=50 -s="Install GIT"
     # Create a GIT repo if not exists.
@@ -122,7 +120,7 @@ appInit() {
   # Status
   wex-exec prompt/progress -p=100 -s="Done !"
 
-  if [ "${NEW_NAME}" != "${WEX_PROXY_NAME}" ];then
+  if [ "${NEW_NAME}" != "${WEX_PROXY_NAME}" ]; then
     _wexMessage "Your app is initialized as ${NEW_NAME}" "You may start install process using :" "wex app/start"
   fi
 }

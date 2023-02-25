@@ -11,7 +11,7 @@ containersStarted() {
   # Get site name.
   CONTAINERS=$(wex-exec containers/list -f="${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}")
   # If empty stop here.
-  if [ "${CONTAINERS}" = "" ];then
+  if [ "${CONTAINERS}" = "" ]; then
     # No service, we consider that everything runs.
     echo true
     return

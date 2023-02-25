@@ -9,7 +9,7 @@ hostsUpdateLocal() {
   # Add new line if needed.
 
   # Create new block.
-  echo -e "#[ wex ]#" | sudo tee -a "${WEX_SYSTEM_HOST_FILE}" > /dev/null
-  cat "${WEX_PROXY_HOSTS_REGISTRY}" | sudo tee -a "${WEX_SYSTEM_HOST_FILE}" > /dev/null
-  echo -e "\n#[ endwex ]#" | sudo tee -a "${WEX_SYSTEM_HOST_FILE}" > /dev/null
+  echo -e "#[ wex ]#" | sudo tee -a "${WEX_SYSTEM_HOST_FILE}" >/dev/null
+  cat "${WEX_PROXY_HOSTS_REGISTRY}" | sudo tee -a "${WEX_SYSTEM_HOST_FILE}" >/dev/null
+  echo -e "\n#[ endwex ]#" | sudo tee -a "${WEX_SYSTEM_HOST_FILE}" >/dev/null
 }

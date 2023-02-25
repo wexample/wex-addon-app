@@ -33,7 +33,7 @@ serviceInstallTest() {
       local TAGS=""
       local SERVICE_CONFIG="$(wex-exec app::service/dir -s="${SERVICE}")${WEX_FILE_SERVICE_CONFIG}"
 
-      if [ -f "${SERVICE_CONFIG}" ];then
+      if [ -f "${SERVICE_CONFIG}" ]; then
         . "${SERVICE_CONFIG}"
 
         TAGS=$(wex-exec default::string/split -t="${TAGS}" -s=",")
@@ -43,11 +43,11 @@ serviceInstallTest() {
 
           local SERVICE_HOOK_TESTS=()
 
-          if [ "${TAG}" = "db" ];then
+          if [ "${TAG}" = "db" ]; then
             SERVICE_HOOK_TESTS+=(
               dbExec
-#              dbDump
-#              dbRestore
+              #              dbDump
+              #              dbRestore
             )
           fi
 
@@ -71,7 +71,7 @@ serviceInstallTest() {
 _serviceInstallTestAppRunning() {
   RUNNING=true
   # At least one container runs.
-  if [ "$(docker ps -a | grep test_app_)" = "" ];then
+  if [ "$(docker ps -a | grep test_app_)" = "" ]; then
     RUNNING=false
   fi
 

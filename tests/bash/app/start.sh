@@ -3,7 +3,7 @@
 appStartTest() {
   # Stop sites if exists
   wex-exec docker/stopAll
-  echo "" > "${WEX_PROXY_APPS_REGISTRY}"
+  echo "" >"${WEX_PROXY_APPS_REGISTRY}"
 
   _appTest_checkAppsCount 0
 

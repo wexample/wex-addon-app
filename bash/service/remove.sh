@@ -10,7 +10,7 @@ serviceRemoveArgs() {
 serviceRemove() {
   _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
 
-  if [ "${SERVICES}" != "" ];then
+  if [ "${SERVICES}" != "" ]; then
     # Split to array
     SERVICES=$(wex-exec string/split -t=${SERVICES} -s=",")
     # One line

@@ -14,7 +14,7 @@ scriptExec() {
   local FILE_PATH="${WEX_DIR_APP_DATA}script/${COMMAND}.sh"
 
   # Execute custom script for site.
-  if [ -f "${FILE_PATH}" ];then
+  if [ -f "${FILE_PATH}" ]; then
     . "${FILE_PATH}" ${ARGS}
   fi
 }

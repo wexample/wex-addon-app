@@ -9,10 +9,10 @@ proxyExecArgs() {
 
 proxyStarted() {
   # Performance optimization.
-  if [ "${CLEAR_CACHE}" = true ] || [ -z "${WEX_CACHE_PROXY_STARTED+x}" ];then
+  if [ "${CLEAR_CACHE}" = true ] || [ -z "${WEX_CACHE_PROXY_STARTED+x}" ]; then
     if [ "$(wex-exec docker::container/runs -c="${WEX_PROXY_NAME}")" = true ] &&
       # Config files exists.
-      [ -f "${WEX_PROXY_APPS_REGISTRY}" ];then
+      [ -f "${WEX_PROXY_APPS_REGISTRY}" ]; then
 
       WEX_CACHE_PROXY_STARTED=true
     else

@@ -2,13 +2,13 @@
 
 proxyAppConfig() {
   _wexLog "Proxy : configuration"
-  printf "\n" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  printf "\n" >>"${WEX_FILEPATH_REL_CONFIG_BUILD}"
   wex-exec app::config/addTitle -t="Proxy\n"
 
   local WEX_SERVER_PORT_PUBLIC
 
   _wexLog "Proxy : port detection"
-  if [ "${WEX_SERVER_PORT_PUBLIC}" = "" ];then
+  if [ "${WEX_SERVER_PORT_PUBLIC}" = "" ]; then
     local WEX_SERVER_PORT_PUBLIC
     # For macos, use 4242 as default port.
     WEX_SERVER_PORT_PUBLIC=$([[ "$(uname -s)" == Darwin ]] && echo 4242 || echo 80)
@@ -18,7 +18,7 @@ proxyAppConfig() {
   local PROCESSES
   PROCESSES=$(sudo netstat -tulpn | grep ":${WEX_SERVER_PORT_PUBLIC}")
 
-  if [ "${PROCESSES}" != "" ];then
+  if [ "${PROCESSES}" != "" ]; then
     _wexError "A process is already running on port ${WEX_SERVER_PORT_PUBLIC}"
     echo "${PROCESSES}"
 

@@ -14,7 +14,7 @@ containersList() {
   local CONTAINERS=()
 
   # Remove prefix
-  if [ "${REMOVE_PREFIX}" = true ];then
+  if [ "${REMOVE_PREFIX}" = true ]; then
     _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
 
     REGEX="s/^services_\(.*\)_\?${SEARCH_VAR}\=\"${APP_NAME}_\(.*\)\"\$/\2/p"
@@ -22,13 +22,12 @@ containersList() {
     REGEX="s/^services_\(.*\)_\?${SEARCH_VAR}\=\"\?\(.*\)\"\$/\2/p"
   fi
 
-  for COMPOSE_VAR in ${CONFIG_YML[@]}
-  do
-    CONTAINER_NAME=$(sed -n ${REGEX} <<< "${COMPOSE_VAR}")
-    if [[ ${CONTAINER_NAME} ]];then
+  for COMPOSE_VAR in ${CONFIG_YML[@]}; do
+    CONTAINER_NAME=$(sed -n ${REGEX} <<<"${COMPOSE_VAR}")
+    if [[ ${CONTAINER_NAME} ]]; then
       CONTAINERS+=(${CONTAINER_NAME})
     fi
-  done;
+  done
 
   echo ${CONTAINERS[@]}
 }

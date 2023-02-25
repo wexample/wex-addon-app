@@ -11,11 +11,10 @@ serviceDir() {
   local SERVICES_LOCATIONS
   SERVICES_LOCATIONS+=($(_wexFindAddonsDirs))
 
-  for LOCATION in ${SERVICES_LOCATIONS[@]}
-  do
+  for LOCATION in ${SERVICES_LOCATIONS[@]}; do
     SERVICE_DIR="${LOCATION}services/${SERVICE}"
 
-    if [ -d "${SERVICE_DIR}" ];then
+    if [ -d "${SERVICE_DIR}" ]; then
       echo "${SERVICE_DIR}/"
     fi
   done

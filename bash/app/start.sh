@@ -14,10 +14,10 @@ appStartArgs() {
 }
 
 appStart() {
-  if [ -f "${WEX_FILEPATH_REL_CONFIG_BUILD}" ];then
+  if [ -f "${WEX_FILEPATH_REL_CONFIG_BUILD}" ]; then
     . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
-    if [ "${STARTED}" = "true" ] && [[ $(wex-exec app/started) == true ]];then
+    if [ "${STARTED}" = "true" ] && [[ $(wex-exec app/started) == true ]]; then
       _wexLog "App already running"
       return
     fi
@@ -26,7 +26,7 @@ appStart() {
   wex-exec prompt::prompt/progress -nl -p=0 -s="Preparing"
 
   # Stop other sites.
-  if [ "${ONLY}" != "" ];then
+  if [ "${ONLY}" != "" ]; then
     wex-exec app::apps/stop
   fi
 
@@ -35,9 +35,9 @@ appStart() {
   local DIR
   DIR=$(wex-exec app::app/locate -d="${DIR}")
   # Create env file.
-  if [ "${DIR}" = "" ];then
-    if [ "$(wex-exec prompt::prompt/yn -q="No .wex/.env file, would you like to create it ?")" = true ];then
-      local APP_ENV;
+  if [ "${DIR}" = "" ]; then
+    if [ "$(wex-exec prompt::prompt/yn -q="No .wex/.env file, would you like to create it ?")" = true ]; then
+      local APP_ENV
 
       DIR="$(realpath .)/"
       FILE_ENV="${DIR}${WEX_DIR_APP_DATA}${WEX_FILE_APP_ENV}"
@@ -53,7 +53,7 @@ appStart() {
       # Creates .wex
       mkdir -p "$(dirname "${FILE_ENV}")"
 
-      echo "APP_ENV=${APP_ENV}" > "${FILE_ENV}"
+      echo "APP_ENV=${APP_ENV}" >"${FILE_ENV}"
       _wexLog "Created .env file for env ${APP_ENV}"
     else
       _wexLog "Starting aborted"
@@ -61,35 +61,35 @@ appStart() {
     fi
   fi
 
-  if [ "$(wex-exec app::app/started -d="${DIR}")" = "true" ];then
+  if [ "$(wex-exec app::app/started -d="${DIR}")" = "true" ]; then
     _wexLog "App already running"
     _appStartSuccess
 
-    return;
+    return
   fi
 
   local IS_PROXY_SERVER
   IS_PROXY_SERVER=$(wex-exec service/used -s=proxy)
 
   # Current site is not the server itself.
-  if [ "${IS_PROXY_SERVER}" = false ];then
+  if [ "${IS_PROXY_SERVER}" = false ]; then
     wex-exec prompt::prompt/progress -nl -p=30 -s="Check proxy"
 
     # The server is not running.
-    if [ "$(wex-exec app::proxy/started)" = false ];then
+    if [ "$(wex-exec app::proxy/started)" = false ]; then
       _wexLog "Starting wex server"
       _appStartProxyAndRetry "${PORT}" "${USER}"
       return
     # The server is running.
     else
       # Asked port is not the same as currently used.
-      if [[ $(_appProxyNeedsRestart) == true ]];then
-        local APPS_COUNT=$(wex-exec apps/list -c);
+      if [[ $(_appProxyNeedsRestart) == true ]]; then
+        local APPS_COUNT=$(wex-exec apps/list -c)
         # Ignore server itself.
         ((APPS_COUNT--))
 
         # There is unexpected running sites.
-        if (( APPS_COUNT > 0 )); then
+        if ((APPS_COUNT > 0)); then
           _wexError "Unable to start apps on multiple ports" "Your wex server is running ${APPS_COUNT} app(s) on port ${WEX_SERVER_PORT_PUBLIC}" "Run the app on port ${WEX_SERVER_PORT_PUBLIC} or stop other apps"
           exit
         # Restart server with given new port number.
@@ -108,13 +108,13 @@ appStart() {
 
   . "${WEX_FILEPATH_REL_APP_ENV}"
 
-  if [[ "${USER}" == false ]];then
+  if [[ "${USER}" == false ]]; then
     USER="${WEX_RUNNER_USERNAME}"
   else
     USER="nobody"
   fi
 
-  if [[ "${GROUP}" == false ]];then
+  if [[ "${GROUP}" == false ]]; then
     GROUP=$(id -gn "${USER}")
   else
     GROUP="nogroup"
@@ -126,8 +126,8 @@ appStart() {
 
   # Prepare files
   wex-exec prompt::prompt/progress -nl -p=40 -s="Converting files"
-  wex-exec file/convertLinesToUnix -f="${WEX_FILE_APP_ENV}" &> /dev/null
-  wex-exec file/convertLinesToUnix -f="${WEX_DIR_APP_DATA}" &> /dev/null
+  wex-exec file/convertLinesToUnix -f="${WEX_FILE_APP_ENV}" &>/dev/null
+  wex-exec file/convertLinesToUnix -f="${WEX_DIR_APP_DATA}" &>/dev/null
 
   # Write new config,
   # it will also export config variables
@@ -135,15 +135,15 @@ appStart() {
   wex-exec app::config/write -s -u="${USER}"
 
   if [ ! -s "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" ]; then
-     _wexError "Unable to write ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" "Try to execute wex-exec config/write to check any write error."
-     exit
+    _wexError "Unable to write ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" "Try to execute wex-exec config/write to check any write error."
+    exit
   fi
 
   wex-exec prompt::prompt/progress -nl -p=60 -s="Registering app"
   # Reload sites will clean up list.
   wex-exec apps/reload
   # Add new site.
-  echo -e "\n${DIR}" | tee -a "${WEX_PROXY_APPS_REGISTRY}" > /dev/null
+  echo -e "\n${DIR}" | tee -a "${WEX_PROXY_APPS_REGISTRY}" >/dev/null
 
   # Load app env.
   . "${WEX_FILEPATH_REL_APP_ENV}"
@@ -152,13 +152,13 @@ appStart() {
   wex-exec app::hosts/update
 
   local OPTIONS=''
-  if [ "${CLEAR_CACHE}" = true ];then
+  if [ "${CLEAR_CACHE}" = true ]; then
     OPTIONS=' --build'
   fi
 
   local OPTIONS_SERVICES
   OPTIONS_SERVICES=$(wex-exec app::service/exec -c=appStartOptions)
-  if [ "${OPTIONS_SERVICES}" != "" ];then
+  if [ "${OPTIONS_SERVICES}" != "" ]; then
     OPTIONS+="${OPTIONS_SERVICES}"
   fi
 
@@ -177,15 +177,15 @@ appStart() {
 }
 
 _appProxyNeedsRestart() {
-    # Load server config.
-    . "${WEX_DIR_PROXY}${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  # Load server config.
+  . "${WEX_DIR_PROXY}${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
-    # Asked port is not the same as currently used.
-    if [ "${PORT}" != "" ] && [ "${PORT}" != "${WEX_SERVER_PORT_PUBLIC}" ];then
-      echo true
-    else
-      echo false
-    fi
+  # Asked port is not the same as currently used.
+  if [ "${PORT}" != "" ] && [ "${PORT}" != "${WEX_SERVER_PORT_PUBLIC}" ]; then
+    echo true
+  else
+    echo false
+  fi
 }
 
 # Start server on the given port number.
@@ -225,25 +225,24 @@ _appStartSuccess() {
   wex-exec app::hook/exec -c=appStarted
 
   # No message for proxy server.
-  if [ "${NAME}" = "${WEX_PROXY_NAME}" ];then
+  if [ "${NAME}" = "${WEX_PROXY_NAME}" ]; then
     return
   fi
 
   echo ""
 
   local DOMAINS=$(wex-exec app::app/domains)
-  if [ "${DOMAINS}" != "" ];then
+  if [ "${DOMAINS}" != "" ]; then
     _wexMessage "Your site \"${NAME}\" is up in \"${APP_ENV}\" environment" "You can access to it on these urls : "
 
-    for DOMAIN in ${DOMAINS[@]}
-    do
+    for DOMAIN in ${DOMAINS[@]}; do
       echo "      > http://${DOMAIN}:${WEX_SERVER_PORT_PUBLIC}"
-    done;
+    done
   else
     _wexMessage "No domain associated with \"${APP_ENV}\" environment"
   fi
 
-  if [ "${APP_ENV}" = "local" ];then
+  if [ "${APP_ENV}" = "local" ]; then
     echo ""
     echo "      You are in a local environment, so you might want"
     echo "      to run now some of this dev methods :"

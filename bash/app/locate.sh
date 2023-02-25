@@ -15,8 +15,8 @@ appLocate() {
   local DIR_ORIGINAL
   local DIR_WEX
 
-  if [ "${DIR}" != "" ];then
-    if [ ! -d "${DIR}" ];then
+  if [ "${DIR}" != "" ]; then
+    if [ ! -d "${DIR}" ]; then
       return
     fi
 
@@ -31,7 +31,7 @@ appLocate() {
     DIR_WEX="${DIR_CURRENT}/${WEX_DIR_APP_DATA}"
 
     # Config found.
-    if [ -f "${DIR_WEX}${WEX_FILE_APP_ENV}" ];then
+    if [ -f "${DIR_WEX}${WEX_FILE_APP_ENV}" ]; then
       echo "${DIR_CURRENT}/"
       return
     fi

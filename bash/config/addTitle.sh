@@ -8,5 +8,5 @@ configAddTitleArgs() {
 }
 
 configAddTitle() {
-  printf "\n# ${TITLE}" >> "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  printf "\n# ${TITLE}" >>"${WEX_FILEPATH_REL_CONFIG_BUILD}"
 }

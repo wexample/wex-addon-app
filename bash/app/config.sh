@@ -11,7 +11,7 @@ appConfigArgs() {
 appConfig() {
   if [ -z "${DIR_SITE+x}" ]; then
     DIR_SITE=./
-  fi;
+  fi
 
   _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
 

@@ -12,9 +12,9 @@ configYml() {
   # Allow specified file
   if [ "${FILE_COMPOSE_YML}" = "" ]; then
     FILE_COMPOSE_YML=$(wex-exec app::app/locate -d="${DIR}")${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}
-  fi;
+  fi
 
-  if [ ! -f "${FILE_COMPOSE_YML}" ];then
+  if [ ! -f "${FILE_COMPOSE_YML}" ]; then
     return
   fi
 

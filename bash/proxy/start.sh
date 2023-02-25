@@ -12,17 +12,17 @@ proxyStartArgs() {
 proxyStart() {
   # Check if running.
   if [ "$(wex-exec app::proxy/started -ic)" = true ]; then
-    return;
+    return
   fi
 
-  if [ ! -d "${WEX_DIR_PROXY}" ];then
+  if [ ! -d "${WEX_DIR_PROXY}" ]; then
     mkdir -p "${WEX_DIR_PROXY}"
   fi
 
   ${WEX_CHOWN_NON_SUDO_COMMAND} -R "${WEX_DIR_PROXY}"
   cd "${WEX_DIR_PROXY}"
 
-  if [ "${PORT}" = "" ];then
+  if [ "${PORT}" = "" ]; then
     local PORT
     # For macos, use 4242 as default port.
     PORT=$([[ "$(uname -s)" == Darwin ]] && echo 4242 || echo 80)
@@ -31,13 +31,13 @@ proxyStart() {
   # Check if a process is using port 80 for proxy (or given port)
   local PROCESSES
   PROCESSES=$(sudo netstat -tulpn | grep ":${PORT}")
-  if [ "$(wex-exec system::port/used -p="${PORT}")" = "true" ];then
+  if [ "$(wex-exec system::port/used -p="${PORT}")" = "true" ]; then
     _wexError "A process is already running on proxy port ${PORT}"
     sudo netstat -tunlp | grep ":${PORT} "
     exit
   fi
 
-  if [ ! -d "${WEX_DIR_PROXY}.wex" ];then
+  if [ ! -d "${WEX_DIR_PROXY}.wex" ]; then
     wex-exec app::prompt/chooseEnv -q="Choose env name for proxy server"
 
     local NEW_ENV

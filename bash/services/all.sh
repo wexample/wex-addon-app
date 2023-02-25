@@ -5,14 +5,13 @@ servicesAll() {
   local DIR
   local OUTPUT=()
 
-  for DIR in ${ADDONS_DIRS[@]}
-  do
+  for DIR in ${ADDONS_DIRS[@]}; do
     DIR=${DIR}services/
 
-    if [ -d "${DIR}" ];then
+    if [ -d "${DIR}" ]; then
       OUTPUT+=($(ls ${DIR}))
     fi
-  done;
+  done
 
   echo "${OUTPUT[@]}"
 }

@@ -18,7 +18,7 @@ configBindFiles() {
   # Get site env name.
   local APP_ENV=$(wex-exec app::app/env)
 
-  for FILE in ${SECTION_FILES[@]};do
+  for FILE in ${SECTION_FILES[@]}; do
     SPLIT=($(wex-exec default::string/split -s="." -t="${FILE}"))
     BASE_NAME=${SPLIT[0]}
 
@@ -27,10 +27,10 @@ configBindFiles() {
     local IS_ENV=false
 
     # There is more than two pieces
-    if [ "${SPLIT[2]}" != "" ];then
+    if [ "${SPLIT[2]}" != "" ]; then
       local IS_ENV=true
       # Second part si equal to
-      if [ "${SPLIT[1]}" == "${APP_ENV}" ];then
+      if [ "${SPLIT[1]}" == "${APP_ENV}" ]; then
         # Remove env name
         CONF_VAR_NAME=${SPLIT[0]}" "${SPLIT[2]}
         # This is an unexpected.name.ext
@@ -42,7 +42,7 @@ configBindFiles() {
     # One execution only by base name,
     # Search for file variations inside it.
     # Allow to write same variable two times if env file is found after generic one.
-    if [ "${CONF_VAR_NAME}" != false ] && ([[ ! " ${NAMES_PROCESSED[@]} " =~ " ${SPLIT[0]} " ]] || [ ${IS_ENV} == true ]);then
+    if [ "${CONF_VAR_NAME}" != false ] && ([[ ! " ${NAMES_PROCESSED[@]} " =~ " ${SPLIT[0]} " ]] || [ ${IS_ENV} == true ]); then
       # Save as found
       NAMES_PROCESSED+=(${SPLIT[0]})
 

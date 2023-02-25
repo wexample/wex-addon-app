@@ -3,4 +3,3 @@
 appsStopTest() {
   _wexTestAssertEqual "$(wex-exec apps/list)" ""
 }
-

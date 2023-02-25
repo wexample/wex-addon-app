@@ -16,7 +16,7 @@ appExecArgs() {
 }
 
 appExec() {
-  if [ "$(wex-exec app::app/started -ic)" = "false" ];then
+  if [ "$(wex-exec app::app/started -ic)" = "false" ]; then
     return
   fi
 
@@ -31,15 +31,15 @@ appExec() {
   CONTAINER=$(wex-exec app::app/container -c="${CONTAINER_NAME}")
 
   local ARGS=""
-  if [ "${NON_INTERACTIVE}" != true ];then
+  if [ "${NON_INTERACTIVE}" != true ]; then
     ARGS+="-ti"
-  fi;
+  fi
 
-  if [[ ${SUPER_USER} == true ]];then
+  if [[ ${SUPER_USER} == true ]]; then
     USER_UID=0
   fi
 
-  if [[ "${USER_UID}" != "" ]];then
+  if [[ "${USER_UID}" != "" ]]; then
     ARGS+=" -u ${USER_UID} "
   fi
 
@@ -50,14 +50,14 @@ appExec() {
   EXEC_COMMAND=${COMMAND}
   SHELL_COMMAND=${SHELL_COMMAND:-/bin/bash}
 
-  if [ "${LOCALIZED}" == true ];then
+  if [ "${LOCALIZED}" == true ]; then
     local COMMAND_GO=$(wex-exec hook/exec -c=appGo -a="${CONTAINER_NAME}" --quiet)
     COMMAND="${COMMAND_GO} && ${EXEC_COMMAND}"
   else
     COMMAND="${EXEC_COMMAND}"
-  fi;
+  fi
 
-  if [ "${VERBOSE}" = "true" ];then
+  if [ "${VERBOSE}" = "true" ]; then
     _wexLog "Running command in container ${CONTAINER} : ${COMMAND}"
   fi
 

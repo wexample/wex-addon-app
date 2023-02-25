@@ -6,7 +6,7 @@ appStopArgs() {
 
 appStop() {
   # Already stopped
-  if [ "$(wex-exec app::app/started -ic)" = false ];then
+  if [ "$(wex-exec app::app/started -ic)" = false ]; then
     return
   fi
   # Execute services scripts if exists

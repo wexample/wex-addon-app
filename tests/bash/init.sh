@@ -8,7 +8,7 @@ _appTest_createApp() {
   cd "${WEX_TEST_DIR_TMP}"
 
   # Folder exists.
-  if [ -d "${APP_TEST_FOLDER}" ];then
+  if [ -d "${APP_TEST_FOLDER}" ]; then
     # Do not create.
     return
   fi
@@ -38,7 +38,7 @@ _appTest_checkConfLines() {
   _wexLog "Check running in ${WEX_DIR_PROXY_TMP}${FILE_NAME}"
   local EXPECTED=${1}
 
-  if [ -f ${WEX_PROXY_APPS_REGISTRY} ];then
+  if [ -f ${WEX_PROXY_APPS_REGISTRY} ]; then
     COUNT=$(wex-exec file/linesCount -i -f="${WEX_DIR_PROXY_TMP}${FILE_NAME}")
   else
     _wexLog "Server is stopped (no ${FILE_NAME} file)"
