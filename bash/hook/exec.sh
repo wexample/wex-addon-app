@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 hookExecArgs() {
+  _DESCRIPTION="Execute a command inside service core and app local scripts folder"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'args a "Arguments to pass" false'
