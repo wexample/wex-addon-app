@@ -126,7 +126,7 @@ serviceInstall() {
     DEPENDENCIES=($(wex-exec string/split -t="${DEPENDENCIES}" -s=","))
 
     for DEPENDENCY in ${DEPENDENCIES[@]};do
-      wex app::service/install -s="${DEPENDENCY}"
+      wex-exec app::service/install -s="${DEPENDENCY}"
     done
   fi
 }
