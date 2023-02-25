@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 scriptExecArgs() {
+  _DESCRIPTION="Execute an app local script"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'command c "Command name, ex : "command" to execute ci/command.sh" true'
