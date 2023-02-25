@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 configBindFilesArgs() {
+  _DESCRIPTION="Create env variables based on available config files to use id docker compose files"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'section s "Section name, cat be a folder name" true'

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 containersStartedArgs() {
+  _DESCRIPTION="Return true if one or all containers are started"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'all a "All containers runs" false'

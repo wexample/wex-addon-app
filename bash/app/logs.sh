@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appLogsArgs() {
+  _DESCRIPTION="Show app logs"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'container_name c "Container name suffix like site_name_suffix" false'

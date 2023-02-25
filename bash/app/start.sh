@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appStartArgs() {
+  _DESCRIPTION="Starts app"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'clear_cache cc "Clear all caches" false'

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 dbDumpArgs() {
+  _DESCRIPTION="Create a database dump"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'filename f "Dump file name" false'

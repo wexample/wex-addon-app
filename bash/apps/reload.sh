@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appsReloadArgs() {
+  _DESCRIPTION="Rebuilds apps registry"
   _AS_NON_SUDO=false
 }
 

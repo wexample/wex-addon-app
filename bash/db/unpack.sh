@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 dbUnpackArgs() {
+  _DESCRIPTION="Unzip database dump file"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'dump d "Dump relative file name, might be a zip" false'

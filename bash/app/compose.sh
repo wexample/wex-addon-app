@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appComposeArgs() {
+  _DESCRIPTION="Build the docker compose file"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'command c "Command to execute" true'

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 containersListArgs() {
+  _DESCRIPTION="List containers used by app"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'remove_prefix rm "Remove the name of the site from container name" false'

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appRestartArgs() {
+  _DESCRIPTION="Retarts app"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'clear_cache cc "Clear all caches" false'

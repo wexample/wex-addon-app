@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appDomainsArgs() {
+  _DESCRIPTION="Return domains list"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'dir_site d "Root site directory" false'

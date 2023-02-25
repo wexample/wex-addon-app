@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appStopArgs() {
+  _DESCRIPTION="Stops app"
   _AS_NON_SUDO=false
 }
 

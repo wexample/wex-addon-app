@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 configGetValueArgs() {
+  _DESCRIPTION="Get value from app config file"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'key k "Target key to change" true'

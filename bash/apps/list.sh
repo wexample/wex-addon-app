@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appsListArgs() {
+  _DESCRIPTION="List of all running apps"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'all a "Return raw list without testing activity" false'
