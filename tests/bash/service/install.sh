@@ -11,6 +11,8 @@ serviceInstallTest() {
     if [[ "${SERVICE}" != "default" && "${SERVICE}" != "proxy" ]]; then
       _wexLog "_____ Testing service : ${SERVICE}"
 
+      _serviceInstallTestAppRunning false
+
       # Clear dir.
       _wexTestClearTempDir
 
@@ -56,10 +58,22 @@ serviceInstallTest() {
         done
       fi
 
+      _serviceInstallTestAppRunning true
+
       wex-exec app::app/stop
 
       _wexLog "Remove service... ${SERVICE}"
       wex-exec app::service/remove -s=${SERVICE}
     fi
   done
+}
+
+_serviceInstallTestAppRunning() {
+  RUNNING=true
+  # At least one container runs.
+  if [ "$(docker ps -a | grep test_app_)" = "" ];then
+    RUNNING=false
+  fi
+
+  _wexTestAssertEqual "${RUNNING}" "${1}"
 }
