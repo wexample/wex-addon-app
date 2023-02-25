@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 proxyStartArgs() {
+  _DESCRIPTION="Starts the local reverse proxy web server"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'port p "Port for accessing sites" false'

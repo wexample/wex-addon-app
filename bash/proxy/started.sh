@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 proxyExecArgs() {
+  _DESCRIPTION="Returns true if local reverse proxy is started"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'clear_cache cc "Do not use cached result in memory" false'
