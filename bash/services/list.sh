@@ -2,8 +2,8 @@
 
 servicesList() {
   local SERVICES
-  # From config.
-  SERVICES=$(wex-exec app::app/config -k=SERVICES)
+  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
+
   # Split
   SERVICES=("$(wex-exec default::string/split -t="${SERVICES}")")
   # Return
