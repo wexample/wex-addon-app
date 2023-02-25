@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceInstallArgs() {
+  _DESCRIPTION="Install a service in the app"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'git g "Merge git sources" false true'

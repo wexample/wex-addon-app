@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceExecArgs() {
+  _DESCRIPTION="Execute a service hook script"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'command c "Command name" true'

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceUsedArgs() {
+  _DESCRIPTION="Returns true if service is used"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'service s "Service to install" true'

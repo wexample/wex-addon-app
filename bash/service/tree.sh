@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceTreeArgs() {
+  _DESCRIPTION="Get service dependencies tree"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'services s "Services list, comma separated" true'

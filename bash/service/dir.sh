@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceDirArgs() {
+  _DESCRIPTION="Get service core dir"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'service s "Service to return dir" true'
