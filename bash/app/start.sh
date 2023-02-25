@@ -7,7 +7,8 @@ appStartArgs() {
     'only o "Stop all other running sites before" false'
     'port p "Port for accessing site, only allowed if not already defined" false'
     'dir d "Application directory" false'
-    'user u "Owner of application files" false false'
+    'user u "Owner for application files" false false'
+    'group g "Owner group for application files" false false'
   )
   _AS_NON_SUDO=false
 }
@@ -113,8 +114,14 @@ appStart() {
     USER="nobody"
   fi
 
-  _wexLog "Using user ${USER}:${USER}"
-  sudo chown -R "${USER}:${USER}" .
+  if [[ "${GROUP}" == false ]];then
+    GROUP=$(id -gn "${USER}")
+  else
+    GROUP="nogroup"
+  fi
+
+  _wexLog "Using user ${USER}:${GROUP}"
+  sudo chown -R "${USER}:${GROUP}" .
   sudo chmod -R g+w .
 
   # Prepare files
