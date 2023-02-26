@@ -14,7 +14,8 @@ appDomains() {
     local DIR_SITE=./
   fi
 
-  local DOCKER_COMPOSE_VARS=($(wex-exec app::config/yml -d="${DIR_SITE}"))
+  local DOCKER_COMPOSE_VARS
+  mapfile -t DOCKER_COMPOSE_VARS < <(wex-exec app::config/yml -d="${DIR_SITE}")
   local ALL_DOMAINS=''
 
   if [ -z "${SEPARATOR+x}" ]; then
