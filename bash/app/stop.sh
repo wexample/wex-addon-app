@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 
 appStopArgs() {
-  _DESCRIPTION="Stops app"
+  _ARGUMENTS=(
+    'dir d "Application directory" false'
+  )
   _AS_NON_SUDO=false
+  _DESCRIPTION="Stops app"
 }
 
 appStop() {
+  _wexAppGoTo "${DIR:-.}"
+
   # Already stopped
   if [ "$(wex-exec app::app/started -ic)" = false ]; then
     return

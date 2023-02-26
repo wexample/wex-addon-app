@@ -10,6 +10,8 @@ appLocateArgs() {
 }
 
 appLocate() {
+  _wexAppGoTo "${DIR:-.}"
+
   local DIR_PREVIOUS
   local DIR_CURRENT
   local DIR_ORIGINAL

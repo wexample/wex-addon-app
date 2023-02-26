@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
+appServeArgs() {
+  # shellcheck disable=SC2034
+  _ARGUMENTS=(
+    'dir d "Application directory" false'
+  )
+}
+
 appServe() {
-  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # Update host file if user has write access.
   if [ "${APP_ENV}" = "local" ] && [ "$(sudo -E wex file/writable -f=/etc/hosts)" = "true" ]; then

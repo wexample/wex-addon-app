@@ -7,6 +7,7 @@ appExecArgs() {
   _ARGUMENTS=(
     'container_name n "Container name suffix like site_name_suffix. Default is web" false'
     'command c "Bash command to execute" true'
+    'dir d "Application directory" false'
     'starts "Start container verification" false'
     'localized l "Execute script in project location" false false'
     'super_user su "Run as sudo inside container" false'
@@ -20,7 +21,7 @@ appExec() {
     return
   fi
 
-  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # Use default container if missing
   local CONTAINER=$(wex-exec app::app/container -c="${CONTAINER_NAME}")

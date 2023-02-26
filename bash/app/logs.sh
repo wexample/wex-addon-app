@@ -5,12 +5,13 @@ appLogsArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'container_name c "Container name suffix like site_name_suffix" false'
+    'dir d "Application directory" false'
     'tail t "Keep log opened" false'
   )
 }
 
 appLogs() {
-  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   local OPTIONS=""
   if [ "${TAIL}" = "true" ]; then

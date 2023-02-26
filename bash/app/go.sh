@@ -5,6 +5,7 @@ appGoArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'container_name c "Container name suffix like site_name_suffix" false'
+    'dir d "Application directory" false'
     'super_user su "Run as sudo inside container" false'
     'user_uid u "Run as given user (overridden by super_user argument)" false'
   )
@@ -15,7 +16,7 @@ appGo() {
   local CONTAINER
   local COMMAND
 
-  _wexAppGoTo .
+  _wexAppGoTo "${DIR:-.}"
   . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   CONTAINER_NAME=${CONTAINER_NAME:-${MAIN_CONTAINER_NAME}}

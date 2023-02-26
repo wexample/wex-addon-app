@@ -5,11 +5,12 @@ appComposeArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'command c "Command to execute" true'
+    'dir d "Application directory" false'
   )
 }
 
 appCompose() {
-  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
+  _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG}"
 
   local COMPOSE_FILES
   if [ "$(wex-exec service/used -s=proxy)" = false ]; then
@@ -26,7 +27,7 @@ appCompose() {
   )
 
   # Env specific file
-  local ENV_YML="${WEX_DIR_APP_DATA}docker/docker-compose."${APP_ENV}".yml"
+  local ENV_YML="${WEX_DIR_APP_DATA}docker/docker-compose.${APP_ENV}.yml"
   if [ -f "${ENV_YML}" ]; then
     FILES+=("${ENV_YML}")
   fi

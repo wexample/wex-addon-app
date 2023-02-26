@@ -10,7 +10,7 @@ appStartedArgs() {
 }
 
 appStarted() {
-  _wexAppGoTo "${DIR}"
+  _wexAppGoTo "${DIR:-.}"
 
   if [ -f "${WEX_FILEPATH_REL_APP_ENV}" ] && [ -f "${WEX_FILEPATH_REL_CONFIG_BUILD}" ]; then
     # Load config

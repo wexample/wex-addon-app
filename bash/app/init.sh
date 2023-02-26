@@ -4,15 +4,18 @@ appInitArgs() {
   _DESCRIPTION="Initialize app"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
-    'services s "Services to install" true'
-    'name n "Site name" false'
-    'git g "Init git repository" false true'
     'environment e "Environment (local default)" false local'
-    'domains d "Domains names separated by a comma" false'
+    'dir d "Application directory" false'
+    'domains dm "Domains names separated by a comma" false'
+    'git g "Init git repository" false true'
+    'name n "Site name" false'
+    'services s "Services to install" true'
   )
 }
 
 appInit() {
+  # Do not use _wexAppGoTo "${DIR:-.}" as this script is here to create a new app.
+
   local RENDER_BAR='wex-exec prompt/progress '
   # Status
   wex-exec prompt/progress -p=0 -s="Init variables"

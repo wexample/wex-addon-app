@@ -34,7 +34,7 @@ configWrite() {
   fi
 
   local APP_ENV
-  APP_ENV=$(wex-exec app::app/env)
+  APP_ENV=$(wex-exec app::app/env -d="${DIR}")
 
   local APP_ENV_UPPER=${APP_ENV^^}
   local DOMAINS=$(eval 'echo ${'"${APP_ENV_UPPER}"'_DOMAINS}')

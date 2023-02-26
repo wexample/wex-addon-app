@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 
+appEnvArgs() {
+  _ARGUMENTS=(
+    'dir d "Application directory" false'
+  )
+}
+
 appEnv() {
+  _wexAppGoTo "${DIR:-.}"
+
   cd "$(wex-exec app::app/locate -d="${DIR}")"
 
   if [ -f "${WEX_FILEPATH_REL_APP_ENV}" ]; then

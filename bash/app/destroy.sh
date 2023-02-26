@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
+appDestroyArgs() {
+  _ARGUMENTS=(
+    'dir d "Application directory" false'
+  )
+}
+
 appDestroy() {
-  _wexAppGoTo
+  _wexAppGoTo "${DIR:-.}"
 
   # Ensure app is stopped
   wex-exec app/stop

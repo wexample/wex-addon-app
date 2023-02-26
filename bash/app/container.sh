@@ -5,11 +5,12 @@ appContainerArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'container c "User container" true'
+    'dir d "Application directory" false'
   )
 }
 
 appContainer() {
-  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # Default container name.
   if [ "${CONTAINER}" = "" ]; then
