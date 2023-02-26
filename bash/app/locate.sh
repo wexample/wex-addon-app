@@ -10,7 +10,7 @@ appLocateArgs() {
 }
 
 appLocate() {
-  _wexAppGoTo "${DIR:-.}"
+  # Do not use to avoid recursion : _wexAppGoTo "${DIR:-.}"
 
   local DIR_PREVIOUS
   local DIR_CURRENT
