@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceUsedArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Returns true if service is used"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

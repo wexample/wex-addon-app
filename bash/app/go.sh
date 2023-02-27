@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appGoArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Enter into the main app container"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

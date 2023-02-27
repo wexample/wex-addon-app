@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appEnvArgs() {
+  _NEEDS_APP_LOCATION=true
   _ARGUMENTS=(
     'dir d "Application directory" false'
   )

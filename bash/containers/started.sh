@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 containersStartedArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Return true if one or all containers are started"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

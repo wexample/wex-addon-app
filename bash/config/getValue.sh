@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 configGetValueArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Get value from app config file"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

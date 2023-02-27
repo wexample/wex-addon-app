@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 hostsUpdateArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Update wex hosts registry"
 }
 

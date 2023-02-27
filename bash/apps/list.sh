@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appsListArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="List of all running apps"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

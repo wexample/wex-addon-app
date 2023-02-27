@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appStartedArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Return true if app is started"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

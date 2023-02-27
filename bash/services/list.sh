@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 servicesListArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Return list of services used by app"
 }
 

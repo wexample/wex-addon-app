@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appDestroyArgs() {
+  _NEEDS_APP_LOCATION=true
   _ARGUMENTS=(
     'dir d "Application directory" false'
   )

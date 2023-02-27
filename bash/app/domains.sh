@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appDomainsArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Return domains list"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 hostsUpdateLocalArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Update local /etc/hosts file"
 }
 

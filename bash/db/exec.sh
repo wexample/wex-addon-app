@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 dbExecArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Execute a command or a request inside database"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

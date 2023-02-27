@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 dbUnpackArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Unzip database dump file"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

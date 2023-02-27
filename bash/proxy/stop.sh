@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 proxyStopArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Stops the local reverse proxy web server"
   _AS_NON_SUDO=false
 }

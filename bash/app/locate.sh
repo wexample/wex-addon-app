@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appLocateArgs() {
+  _NEEDS_APP_LOCATION=true
   # shellcheck disable=SC2034
   _DESCRIPTION="Search into parent tree if current folder is in a wex project. Returns the wex project real path if found"
   # shellcheck disable=SC2034

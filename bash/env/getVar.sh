@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 envGetVarArgs() {
+  _NEEDS_APP_LOCATION=true
   # shellcheck disable=SC2034
   _DESCRIPTION="Get env related variable value"
   # shellcheck disable=SC2034

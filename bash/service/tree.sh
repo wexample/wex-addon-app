@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceTreeArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Get service dependencies tree"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

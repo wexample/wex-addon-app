@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 containersListArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="List containers used by app"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

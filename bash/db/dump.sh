@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 dbDumpArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Create a database dump"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

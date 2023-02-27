@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceRemoveArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Remove a script from at. Just remove config entry, do not modify other settings files"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appContainerArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Return the full name of a container"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

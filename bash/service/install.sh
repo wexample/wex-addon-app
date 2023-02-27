@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 serviceInstallArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Install a service in the app"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

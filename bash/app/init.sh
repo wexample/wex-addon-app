@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appInitArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Initialize app"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

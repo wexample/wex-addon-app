@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 configSetValueArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Set app config value"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

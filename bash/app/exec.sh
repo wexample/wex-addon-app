@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appExecArgs() {
+  _NEEDS_APP_LOCATION=true
   # shellcheck disable=SC2034
   _DESCRIPTION="Execute a script from inside the container, at project root"
   # shellcheck disable=SC2034

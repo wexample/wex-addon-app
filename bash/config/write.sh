@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 configWriteArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Build config file used in docker based on services and base config"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

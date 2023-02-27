@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 dbRestoreArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Restore selected database dump"
 }
 

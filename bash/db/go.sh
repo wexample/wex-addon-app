@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 dbGoArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Enter into database management CLI"
 }
 

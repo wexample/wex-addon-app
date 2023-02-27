@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appRestartArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Retarts app"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

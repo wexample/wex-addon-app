@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 scriptExecArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Execute an app local script"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

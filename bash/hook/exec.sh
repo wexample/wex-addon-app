@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 hookExecArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Execute a command inside service core and app local scripts folder"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

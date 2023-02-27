@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 appLogsArgs() {
+  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Show app logs"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
