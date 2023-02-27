@@ -13,6 +13,7 @@ appComposeArgs() {
 
 appCompose() {
   _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG}"
+  . "${WEX_FILEPATH_REL_APP_ENV}"
 
   local COMPOSE_FILES
   if [ "$(wex-exec service/used -s=proxy)" = false ]; then
