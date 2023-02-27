@@ -76,7 +76,7 @@ appInit() {
     echo "AUTHOR=${WEX_RUNNER_USERNAME}"
     echo "CREATED=\"$(date -u)\""
     echo "NAME=${NAME}"
-    echo "SERVICES=${SERVICES_JOINED}"
+    echo "SERVICES="
     echo "WEX_VERSION=${WEX_VERSION}"
 
     printf "\n# Local\n"
@@ -97,7 +97,6 @@ appInit() {
 
   for SERVICE in ${SERVICES[@]}; do
     # Status
-    _wexLog "Installing service : ${SERVICE}"
     wex-exec service/install -s="${SERVICE}" -g="${GIT}"
   done
 
