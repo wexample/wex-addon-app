@@ -166,7 +166,7 @@ appStart() {
 
   wex-exec prompt::prompt/progress -nl -p=70 -s="Starting container"
   # Use previously generated yml file.
-  docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" up -d ${OPTIONS}
+  docker compose -f "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" --profile "${PROFILE:-env_${APP_ENV}}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" up -d ${OPTIONS}
 
   wex-exec prompt::prompt/progress -nl -p=80 -s="Updating permission"
   wex-exec app::app/perms

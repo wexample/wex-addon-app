@@ -42,9 +42,5 @@ appCompose() {
     fi
   done
 
-  if [ "${PROFILE}" = "" ];then
-    PROFILE=env_${APP_ENV}
-  fi
-
-  docker compose ${COMPOSE_FILES} --profile "${PROFILE}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" "${COMMAND}"
+  docker compose ${COMPOSE_FILES} --profile "${PROFILE:-env_${APP_ENV}}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" "${COMMAND}"
 }
