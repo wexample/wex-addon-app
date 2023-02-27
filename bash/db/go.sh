@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+dbGoArgs() {
+  _DESCRIPTION="Enter into database management CLI"
+}
+
 dbGo() {
   _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 

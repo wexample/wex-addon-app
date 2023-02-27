@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+dbRestoreArgs() {
+  _DESCRIPTION="Restore selected database dump"
+}
+
 dbRestore() {
   if [ "$(wex-exec app::app/started -ic)" = "false" ]; then
     _wexLog "App not started"

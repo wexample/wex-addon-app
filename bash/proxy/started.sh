@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-proxyExecArgs() {
+proxyStartedArgs() {
   _DESCRIPTION="Returns true if local reverse proxy is started"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

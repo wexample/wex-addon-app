@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+hostsUpdateLocalArgs() {
+  _DESCRIPTION="Update local /etc/hosts file"
+}
+
 hostsUpdateLocal() {
   _wexLog "Updating local /etc/hosts file"
 

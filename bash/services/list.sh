@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+servicesListArgs() {
+  _DESCRIPTION="Return list of services used by app"
+}
+
 servicesList() {
   local SERVICES
   _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"

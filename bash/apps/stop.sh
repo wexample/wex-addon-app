@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+appsStopArgs() {
+  _DESCRIPTION="Stops all running apps, keep proxy alive"
+}
+
 appsStop() {
   _wexLog "Stopping all running apps..."
 

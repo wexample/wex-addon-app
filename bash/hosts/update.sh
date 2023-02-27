@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+hostsUpdateArgs() {
+  _DESCRIPTION="Update wex hosts registry"
+}
+
 hostsUpdate() {
   _wexLog "Updating wex hosts registry"
 
