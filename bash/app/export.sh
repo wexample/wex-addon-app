@@ -8,7 +8,6 @@ appExportArgs() {
   )
 }
 
-
 appExport() {
   _wexAppGoTo "${DIR:-.}"
 
