@@ -7,6 +7,7 @@ appComposeArgs() {
   _ARGUMENTS=(
     'command c "Command to execute" true'
     'dir d "Application directory" false'
+    'profile p "Docker profile" false'
   )
 }
 
@@ -40,5 +41,9 @@ appCompose() {
     fi
   done
 
-  docker compose ${COMPOSE_FILES} --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" "${COMMAND}"
+  if [ "${PROFILE}" = "" ];then
+    PROFILE=env_${APP_ENV}
+  fi
+
+  docker compose ${COMPOSE_FILES} --profile "${PROFILE}" --env-file "${WEX_FILEPATH_REL_CONFIG_BUILD}" "${COMMAND}"
 }

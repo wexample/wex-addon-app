@@ -1,0 +1,6 @@
+        extends:
+          file: ${WEX_COMPOSE_YML_PROXY}
+          service: certs
+        profiles:
+          - env_dev
+          - env_prod
