@@ -110,7 +110,7 @@ appStart() {
 
   . "${WEX_FILEPATH_REL_APP_ENV}"
 
-  if [[ "${USER}" == false ]]; then
+  if [[ "${USER}" == false ]] && [[ "${WEX_RUNNER_USERNAME}" != "" ]]; then
     USER="${WEX_RUNNER_USERNAME}"
   else
     USER="nobody"
