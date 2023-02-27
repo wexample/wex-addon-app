@@ -137,7 +137,7 @@ appStart() {
   wex-exec app::config/write -s -u="${USER}"
 
   if [ ! -s "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" ]; then
-    _wexError "Unable to write ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" "Try to execute wex-exec config/write to check any write error."
+    _wexError "Unable to write ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" "Try to execute wex config/write to check any write error."
     exit
   fi
 
