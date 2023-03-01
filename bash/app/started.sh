@@ -11,11 +11,9 @@ appStartedArgs() {
 }
 
 appStarted() {
-  _wexAppGoTo "${DIR:-.}"
-
   if [ -f "${WEX_FILEPATH_REL_APP_ENV}" ] && [ -f "${WEX_FILEPATH_REL_CONFIG_BUILD}" ]; then
     # Load config
-    _wexAppGoTo "${DIR}" && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+    . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
     # Started && into server
     if [ "${STARTED}" = true ] && [ "$(wex-exec file/lineExists -f="${WEX_PROXY_APPS_REGISTRY}" -l="$(realpath "${DIR}")/")" = true ]; then
