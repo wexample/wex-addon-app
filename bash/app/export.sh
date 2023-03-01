@@ -9,7 +9,5 @@ appExportArgs() {
 }
 
 appExport() {
-  _wexAppGoTo "${DIR:-.}"
-
   wex-exec hook/exec -c=appExport
 }

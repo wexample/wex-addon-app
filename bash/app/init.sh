@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 appInitArgs() {
-  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Initialize app"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
@@ -15,8 +14,6 @@ appInitArgs() {
 }
 
 appInit() {
-  # Do not use _wexAppGoTo "${DIR:-.}" as this script is here to create a new app.
-
   local RENDER_BAR='wex-exec prompt/progress '
   # Status
   wex-exec prompt/progress -p=0 -s="Init variables"

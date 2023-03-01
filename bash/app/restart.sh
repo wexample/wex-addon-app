@@ -14,8 +14,6 @@ appRestartArgs() {
 }
 
 appRestart() {
-  _wexAppGoTo "${DIR:-.}"
-
   # Prevent unwanted restart.
   if [ "${IF_STARTED}" = "true" ] && [ "$(wex-exec app::app/started -ic)" != true ]; then
     return

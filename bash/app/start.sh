@@ -105,9 +105,7 @@ appStart() {
     fi
   fi
 
-  # Go to proper location
-  _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG}"
-
+  . "${WEX_FILEPATH_REL_CONFIG}"
   . "${WEX_FILEPATH_REL_APP_ENV}"
 
   if [[ "${USER}" == false ]] && [[ "${WEX_RUNNER_USERNAME}" != "" ]]; then

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 serviceDirArgs() {
-  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Get service core dir"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

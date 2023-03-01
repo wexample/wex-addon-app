@@ -12,7 +12,7 @@ appLogsArgs() {
 }
 
 appLogs() {
-  _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   local OPTIONS=""
   if [ "${TAIL}" = "true" ]; then

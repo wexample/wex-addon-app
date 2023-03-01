@@ -11,8 +11,6 @@ configBindFilesArgs() {
 }
 
 configBindFiles() {
-  _wexAppGoTo .
-
   local FOLDER="./${WEX_DIR_APP_DATA}/${SECTION}"
   local SECTION_FILES=$(ls "${FOLDER}")
   local NAMES_PROCESSED=()

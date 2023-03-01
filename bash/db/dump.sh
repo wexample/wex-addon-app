@@ -17,7 +17,7 @@ dbDump() {
 
   local DUMP_FILE_NAME
 
-  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # Filename is specified
   if [ "${FILENAME}" != "" ]; then

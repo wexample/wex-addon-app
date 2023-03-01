@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 servicesAllArgs() {
-  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Return list of all services including core and addons"
 }
 

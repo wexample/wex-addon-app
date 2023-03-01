@@ -12,7 +12,7 @@ envGetVarArgs() {
 }
 
 envGetVar() {
-  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
   ENV="${ENV:-${APP_ENV}}"
   ENV=${ENV^^}
   eval 'echo ${'${ENV}'_'${VARIABLE_NAME^^}'}'

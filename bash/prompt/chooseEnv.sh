@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 promptChooseEnvArgs() {
-  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Ask user to choose an env"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

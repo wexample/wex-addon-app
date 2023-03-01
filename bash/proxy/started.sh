@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 proxyStartedArgs() {
-  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Returns true if local reverse proxy is started"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

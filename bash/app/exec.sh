@@ -22,7 +22,7 @@ appExec() {
     return
   fi
 
-  _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # Use default container if missing
   local CONTAINER=$(wex-exec app::app/container -c="${CONTAINER_NAME}")

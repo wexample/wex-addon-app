@@ -9,7 +9,7 @@ appServeArgs() {
 }
 
 appServe() {
-  _wexAppGoTo "${DIR:-.}" && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   # Update host file if user has write access.
   if [ "${APP_ENV}" = "local" ] && [ "$(sudo -E wex file/writable -f=/etc/hosts)" = "true" ]; then

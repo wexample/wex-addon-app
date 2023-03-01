@@ -8,8 +8,6 @@ appDestroyArgs() {
 }
 
 appDestroy() {
-  _wexAppGoTo "${DIR:-.}"
-
   # Ensure app is stopped
   wex-exec app/stop
 

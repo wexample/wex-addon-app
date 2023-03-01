@@ -12,8 +12,6 @@ appIssetArgs() {
 }
 
 appIsset() {
-  _wexAppGoTo "${DIR:-.}"
-
   if [ "$(wex-exec app::app/locate -d="${DIR}")" != "" ]; then
     echo "true"
   else

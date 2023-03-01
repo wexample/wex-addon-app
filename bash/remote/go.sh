@@ -11,7 +11,7 @@ remoteGoArgs() {
 }
 
 remoteGo() {
-  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
+  . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
   _wexMessage "Your are switching environment to ${ENV^^}."
 

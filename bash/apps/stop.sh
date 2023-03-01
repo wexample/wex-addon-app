@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 appsStopArgs() {
-  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Stops all running apps, keep proxy alive"
 }
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 proxyStartArgs() {
-  _NEEDS_APP_LOCATION=true
   _DESCRIPTION="Starts the local reverse proxy web server"
   # shellcheck disable=SC2034
   _ARGUMENTS=(

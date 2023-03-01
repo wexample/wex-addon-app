@@ -9,7 +9,5 @@ appImportArgs() {
 }
 
 appImport() {
-  _wexAppGoTo "${DIR:-.}"
-
   wex-exec hook/exec -c=appImport
 }

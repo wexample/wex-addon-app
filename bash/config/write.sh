@@ -23,7 +23,7 @@ configWrite() {
     return
   fi
 
-  _wexAppGoTo . && . "${WEX_FILEPATH_REL_CONFIG}"
+  . "${WEX_FILEPATH_REL_CONFIG}"
 
   _wexLog "Creating temporary folder : ${WEX_DIR_APP_TMP}"
   # Create temp dirs if not exists.

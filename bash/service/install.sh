@@ -17,8 +17,6 @@ serviceInstallArgs() {
 }
 
 serviceInstall() {
-  _wexAppGoTo .
-
   local SERVICES
   SERVICES=($(wex-exec services/list))
 

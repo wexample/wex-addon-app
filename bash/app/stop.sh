@@ -10,8 +10,6 @@ appStopArgs() {
 }
 
 appStop() {
-  _wexAppGoTo "${DIR:-.}"
-
   # Already stopped
   if [ "$(wex-exec app::app/started -ic)" = false ]; then
     return

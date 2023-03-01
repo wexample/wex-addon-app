@@ -11,8 +11,6 @@ appDomainsArgs() {
 }
 
 appDomains() {
-  _wexAppGoTo "${DIR:-.}"
-
   local DOCKER_COMPOSE_VARS
   mapfile -t DOCKER_COMPOSE_VARS < <(wex-exec app::config/yml -d="${DIR}")
   local ALL_DOMAINS=''
