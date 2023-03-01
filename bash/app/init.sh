@@ -37,7 +37,7 @@ appInit() {
   for SERVICE in ${SERVICES[@]}; do
     if [ ! -d "$(wex-exec app::service/dir -s="${SERVICE}")" ]; then
       _wexError "Service missing ${SERVICE}"
-      exit
+      exit 1
     fi
   done
 

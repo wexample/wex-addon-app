@@ -40,7 +40,7 @@ serviceExec() {
         # Tests does not support missing files.
         if [ ! -f "${SERVICE_FILE_SCRIPT}" ]; then
           _wexTestResultError "Missing test file : ${SERVICE_FILE_SCRIPT}"
-          exit
+          exit 1
         fi
       else
         SERVICE_FILE_SCRIPT="${SERVICE_DIR}hooks/${COMMAND}.sh"

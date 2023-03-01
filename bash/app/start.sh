@@ -94,7 +94,7 @@ appStart() {
         # There is unexpected running sites.
         if ((APPS_COUNT > 0)); then
           _wexError "Unable to start apps on multiple ports" "Your wex server is running ${APPS_COUNT} app(s) on port ${WEX_SERVER_PORT_PUBLIC}" "Run the app on port ${WEX_SERVER_PORT_PUBLIC} or stop other apps"
-          exit
+          exit 1
         # Restart server with given new port number.
         else
           _wexMessage "Restarting wex server on port ${PORT}"
@@ -137,7 +137,7 @@ appStart() {
 
   if [ ! -s "${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" ]; then
     _wexError "Unable to write ${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}" "Try to execute wex config/write to check any write error."
-    exit
+    exit 1
   fi
 
   wex-exec prompt::prompt/progress -nl -p=60 -s="Registering app"

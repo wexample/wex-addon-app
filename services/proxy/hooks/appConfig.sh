@@ -22,7 +22,7 @@ proxyAppConfig() {
     echo "${PROCESSES}"
 
     wex-exec var/set -n=PROXY_ERROR -v=ERR_PORT_NOT_AVAILABLE
-    exit
+    exit 1
   fi
 
   _wexLog "Proxy : using port ${WEX_SERVER_PORT_PUBLIC}"

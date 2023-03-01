@@ -35,7 +35,7 @@ proxyStart() {
   if [ "$(wex-exec system::port/used -p="${PORT}")" = "true" ]; then
     _wexError "A process is already running on proxy port ${PORT}"
     sudo netstat -tunlp | grep ":${PORT} "
-    exit
+    exit 1
   fi
 
   if [ ! -d "${WEX_DIR_PROXY}.wex" ]; then
@@ -45,7 +45,7 @@ proxyStart() {
     NEW_ENV=$(wex-exec prompt::prompt/choiceGetValue)
 
     if [ -z "${NEW_ENV}" ]; then
-      exit
+      exit 1
     fi
 
     wex-exec app::app/init -s=proxy -e="${NEW_ENV}" -n="${WEX_PROXY_NAME}" --git=false
