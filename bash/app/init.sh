@@ -14,9 +14,11 @@ appInitArgs() {
 }
 
 appInit() {
-  local RENDER_BAR='wex-exec prompt/progress '
   # Status
   wex-exec prompt/progress -p=0 -s="Init variables"
+
+  local APP_DIR=${APP_DIR:-"$(realpath .)/"}
+  _wexLog "Creating app in ${APP_DIR}"
 
   # Default site name.
   if [ "${NAME}" = "" ]; then
@@ -27,9 +29,6 @@ appInit() {
   NAME=$(wex-exec string/toSnake -t="${NAME}")
 
   _wexLog "Using name ${NAME}"
-
-  local APP_DIR_DOCKER=${WEX_DIR_APP_DATA}"docker/"
-
   # Split services
   local SERVICES_JOINED=$(wex-exec app::service/tree -s="${SERVICES}")
   local SERVICES=$(echo "${SERVICES_JOINED}" | tr "," "\n")
@@ -52,7 +51,7 @@ appInit() {
 
   # Creating default env file
   if [ ! -f "${WEX_DIR_APP_DATA}.env" ]; then
-    echo -e "APP_ENV=${ENVIRONMENT}" >"${WEX_DIR_APP_DATA}.env"
+    echo -e "APP_ENV=${ENVIRONMENT}" > "${WEX_DIR_APP_DATA}.env"
   fi
 
   local WEX_VERSION
