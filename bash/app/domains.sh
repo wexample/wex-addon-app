@@ -5,14 +5,14 @@ appDomainsArgs() {
   _DESCRIPTION="Return domains list"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
-    'dir d "Root site directory" false ./'
+    'app_dir ad "Application directory" false'
     'separator s "Separator" false'
   )
 }
 
 appDomains() {
   local DOCKER_COMPOSE_VARS
-  mapfile -t DOCKER_COMPOSE_VARS < <(wex-exec app::config/yml -d="${DIR}")
+  mapfile -t DOCKER_COMPOSE_VARS < <(wex-exec app::config/yml -ad="${APP_DIR}")
   local ALL_DOMAINS=''
 
   if [ -z "${SEPARATOR+x}" ]; then

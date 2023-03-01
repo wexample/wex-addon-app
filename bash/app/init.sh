@@ -5,7 +5,7 @@ appInitArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'environment e "Environment (local default)" false local'
-    'dir d "Application directory" false'
+    'app_dir ad "Application directory" false'
     'domains dm "Domains names separated by a comma" false'
     'git g "Init git repository" false true'
     'name n "Site name" false'
@@ -18,12 +18,10 @@ appInit() {
   # Status
   wex-exec prompt/progress -p=0 -s="Init variables"
 
-  local DIR_APP=./
-
   # Default site name.
   if [ "${NAME}" = "" ]; then
     # Name is current dir name.
-    NAME="$(basename "$(realpath "${DIR_APP}")")"
+    NAME="$(basename "$(realpath "${APP_DIR}")")"
   fi
 
   NAME=$(wex-exec string/toSnake -t="${NAME}")
@@ -49,8 +47,8 @@ appInit() {
 
   # Copy base site files.
   local SAMPLE_APP_DIR=${WEX_DIR_ADDONS}app/samples/app/
-  mkdir -p ${DIR_APP}${WEX_DIR_APP_DATA}
-  cp -n -R "${SAMPLE_APP_DIR}.wex/." "${DIR_APP}${WEX_DIR_APP_DATA}"
+  mkdir -p ${APP_DIR}${WEX_DIR_APP_DATA}
+  cp -n -R "${SAMPLE_APP_DIR}.wex/." "${APP_DIR}${WEX_DIR_APP_DATA}"
 
   # Creating default env file
   if [ ! -f "${WEX_DIR_APP_DATA}.env" ]; then

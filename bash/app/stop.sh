@@ -3,7 +3,7 @@
 appStopArgs() {
   _NEEDS_APP_LOCATION=true
   _ARGUMENTS=(
-    'dir d "Application directory" false'
+    'app_dir ad "Application directory" false'
   )
   _AS_NON_SUDO=false
   _DESCRIPTION="Stops app"

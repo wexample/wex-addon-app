@@ -8,7 +8,7 @@ appStartArgs() {
     'clear_cache cc "Clear all caches" false'
     'only o "Stop all other running sites before" false'
     'port p "Port for accessing site, only allowed if not already defined" false'
-    'dir d "Application directory" false'
+    'app_dir ad "Application directory" false'
     'user u "Owner for application files" false false'
     'group g "Owner group for application files" false false'
   )
@@ -34,15 +34,13 @@ appStart() {
 
   wex-exec prompt::prompt/progress -nl -p=10 -s="Check location"
 
-  local DIR
-  DIR=$(wex-exec app::app/locate -d="${DIR}")
   # Create env file.
-  if [ "${DIR}" = "" ]; then
+  if [ "${APP_DIR}" = "" ]; then
     if [ "$(wex-exec prompt::prompt/yn -q="No .wex/.env file, would you like to create it ?")" = true ]; then
       local APP_ENV
 
-      DIR="$(realpath .)/"
-      FILE_ENV="${DIR}${WEX_DIR_APP_DATA}${WEX_FILE_APP_ENV}"
+      APP_DIR="$(realpath .)/"
+      FILE_ENV="${APP_DIR}${WEX_DIR_APP_DATA}${WEX_FILE_APP_ENV}"
 
       wex-exec app::prompt/chooseEnv
 
@@ -63,7 +61,7 @@ appStart() {
     fi
   fi
 
-  if [ "$(wex-exec app::app/started -d="${DIR}")" = "true" ]; then
+  if [ "$(wex-exec app::app/started -d="${APP_DIR}")" = "true" ]; then
     _wexLog "App already running"
     _appStartSuccess
 
@@ -143,7 +141,7 @@ appStart() {
   # Reload sites will clean up list.
   wex-exec apps/reload
   # Add new site.
-  echo -e "\n${DIR}" | tee -a "${WEX_PROXY_APPS_REGISTRY}" >/dev/null
+  echo -e "\n${APP_DIR}" | tee -a "${WEX_PROXY_APPS_REGISTRY}" >/dev/null
 
   # Load app env.
   . "${WEX_FILEPATH_REL_APP_ENV}"

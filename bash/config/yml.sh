@@ -6,14 +6,14 @@ configYmlArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'file_compose_yml f "Docker compose file" false'
-    'dir d "Site directory" false'
+    'app_dir ad "Application directory" false'
   )
 }
 
 configYml() {
   # Allow specified file
   if [ "${FILE_COMPOSE_YML}" = "" ]; then
-    FILE_COMPOSE_YML=$(wex-exec app::app/locate -d="${DIR}")${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}
+    FILE_COMPOSE_YML=$(wex-exec app::app/locate -d="${APP_DIR}")${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}
   fi
 
   if [ ! -f "${FILE_COMPOSE_YML}" ]; then

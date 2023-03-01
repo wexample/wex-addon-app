@@ -4,7 +4,7 @@ appExportArgs() {
   _NEEDS_APP_LOCATION=true
   # shellcheck disable=SC2034
   _ARGUMENTS=(
-    'dir d "Application directory" false'
+    'app_dir ad "Application directory" false'
   )
 }
 

@@ -5,7 +5,7 @@ appLocateArgs() {
   _DESCRIPTION="Search into parent tree if current folder is in a wex project. Returns the wex project real path if found"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
-    'dir d "Starting directory" false'
+    'app_dir ad "Application directory" false'
   )
 }
 
@@ -15,12 +15,12 @@ appLocate() {
   local DIR_ORIGINAL
   local DIR_WEX
 
-  if [ "${DIR}" != "" ]; then
-    if [ ! -d "${DIR}" ]; then
+  if [ "${APP_DIR}" != "" ]; then
+    if [ ! -d "${APP_DIR}" ]; then
       return
     fi
 
-    DIR_CURRENT="${DIR}"
+    DIR_CURRENT="${APP_DIR}"
   else
     DIR_CURRENT="$(realpath .)"
   fi

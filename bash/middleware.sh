@@ -2,11 +2,13 @@
 
 commandInit() {
   _NEEDS_APP_LOCATION=false
-  DIR=""
 }
 
 commandExec() {
   if [ "${_NEEDS_APP_LOCATION}" = "true" ]; then
-    _wexAppGoTo "${DIR:-.}"
+    # cd to app dir.
+    _wexAppGoTo "${APP_DIR:-.}"
+    # update var.
+    APP_DIR="$(realpath .)/"
   fi
 }

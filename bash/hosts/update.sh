@@ -14,7 +14,7 @@ hostsUpdate() {
   local DIR=""
 
   for DIR in ${REGISTRY[@]}; do
-    local DOMAINS=($(wex-exec app::app/domains -d=${DIR}))
+    local DOMAINS=($(wex-exec app::app/domains -ad="${APP_DIR}"))
     local DOMAIN=""
 
     for DOMAIN in ${DOMAINS[@]}; do

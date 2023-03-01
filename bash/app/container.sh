@@ -6,7 +6,7 @@ appContainerArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'container c "User container" true'
-    'dir d "Application directory" false'
+    'app_dir ad "Application directory" false'
   )
 }
 

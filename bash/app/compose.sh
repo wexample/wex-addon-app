@@ -6,7 +6,7 @@ appComposeArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'command c "Command to execute" true'
-    'dir d "Application directory" false'
+    'app_dir ad "Application directory" false'
     'profile p "Docker profile" false'
   )
 }

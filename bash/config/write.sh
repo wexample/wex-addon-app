@@ -7,7 +7,7 @@ configWriteArgs() {
   _ARGUMENTS=(
     'started s "Set the site is started or not" false'
     'no_recreate nr "No recreate if files exists" false'
-    'dir d "Application directory" false'
+    'app_dir ad "Application directory" false'
     'user u "Owner of application files" false www-data'
   )
   _AS_NON_SUDO=false
@@ -35,7 +35,7 @@ configWrite() {
   fi
 
   local APP_ENV
-  APP_ENV=$(wex-exec app::app/env -d="${DIR}")
+  APP_ENV=$(wex-exec app::app/env -d="${APP_DIR}")
 
   local APP_ENV_UPPER=${APP_ENV^^}
   local DOMAINS=$(eval 'echo ${'"${APP_ENV_UPPER}"'_DOMAINS}')

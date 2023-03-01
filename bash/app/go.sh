@@ -6,7 +6,7 @@ appGoArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'container_name c "Container name suffix like site_name_suffix" false'
-    'dir d "Application directory" false'
+    'app_dir ad "Application directory" false'
     'super_user su "Run as sudo inside container" false'
     'user_uid u "Run as given user (overridden by super_user argument)" false'
   )

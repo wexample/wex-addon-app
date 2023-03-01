@@ -5,7 +5,7 @@ appStartedArgs() {
   _DESCRIPTION="Return true if app is started"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
-    'dir d "App root directory" false .'
+    'app_dir ad "Application directory" false'
     'ignore_containers ic "Do not check if containers are also started" false false'
   )
 }
@@ -16,7 +16,7 @@ appStarted() {
     . "${WEX_FILEPATH_REL_CONFIG_BUILD}"
 
     # Started && into server
-    if [ "${STARTED}" = true ] && [ "$(wex-exec file/lineExists -f="${WEX_PROXY_APPS_REGISTRY}" -l="$(realpath "${DIR}")/")" = true ]; then
+    if [ "${STARTED}" = true ] && [ "$(wex-exec file/lineExists -f="${WEX_PROXY_APPS_REGISTRY}" -l="$(realpath "${APP_DIR}")/")" = true ]; then
       # Check if containers are started if expected.
       if [ "${IGNORE_CONTAINERS}" != true ]; then
         # At least one container should run.
