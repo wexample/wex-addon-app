@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 serviceInstallTest() {
-  # Stop sites if exists
-  wex-exec docker/stopAll
 
   local SERVICES
   SERVICES=$(wex-exec app::services/all)
@@ -10,6 +8,9 @@ serviceInstallTest() {
   for SERVICE in ${SERVICES[@]}; do
     if [[ "${SERVICE}" != "default" && "${SERVICE}" != "proxy" ]]; then
       _wexLog "_____ Testing service : ${SERVICE}"
+
+      # Stop sites if exists
+      wex-exec docker/stopAll
 
       _serviceInstallTestAppRunning false
 
