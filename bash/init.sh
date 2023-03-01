@@ -29,7 +29,7 @@ esac
 _wexAppGoTo() {
   local LOCATION
 
-  LOCATION=$(wex-exec app::app/locate -d="${1}")
+  LOCATION=$(wex-exec app::app/locate -ad="${1}")
   if [ "${LOCATION}" = "" ]; then
     _wexError "No app found ${1}, did you create a .wex/.env file ?"
     exit 0

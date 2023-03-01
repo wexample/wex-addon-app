@@ -40,7 +40,7 @@ appsList() {
           fi
         done
 
-        if [ ${EXISTS} == false ] && [ $(wex-exec app::app/started -d=${APP_PATH}) == true ]; then
+        if [ ${EXISTS} == false ] && [ $(wex-exec app::app/started -ad="${APP_PATH}") == true ]; then
           . "${APP_PATH}${WEX_FILEPATH_REL_CONFIG}"
           SITES+=(${APP_NAME})
           ((SITES_COUNT++))

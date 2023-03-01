@@ -12,7 +12,7 @@ configPathArgs() {
 
 configPath() {
   local CONFIG
-  CONFIG="$(wex-exec app::app/locate -d="${APP_DIR}")${WEX_FILEPATH_REL_CONFIG}"
+  CONFIG="$(wex-exec app::app/locate -ad="${APP_DIR}")${WEX_FILEPATH_REL_CONFIG}"
 
   if [ -f "${CONFIG}" ]; then
     echo "${APP_DIR}${WEX_FILEPATH_REL_CONFIG}"

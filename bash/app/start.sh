@@ -61,7 +61,7 @@ appStart() {
     fi
   fi
 
-  if [ "$(wex-exec app::app/started -d="${APP_DIR}")" = "true" ]; then
+  if [ "$(wex-exec app::app/started -ad="${APP_DIR}")" = "true" ]; then
     _wexLog "App already running"
     _appStartSuccess
 

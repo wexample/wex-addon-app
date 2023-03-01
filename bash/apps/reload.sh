@@ -33,7 +33,7 @@ appsReload() {
         . "${CONFIG}"
 
         if [ "${EXISTS}" = false ] && [ "${STARTED}" = true ]; then
-          if [ "$(wex-exec app::app/started -d="${APP_PATH}")" = true ]; then
+          if [ "$(wex-exec app::app/started -ad="${APP_PATH}")" = true ]; then
             APPS_PATHS_FILTERED+=(${APP_PATH})
             APPS_LIST+="\n"${APP_PATH}
           fi
