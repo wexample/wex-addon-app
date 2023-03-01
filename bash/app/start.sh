@@ -25,6 +25,9 @@ appStart() {
     fi
   fi
 
+  # Cache overridden vars.
+  local WEX_START_ARGS=${WEX_ARGUMENTS}
+
   wex-exec prompt::prompt/progress -nl -p=0 -s="Preparing"
 
   # Stop other sites.
@@ -188,21 +191,18 @@ _appProxyNeedsRestart() {
 
 # Start server on the given port number.
 _appStartProxyAndRetry() {
-  local ARGS
   local CURRENT_DIR
   local PORT=${1}
   local USER=${2}
 
-  # Cache overridden vars.
-  ARGS=${WEX_ARGUMENTS}
   CURRENT_DIR=$(realpath ./)
 
   # Server must be started.
-  wex-exec app::proxy/start -n -p="${PORT}" -u="${USER}"
+  wex-exec app::proxy/start -p="${PORT}" -u="${USER}"
 
   # Relaunch manually to be sure to keep given arguments
   cd "${CURRENT_DIR}" || return
-  wex-exec app::app/start "${ARGS}"
+  wex-exec app::app/start "${WEX_START_ARGS}"
 }
 
 _appStartSuccess() {
