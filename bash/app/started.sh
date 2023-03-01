@@ -5,7 +5,7 @@ appStartedArgs() {
   _DESCRIPTION="Return true if app is started"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
     'ignore_containers ic "Do not check if containers are also started" false false'
   )
 }

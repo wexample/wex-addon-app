@@ -7,6 +7,7 @@ scriptExecArgs() {
   _ARGUMENTS=(
     'command c "Command name, ex : "command" to execute ci/command.sh" true'
     'args a "Arguments to pass to script, ex "foo=bar"" false'
+    "${WEX_APP_ARG_APP_DIR}"
   )
 }
 

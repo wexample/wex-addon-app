@@ -6,7 +6,7 @@ configPathArgs() {
   _DESCRIPTION="Search into parent tree if current folder is in a wex project. Returns the wex project real path if found"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
   )
 }
 

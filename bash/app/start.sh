@@ -8,7 +8,7 @@ appStartArgs() {
     'clear_cache cc "Clear all caches" false'
     'only o "Stop all other running sites before" false'
     'port p "Port for accessing site, only allowed if not already defined" false'
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
     'user u "Owner for application files" false false'
     'group g "Owner group for application files" false false'
   )

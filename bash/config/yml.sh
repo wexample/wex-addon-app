@@ -6,7 +6,7 @@ configYmlArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'file_compose_yml f "Docker compose file" false'
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
   )
 }
 

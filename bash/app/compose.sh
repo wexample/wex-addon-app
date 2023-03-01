@@ -6,7 +6,7 @@ appComposeArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'command c "Command to execute" true'
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
     'profile p "Docker profile" false'
   )
 }

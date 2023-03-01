@@ -5,7 +5,7 @@ appDomainsArgs() {
   _DESCRIPTION="Return domains list"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
     'separator s "Separator" false'
   )
 }

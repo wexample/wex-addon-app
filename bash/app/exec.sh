@@ -8,7 +8,7 @@ appExecArgs() {
   _ARGUMENTS=(
     'container_name n "Container name suffix like site_name_suffix. Default is web" false'
     'command c "Bash command to execute" true'
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
     'starts "Start container verification" false'
     'localized l "Execute script in project location" false false'
     'super_user su "Run as sudo inside container" false'

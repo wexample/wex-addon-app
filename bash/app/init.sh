@@ -5,7 +5,7 @@ appInitArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'environment e "Environment (local default)" false local'
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
     'domains dm "Domains names separated by a comma" false'
     'git g "Init git repository" false true'
     'name n "Site name" false'

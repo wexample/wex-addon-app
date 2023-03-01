@@ -3,7 +3,7 @@
 appStopArgs() {
   _NEEDS_APP_LOCATION=true
   _ARGUMENTS=(
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
   )
   _AS_NON_SUDO=false
   _DESCRIPTION="Stops app"

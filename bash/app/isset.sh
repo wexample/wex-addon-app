@@ -6,7 +6,7 @@ appIssetArgs() {
   _DESCRIPTION="Return true if we are in an app directory"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
     'error e "Display error message if false" false'
   )
 }

@@ -7,7 +7,7 @@ configWriteArgs() {
   _ARGUMENTS=(
     'started s "Set the site is started or not" false'
     'no_recreate nr "No recreate if files exists" false'
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
     'user u "Owner of application files" false www-data'
   )
   _AS_NON_SUDO=false

@@ -6,7 +6,7 @@ appLogsArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'container_name c "Container name suffix like site_name_suffix" false'
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
     'tail t "Keep log opened" false'
   )
 }

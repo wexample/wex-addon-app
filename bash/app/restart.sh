@@ -6,7 +6,7 @@ appRestartArgs() {
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'clear_cache cc "Clear all caches" false'
-    'app_dir ad "Application directory" false'
+    "${WEX_APP_ARG_APP_DIR}"
     'if_started is "Restart only if already started" false'
     'user u "Owner of application files" false www-data'
   )

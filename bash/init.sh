@@ -16,6 +16,7 @@ export WEX_FILEPATH_REL_CONFIG_BUILD=${WEX_DIR_APP_TMP}config.build
 export WEX_FILEPATH_REL_CONFIG=${WEX_DIR_APP_DATA}config
 export WEX_PROXY_APPS_REGISTRY=${WEX_DIR_PROXY_TMP}apps
 export WEX_PROXY_HOSTS_REGISTRY=${WEX_DIR_PROXY_TMP}hosts
+export WEX_APP_ARG_APP_DIR='app_dir ad "Application directory" false'
 
 case "${WEX_OS}" in
 "linux" | "mac")
