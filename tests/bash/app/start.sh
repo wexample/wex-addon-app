@@ -10,10 +10,6 @@ appStartTest() {
   # Clear dir.
   _wexTestClearTempDir
 
-  # Create a new test app for reference,
-  # it will be used to compare with other test apps after making changes.
-  _appTest_createApp "test-app-ref"
-
   # Create a new test app if not exists.
   _appTest_createApp "test-app"
 
