@@ -8,7 +8,7 @@ version: ${DOCKER_COMPOSE_YML_VERSION}
 services:
   default:
     stdin_open: true
-    tty: true
+    tty: ${DOCKER_COMPOSE_TTY}
     restart: unless-stopped
     networks:
       - wex_net
