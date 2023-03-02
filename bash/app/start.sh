@@ -112,13 +112,13 @@ appStart() {
   if [[ "${USER}" == false ]] && [[ "${WEX_RUNNER_USERNAME}" != "" ]]; then
     USER="${WEX_RUNNER_USERNAME}"
   else
-    USER="nobody"
+    USER="www-data"
   fi
 
   if [[ "${GROUP}" == false ]]; then
     GROUP=$(id -gn "${USER}")
   else
-    GROUP="nogroup"
+    GROUP="www-data"
   fi
 
   _wexLog "Using user ${USER}:${GROUP}"
