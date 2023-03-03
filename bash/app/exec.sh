@@ -34,7 +34,12 @@ appExec() {
 
   local ARGS=""
   if [ "${NON_INTERACTIVE}" != true ]; then
-    ARGS+="-ti"
+      if [[ "${DOCKER_COMPOSE_TTY}" != "false" ]]; then
+        ARGS=" -t"
+      fi
+      if [[ "${DOCKER_COMPOSE_STDIN_OPEN}" != "false" ]]; then
+        ARGS=" -i"
+      fi
   fi
 
   if [[ ${SUPER_USER} == true ]]; then

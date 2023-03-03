@@ -7,7 +7,7 @@ version: ${DOCKER_COMPOSE_YML_VERSION}
 
 services:
   default:
-    stdin_open: ${DOCKER_COMPOSE_TTY}
+    stdin_open: ${DOCKER_COMPOSE_STDIN_OPEN}
     tty: ${DOCKER_COMPOSE_TTY}
     restart: unless-stopped
     networks:
