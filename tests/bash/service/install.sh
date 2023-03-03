@@ -60,7 +60,21 @@ serviceInstallTest() {
       wex-exec app::app/stop
 
       _wexLog "Remove service... ${SERVICE}"
-      wex-exec app::service/remove -s=${SERVICE}
+      wex-exec app::service/remove -s="${SERVICE}"
+
+      . "${WEX_DIR_ROOT}${WEX_FILEPATH_REL_APP_ENV}"
+
+      _wexLog "Cleanup images"
+      local COMPOSE_FILE="${WEX_TEST_DIR_TMP}test-app/${WEX_FILEPATH_REL_COMPOSE_BUILD_YML}"
+      # Get the image name from the Docker Compose file
+      local IMAGE_NAME=$(grep -m1 "^ *image:" ${COMPOSE_FILE} | awk '{print $2}')
+      # Print the image name
+      _wexLog "Removeing image, if not local env : ${IMAGE_NAME}"
+
+      # In non "local" env, remove docker image.
+      if [ "${APP_ENV}" != "local" ]; then
+        docker rmi "${IMAGE_NAME}" -f
+      fi
     fi
   done
 }
